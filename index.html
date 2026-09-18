@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Private Retro Station</title>
+
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background: #121212;
+            color: white;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #picker-container {
+            text-align: center;
+            background: #1e1e1e;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        #picker-container h2 {
+            margin-top: 0;
+        }
+
+        #picker-container p {
+            color: #cccccc;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        .custom-file-upload {
+            border: 2px solid #00adb5;
+            display: inline-block;
+            padding: 12px 24px;
+            cursor: pointer;
+            border-radius: 6px;
+            background: #00adb5;
+            color: white;
+            font-weight: bold;
+            font-size: 16px;
+            margin-top: 15px;
+        }
+
+        .custom-file-upload:hover {
+            background: #007a80;
+            border-color: #007a80;
+        }
+
+        #display {
+            position: fixed;
+            inset: 0;
+            width: 100vw;
+            height: 100vh;
+            display: none;
+        }
+
+        #game {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="picker-container">
+        <h2>Private mGBA Emulator</h2>
+
+        <p>
+            Select a Game Boy Advance ROM file (.gba) to begin playing.
+        </p>
+
+        <label class="custom-file-upload">
+            <input
+                type="file"
+                id="rom-file"
+                accept=".gba"
+            >
+            Choose GBA ROM
+        </label>
+    </div>
+
+    <div id="display">
+        <div id="game"></div>
+    </div>
+
+    <script>
+        const input = document.getElementById('rom-file');
+
+        input.onchange = async function () {
+
+            const file = input.files[0];
+
+            if (!file) {
+                return;
+            }
+
+            console.log('Selected ROM:', file.name);
+            console.log('ROM size:', file.size, 'bytes');
+            console.log('ROM type:', file.type);
+
+            document.getElementById('picker-container').style.display = 'none';
+            document.getElementById('display').style.display = 'block';
+
+            /*
+             * EmulatorJS configuration
+             */
+
+            window.EJS_player = '#game';
+
+            window.EJS_gameName = file.name;
+
+            window.EJS_biosUrl = '';
+
+            /*
+             * IMPORTANT:
+             * Pass the actual File object.
+             */
+            window.EJS_gameUrl = file;
+
+            /*
+             * GBA uses the mGBA core.
+             */
+            window.EJS_core = 'gba';
+
+            /*
+             * Local EmulatorJS files.
+             */
+            window.EJS_pathtodata = 'emulator/data/';
+
+            window.EJS_startOnLoaded = true;
+
+            /*
+             * Don't use EmulatorJS's online databases.
+             */
+            window.EJS_disableDatabases = true;
+
+            /*
+             * Keep threading disabled for compatibility.
+             */
+            window.EJS_threads = false;
+
+            /*
+             * Debug disabled.
+             */
+            window.EJS_DEBUG_XX = false;
+
+            /*
+             * Enable EmulatorJS's built-in
+             * "Load Save File" (.sav) button.
+             *
+             * EmulatorJS 4.2.2 reads this as:
+             * config.buttonOpts = window.EJS_Buttons;
+             */
+            window.EJS_Buttons = {
+                loadSavFiles: true
+            };
+
+            console.log('EmulatorJS configuration ready.');
+            console.log('Player:', window.EJS_player);
+            console.log('Core:', window.EJS_core);
+            console.log('Game name:', window.EJS_gameName);
+            console.log(
+                'Game URL is File object:',
+                window.EJS_gameUrl instanceof File
+            );
+            console.log('Data path:', window.EJS_pathtodata);
+            console.log('Save-file import button enabled.');
+
+            /*
+             * Load EmulatorJS.
+             */
+            const script = document.createElement('script');
+
+            script.src = 'emulator/data/loader.js';
+
+            script.onload = function () {
+                console.log(
+                    'EmulatorJS loader loaded successfully.'
+                );
+            };
+
+            script.onerror = function () {
+                console.error(
+                    'FAILED TO LOAD: emulator/data/loader.js'
+                );
+            };
+
+            document.body.appendChild(script);
+        };
+    </script>
+
+</body>
+</html>
