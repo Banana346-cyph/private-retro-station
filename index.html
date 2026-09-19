@@ -991,6 +991,50 @@
             background: #000;
         }
 
+        
+        #exit-station-button {
+    position: fixed;
+    top: 18px;
+    left: 18px;
+    z-index: 999999;
+
+    padding: 11px 17px;
+
+    border: 1px solid rgba(201, 156, 255, 0.35);
+    border-radius: 11px;
+
+    background: rgba(20, 8, 33, 0.88);
+    color: #f7f1ff;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    box-shadow:
+        0 8px 25px rgba(0, 0, 0, 0.35);
+
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease,
+        border-color 0.2s ease;
+}
+
+#exit-station-button:hover {
+    transform: translateY(-2px);
+
+    background: rgba(42, 18, 65, 0.95);
+
+    border-color: rgba(201, 156, 255, 0.7);
+}
+
+#exit-station-button:active {
+    transform: translateY(0);
+}
+        
         /* =========================================================
            ANIMATIONS
            ========================================================= */
@@ -1327,7 +1371,9 @@
 
                         </div>
 
-			<div class="step">
+
+                        <div class="step">
+
                             <div class="step-number">
                                 04
                             </div>
@@ -1343,24 +1389,27 @@
 
                         </div>
 
+
+                        <div class="step">
+
+                            <div class="step-number">
+                                05
+                            </div>
+
+                            <div>
+                                <strong>UI not visible?</strong>
+
+                                <p>
+                                    If you encounter a UI bug where you cannot see
+                                    anything properly, click the Fullscreen option
+                                    when it appears in the launcher.
+                                </p>
+                            </div>
+
+                        </div>
+
                     </div>
-<div class="step">
 
-    <div class="step-number">
-        05
-    </div>
-
-    <div>
-        <strong>UI not visible?</strong>
-
-        <p>
-            If you encounter a UI bug where you cannot see
-            anything properly, click the Fullscreen option
-            when it appears in the launcher.
-        </p>
-    </div>
-
-</div>
 
                     <div class="supported">
 
@@ -1470,11 +1519,18 @@
          EMULATOR
          ========================================================= -->
 
-    <div id="display">
+<div id="display">
 
-        <div id="game"></div>
+    <button
+        id="exit-station-button"
+        type="button"
+    >
+        ↩ Exit to Station
+    </button>
 
-    </div>
+    <div id="game"></div>
+
+</div>
 
 
     <script>
@@ -1527,6 +1583,51 @@
 
         const display =
             document.getElementById('display');
+        const exitStationButton =
+    document.getElementById('exit-station-button');
+
+exitStationButton.addEventListener(
+    'click',
+    function () {
+
+        console.log(
+            'Exit to Station clicked.'
+        );
+
+        window.location.reload();
+
+    }
+);
+
+        document.addEventListener(
+    'fullscreenchange',
+    function () {
+
+        const fullscreenElement =
+            document.fullscreenElement;
+
+        if (fullscreenElement) {
+
+            fullscreenElement.appendChild(
+                exitStationButton
+            );
+
+            exitStationButton.style.display =
+                'block';
+
+        } else {
+
+            display.appendChild(
+                exitStationButton
+            );
+
+            exitStationButton.style.display =
+                'block';
+
+        }
+
+    }
+);
 
 
         let selectedFile = null;
@@ -1861,6 +1962,37 @@
 
         /*
          * =========================================================
+         * RETURN TO LAUNCHER
+         * =========================================================
+         *
+         * EmulatorJS calls this when the user chooses
+         * its built-in "Exit Emulation" option.
+         *
+         * We reload the page automatically so EmulatorJS
+         * is completely reset and the user returns to the
+         * normal Private Retro Station launcher.
+         *
+         * This is intentionally a full page reset for now.
+         * It prevents an old EmulatorJS instance from
+         * interfering with the next ROM the user chooses.
+         */
+
+        window.EJS_onExit =
+    function () {
+
+        alert('EJS_onExit FIRED');
+
+        console.log(
+            'EmulatorJS exited. Returning to launcher.'
+        );
+
+        window.location.reload();
+
+    };
+
+
+        /*
+         * =========================================================
          * EMULATORJS
          * =========================================================
          */
@@ -1940,6 +2072,10 @@
 
             window.EJS_disableDatabases =
                 true;
+            
+
+            window.EJS_askBeforeExit =
+                false;
 
 
             /*
@@ -1964,12 +2100,13 @@
              * Load Save File button.
              */
 
-            window.EJS_Buttons = {
+window.EJS_Buttons = {
 
-                loadSavFiles: true
+    loadSavFiles: true,
 
-            };
+    exitEmulation: false
 
+};
 
             console.log(
                 'EmulatorJS configuration ready.'
@@ -2002,6 +2139,10 @@
 
             console.log(
                 'Save-file import enabled.'
+            );
+
+            console.log(
+                'Exit-to-launcher enabled.'
             );
 
 
