@@ -1,51 +1,245 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>Private Retro Station</title>
 
     <style>
+
+        /* =========================================================
+           THEME VARIABLES
+        ========================================================= */
+
         :root {
+
             --bg-dark: #09040f;
             --bg-purple: #140821;
+
             --purple: #9b5cff;
             --purple-light: #c99cff;
             --purple-bright: #e0c7ff;
+
             --text: #f7f1ff;
             --muted: #b9a9c9;
+
             --panel: rgba(26, 13, 42, 0.82);
             --panel-border: rgba(185, 124, 255, 0.25);
+
+            --accent: #9b5cff;
+            --accent-light: #c99cff;
+            --accent-bright: #e0c7ff;
+
+            --button-start: #a968ff;
+            --button-end: #7438cf;
+
+            --glow: rgba(155, 92, 255, 0.30);
+
         }
+
+
+        /* =========================================================
+           BLUE THEME
+        ========================================================= */
+
+        body.theme-blue {
+
+            --bg-dark: #030911;
+            --bg-purple: #071827;
+
+            --purple: #4d9cff;
+            --purple-light: #8bc1ff;
+            --purple-bright: #c9e3ff;
+
+            --text: #f2f8ff;
+            --muted: #a9bbce;
+
+            --panel: rgba(8, 23, 39, 0.84);
+            --panel-border: rgba(91, 157, 255, 0.27);
+
+            --accent: #4d9cff;
+            --accent-light: #8bc1ff;
+            --accent-bright: #c9e3ff;
+
+            --button-start: #4d9cff;
+            --button-end: #2469c4;
+
+            --glow: rgba(77, 156, 255, 0.30);
+
+        }
+
+
+        /* =========================================================
+           RED THEME
+        ========================================================= */
+
+        body.theme-red {
+
+            --bg-dark: #100304;
+            --bg-purple: #25080b;
+
+            --purple: #ff5363;
+            --purple-light: #ff9aa4;
+            --purple-bright: #ffd0d4;
+
+            --text: #fff4f5;
+            --muted: #cbaeb1;
+
+            --panel: rgba(39, 10, 14, 0.84);
+            --panel-border: rgba(255, 83, 99, 0.27);
+
+            --accent: #ff5363;
+            --accent-light: #ff9aa4;
+            --accent-bright: #ffd0d4;
+
+            --button-start: #ff5969;
+            --button-end: #c72f42;
+
+            --glow: rgba(255, 83, 99, 0.30);
+
+        }
+
+
+        /* =========================================================
+           ORANGE THEME
+        ========================================================= */
+
+        body.theme-orange {
+
+            --bg-dark: #100803;
+            --bg-purple: #271206;
+
+            --purple: #ff9a3c;
+            --purple-light: #ffc078;
+            --purple-bright: #ffe0b0;
+
+            --text: #fff8ef;
+            --muted: #cdb9a5;
+
+            --panel: rgba(40, 19, 7, 0.84);
+            --panel-border: rgba(255, 154, 60, 0.28);
+
+            --accent: #ff9a3c;
+            --accent-light: #ffc078;
+            --accent-bright: #ffe0b0;
+
+            --button-start: #ffad4f;
+            --button-end: #d66d1c;
+
+            --glow: rgba(255, 154, 60, 0.30);
+
+        }
+
+
+        /* =========================================================
+           DARK THEME
+        ========================================================= */
+
+        body.theme-dark {
+
+            --bg-dark: #030303;
+            --bg-purple: #090909;
+
+            --purple: #8d8d8d;
+            --purple-light: #bcbcbc;
+            --purple-bright: #e8e8e8;
+
+            --text: #f2f2f2;
+            --muted: #999999;
+
+            --panel: rgba(18, 18, 18, 0.90);
+            --panel-border: rgba(255, 255, 255, 0.12);
+
+            --accent: #999999;
+            --accent-light: #c4c4c4;
+            --accent-bright: #eeeeee;
+
+            --button-start: #777777;
+            --button-end: #3f3f3f;
+
+            --glow: rgba(255, 255, 255, 0.12);
+
+        }
+
+
+        /* =========================================================
+           WHITE THEME
+        ========================================================= */
+
+        body.theme-white {
+
+            --bg-dark: #e9e9ed;
+            --bg-purple: #ffffff;
+
+            --purple: #7040c7;
+            --purple-light: #7040c7;
+            --purple-bright: #4d258f;
+
+            --text: #17151b;
+            --muted: #625d69;
+
+            --panel: rgba(255, 255, 255, 0.86);
+            --panel-border: rgba(90, 65, 120, 0.20);
+
+            --accent: #7040c7;
+            --accent-light: #7040c7;
+            --accent-bright: #4d258f;
+
+            --button-start: #8754dc;
+            --button-end: #6133ae;
+
+            --glow: rgba(112, 64, 199, 0.20);
+
+        }
+
+
+        /* =========================================================
+           GLOBAL
+        ========================================================= */
 
         * {
             box-sizing: border-box;
         }
 
+
         html,
         body {
+
             margin: 0;
             padding: 0;
+
             width: 100%;
             height: 100%;
+
         }
 
+
         body {
+
             background:
+
                 radial-gradient(
                     circle at 50% 0%,
-                    rgba(143, 77, 255, 0.18),
+                    var(--glow),
                     transparent 40%
                 ),
+
                 radial-gradient(
                     circle at 15% 85%,
-                    rgba(110, 52, 180, 0.12),
+                    var(--glow),
                     transparent 35%
                 ),
+
                 var(--bg-dark);
 
             color: var(--text);
+
             font-family:
                 Inter,
                 ui-sans-serif,
@@ -56,83 +250,189 @@
                 sans-serif;
 
             overflow: hidden;
+
+            transition:
+                background 0.35s ease,
+                color 0.35s ease;
+
         }
 
+
         button,
-        input {
+        input,
+        select {
             font: inherit;
         }
 
+
+        /* =========================================================
+           LARGE TEXT
+        ========================================================= */
+
+        body.large-text {
+
+            font-size: 17px;
+
+        }
+
+
+        body.large-text .brand h1 {
+
+            font-size:
+                clamp(
+                    34px,
+                    5.4vw,
+                    56px
+                );
+
+        }
+
+
+        body.large-text .launcher-card h2 {
+
+            font-size: 30px;
+
+        }
+
+
+        body.large-text .step p,
+        body.large-text .settings-description {
+
+            font-size: 14px;
+
+        }
+
+
+        /* =========================================================
+           REDUCED ANIMATIONS
+        ========================================================= */
+
+        body.reduced-animations *,
+        body.reduced-animations *::before,
+        body.reduced-animations *::after {
+
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+
+            transition-duration: 0.01ms !important;
+
+            scroll-behavior: auto !important;
+
+        }
+
+
         /* =========================================================
            LAUNCHER
-           ========================================================= */
+        ========================================================= */
 
         #launcher {
+
             position: fixed;
             inset: 0;
+
             overflow-y: auto;
             overflow-x: hidden;
+
             padding: 50px 24px 70px;
 
             display: flex;
             justify-content: center;
 
             z-index: 10;
+
         }
+
 
         .launcher-inner {
+
             width: min(1050px, 100%);
+
         }
 
-        /* Background decoration */
 
         .ambient {
+
             position: fixed;
+
             pointer-events: none;
+
             border-radius: 50%;
+
             filter: blur(80px);
+
             opacity: 0.22;
+
         }
+
 
         .ambient.one {
+
             width: 300px;
             height: 300px;
-            background: #762cff;
+
+            background: var(--accent);
+
             top: -130px;
             left: -100px;
+
         }
+
 
         .ambient.two {
+
             width: 260px;
             height: 260px;
-            background: #c46cff;
+
+            background: var(--accent-light);
+
             bottom: -120px;
             right: -90px;
+
         }
+
 
         .ambient.three {
+
             width: 180px;
             height: 180px;
-            background: #6f35bd;
+
+            background: var(--accent);
+
             top: 45%;
             right: 10%;
+
             opacity: 0.12;
+
         }
 
-        /* Header */
 
         .brand {
+
             text-align: center;
+
             margin-bottom: 34px;
-            animation: fadeDown 0.7s ease both;
+
+            animation:
+                fadeDown
+                0.7s
+                ease
+                both;
+
         }
 
+
         .brand-mark {
+
             width: 58px;
             height: 58px;
-            margin: 0 auto 18px;
+
+            margin:
+                0
+                auto
+                18px;
 
             display: flex;
+
             align-items: center;
             justify-content: center;
 
@@ -141,437 +441,1738 @@
             background:
                 linear-gradient(
                     145deg,
-                    #b46cff,
-                    #6d32c8
+                    var(--accent-light),
+                    var(--accent)
                 );
 
             box-shadow:
-                0 0 30px rgba(161, 89, 255, 0.35),
-                inset 0 1px rgba(255,255,255,0.3);
+
+                0 0 30px
+                var(--glow),
+
+                inset
+                0 1px
+                rgba(255,255,255,0.3);
 
             font-size: 27px;
+
         }
 
+
         .brand h1 {
+
             margin: 0;
 
-            font-size: clamp(31px, 5vw, 52px);
+            font-size:
+                clamp(
+                    31px,
+                    5vw,
+                    52px
+                );
+
             font-weight: 800;
+
             letter-spacing: 0.08em;
 
             background:
                 linear-gradient(
                     90deg,
-                    #ffffff,
-                    #d2a8ff,
-                    #ffffff
+                    var(--text),
+                    var(--accent-light),
+                    var(--text)
                 );
 
             -webkit-background-clip: text;
             background-clip: text;
+
             color: transparent;
+
         }
+
 
         .brand p {
-            margin: 12px 0 0;
+
+            margin:
+                12px
+                0
+                0;
+
             color: var(--muted);
+
             font-size: 15px;
+
             letter-spacing: 0.03em;
+
         }
 
-        /* Main panel */
 
         .main-panel {
+
             display: grid;
-            grid-template-columns: 1.25fr 0.75fr;
+
+            grid-template-columns:
+                1.25fr
+                0.75fr;
+
             gap: 20px;
+
         }
 
+
         .card {
+
             background: var(--panel);
-            border: 1px solid var(--panel-border);
+
+            border:
+                1px solid
+                var(--panel-border);
+
             border-radius: 24px;
 
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
 
             box-shadow:
-                0 25px 80px rgba(0, 0, 0, 0.35),
-                inset 0 1px rgba(255,255,255,0.045);
 
-            animation: fadeUp 0.7s 0.1s ease both;
+                0 25px 80px
+                rgba(0, 0, 0, 0.35),
+
+                inset
+                0 1px
+                rgba(255,255,255,0.045);
+
+            animation:
+                fadeUp
+                0.7s
+                0.1s
+                ease
+                both;
+
         }
+
 
         .launcher-card {
             padding: 30px;
         }
 
+
         .section-label {
+
             margin-bottom: 8px;
 
-            color: var(--purple-light);
+            color: var(--accent-light);
+
             font-size: 12px;
+
             font-weight: 700;
+
             letter-spacing: 0.15em;
+
             text-transform: uppercase;
+
         }
+
 
         .launcher-card h2 {
+
             margin: 0;
+
             font-size: 27px;
+
         }
+
 
         .description {
+
             color: var(--muted);
+
             line-height: 1.6;
-            margin: 10px 0 25px;
+
+            margin:
+                10px
+                0
+                25px;
+
         }
 
-        /* ROM drop area */
 
         .drop-area {
+
             position: relative;
 
             min-height: 190px;
 
-            border: 1px dashed rgba(194, 142, 255, 0.42);
+            border:
+                1px dashed
+                color-mix(
+                    in srgb,
+                    var(--accent-light) 55%,
+                    transparent
+                );
+
             border-radius: 18px;
 
             background:
                 linear-gradient(
                     135deg,
-                    rgba(137, 73, 220, 0.10),
+                    var(--glow),
                     rgba(53, 20, 83, 0.16)
                 );
 
             display: flex;
+
             align-items: center;
             justify-content: center;
+
             text-align: center;
 
             cursor: pointer;
 
             transition:
-                transform 0.25s ease,
-                border-color 0.25s ease,
-                background 0.25s ease,
-                box-shadow 0.25s ease;
+
+                transform
+                0.25s
+                ease,
+
+                border-color
+                0.25s
+                ease,
+
+                background
+                0.25s
+                ease,
+
+                box-shadow
+                0.25s
+                ease;
+
         }
+
 
         .drop-area:hover,
         .drop-area.dragging {
-            transform: translateY(-2px);
 
-            border-color: rgba(207, 163, 255, 0.85);
+            transform:
+                translateY(-2px);
+
+            border-color:
+                var(--accent-light);
 
             background:
                 linear-gradient(
                     135deg,
-                    rgba(155, 92, 255, 0.18),
+                    var(--glow),
                     rgba(72, 30, 108, 0.2)
                 );
 
             box-shadow:
-                0 10px 35px rgba(117, 48, 206, 0.18);
+                0 10px 35px
+                var(--glow);
+
         }
+
 
         .drop-content {
             pointer-events: none;
         }
 
+
         .upload-icon {
+
             width: 55px;
             height: 55px;
 
-            margin: 0 auto 13px;
+            margin:
+                0
+                auto
+                13px;
 
             display: flex;
+
             align-items: center;
             justify-content: center;
 
             border-radius: 16px;
 
-            background: rgba(169, 103, 255, 0.13);
-            border: 1px solid rgba(190, 135, 255, 0.22);
+            background:
+                var(--glow);
+
+            border:
+                1px solid
+                var(--panel-border);
 
             font-size: 25px;
 
             box-shadow:
-                0 0 25px rgba(145, 76, 255, 0.12);
+                0 0 25px
+                var(--glow);
+
         }
+
 
         .drop-content strong {
+
             display: block;
+
             font-size: 16px;
+
         }
 
+
         .drop-content span {
+
             display: block;
+
             margin-top: 6px;
+
             color: var(--muted);
+
             font-size: 13px;
+
         }
+
 
         #rom-file {
             display: none;
         }
 
-        /* Selected ROM */
 
         .selected-game {
+
             display: none;
 
             margin-top: 16px;
-            padding: 15px 17px;
+
+            padding:
+                15px
+                17px;
 
             border-radius: 15px;
 
-            background: rgba(157, 92, 255, 0.09);
-            border: 1px solid rgba(183, 126, 255, 0.17);
+            background:
+                var(--glow);
+
+            border:
+                1px solid
+                var(--panel-border);
+
         }
+
 
         .selected-game.visible {
+
             display: flex;
+
             align-items: center;
+
             gap: 13px;
 
-            animation: fadeUp 0.35s ease both;
+            animation:
+                fadeUp
+                0.35s
+                ease
+                both;
+
         }
 
+
         .game-icon {
+
             width: 42px;
             height: 42px;
-            flex: 0 0 42px;
+
+            flex:
+                0 0
+                42px;
 
             border-radius: 11px;
 
             display: flex;
+
             align-items: center;
             justify-content: center;
 
             background:
                 linear-gradient(
                     145deg,
-                    #a965ff,
-                    #6330b0
+                    var(--accent-light),
+                    var(--accent)
                 );
 
             font-size: 19px;
+
         }
+
 
         .game-details {
             min-width: 0;
         }
 
+
         .game-details strong {
+
             display: block;
+
             white-space: nowrap;
+
             overflow: hidden;
+
             text-overflow: ellipsis;
+
         }
+
 
         .game-details span {
+
             display: block;
+
             color: var(--muted);
+
             font-size: 12px;
+
             margin-top: 3px;
+
         }
 
-        /* Play button */
 
         .play-button {
+
             width: 100%;
+
             margin-top: 18px;
-            padding: 15px 20px;
+
+            padding:
+                15px
+                20px;
 
             border: 0;
+
             border-radius: 14px;
 
             color: white;
+
             font-weight: 750;
+
             font-size: 15px;
 
             background:
                 linear-gradient(
                     135deg,
-                    #a968ff,
-                    #7438cf
+                    var(--button-start),
+                    var(--button-end)
                 );
 
             box-shadow:
-                0 10px 30px rgba(126, 53, 222, 0.22);
+                0 10px 30px
+                var(--glow);
 
             cursor: pointer;
 
             transition:
-                transform 0.22s ease,
-                box-shadow 0.22s ease,
-                filter 0.22s ease;
+
+                transform
+                0.22s
+                ease,
+
+                box-shadow
+                0.22s
+                ease,
+
+                filter
+                0.22s
+                ease;
 
             opacity: 0.45;
+
             pointer-events: none;
+
         }
+
 
         .play-button.ready {
+
             opacity: 1;
+
             pointer-events: auto;
+
         }
+
 
         .play-button.ready:hover {
-            transform: translateY(-2px);
-            filter: brightness(1.08);
+
+            transform:
+                translateY(-2px);
+
+            filter:
+                brightness(1.08);
 
             box-shadow:
-                0 14px 38px rgba(139, 65, 234, 0.35);
+                0 14px 38px
+                var(--glow);
+
         }
+
 
         .play-button.ready:active {
-            transform: translateY(0);
+
+            transform:
+                translateY(0);
+
         }
 
-        /* How to use */
 
         .how-card {
+
             padding: 27px;
-            animation-delay: 0.2s;
+
+            animation-delay:
+                0.2s;
+
         }
+
 
         .how-card h2 {
-            margin: 0 0 21px;
+
+            margin:
+                0
+                0
+                21px;
+
             font-size: 22px;
+
         }
+
 
         .steps {
+
             display: flex;
+
             flex-direction: column;
+
             gap: 19px;
+
         }
+
 
         .step {
+
             display: grid;
-            grid-template-columns: 38px 1fr;
+
+            grid-template-columns:
+                38px
+                1fr;
+
             gap: 13px;
+
             align-items: start;
+
         }
 
+
         .step-number {
+
             width: 38px;
             height: 38px;
 
             display: flex;
+
             align-items: center;
             justify-content: center;
 
             border-radius: 12px;
 
-            background: rgba(162, 97, 255, 0.12);
-            border: 1px solid rgba(186, 133, 255, 0.2);
+            background:
+                var(--glow);
 
-            color: var(--purple-light);
+            border:
+                1px solid
+                var(--panel-border);
+
+            color:
+                var(--accent-light);
+
             font-weight: 800;
+
             font-size: 13px;
+
         }
+
 
         .step strong {
+
             display: block;
+
             margin-top: 2px;
+
             font-size: 14px;
+
         }
+
 
         .step p {
-            margin: 5px 0 0;
+
+            margin:
+                5px
+                0
+                0;
+
             color: var(--muted);
+
             font-size: 12px;
+
             line-height: 1.5;
+
         }
+
 
         .supported {
+
             margin-top: 25px;
+
             padding-top: 19px;
 
-            border-top: 1px solid rgba(255,255,255,0.07);
+            border-top:
+                1px solid
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.07
+                );
 
             color: var(--muted);
+
             font-size: 12px;
+
         }
+
 
         .supported b {
-            color: #ddd0ea;
+            color: var(--text);
         }
 
-        /* Footer */
 
         .footer {
+
             text-align: center;
+
             margin-top: 24px;
 
-            color: #806e91;
+            color: var(--muted);
+
             font-size: 11px;
+
             letter-spacing: 0.04em;
 
-            animation: fadeUp 0.7s 0.25s ease both;
+            animation:
+                fadeUp
+                0.7s
+                0.25s
+                ease
+                both;
+
         }
 
+
         /* =========================================================
-           BOOT SEQUENCE
-           ========================================================= */
+           SETTINGS BUTTON
+        ========================================================= */
+
+        #settings-button {
+
+            position: fixed;
+
+            top: 18px;
+            right: 18px;
+
+            z-index: 20;
+
+            padding:
+                11px
+                16px;
+
+            border:
+                1px solid
+                var(--panel-border);
+
+            border-radius: 11px;
+
+            background:
+                var(--panel);
+
+            color: var(--text);
+
+            font-size: 13px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+
+            box-shadow:
+                0 8px 25px
+                rgba(
+                    0,
+                    0,
+                    0,
+                    0.35
+                );
+
+            transition:
+
+                transform
+                0.2s
+                ease,
+
+                background
+                0.2s
+                ease,
+
+                border-color
+                0.2s
+                ease;
+
+        }
+
+
+        #settings-button:hover {
+
+            transform:
+                translateY(-2px);
+
+            background:
+                var(--glow);
+
+            border-color:
+                var(--accent-light);
+
+        }
+
+
+        #settings-button:active {
+
+            transform:
+                translateY(0);
+
+        }
+
+
+        /* =========================================================
+           SETTINGS PANEL
+        ========================================================= */
+
+        #settings-panel {
+
+            position: fixed;
+
+            inset: 0;
+
+            z-index: 200;
+
+            display: none;
+
+            align-items: center;
+            justify-content: center;
+
+            padding: 24px;
+
+        }
+
+
+        #settings-panel.open {
+
+            display: flex;
+
+        }
+
+
+        .settings-overlay {
+
+            position: absolute;
+
+            inset: 0;
+
+            background:
+                rgba(
+                    3,
+                    1,
+                    7,
+                    0.72
+                );
+
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+
+        }
+
+
+        .settings-window {
+
+            position: relative;
+
+            width:
+                min(
+                    700px,
+                    100%
+                );
+
+            max-height:
+                min(
+                    800px,
+                    90vh
+                );
+
+            overflow-y: auto;
+
+            padding: 28px;
+
+            border:
+                1px solid
+                var(--panel-border);
+
+            border-radius: 24px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(31, 15, 50, 0.98),
+                    rgba(16, 7, 26, 0.98)
+                );
+
+            box-shadow:
+                0 30px 100px
+                rgba(
+                    0,
+                    0,
+                    0,
+                    0.65
+                );
+
+            animation:
+                settingsAppear
+                0.25s
+                ease
+                both;
+
+        }
+
+
+        body.theme-white .settings-window {
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(255,255,255,0.98),
+                    rgba(238,238,242,0.98)
+                );
+
+        }
+
+
+        .settings-header {
+
+            display: flex;
+
+            align-items: flex-start;
+
+            justify-content: space-between;
+
+            margin-bottom: 22px;
+
+        }
+
+
+        .settings-header h2 {
+
+            margin:
+                4px
+                0
+                0;
+
+            font-size: 30px;
+
+        }
+
+
+        #close-settings {
+
+            width: 40px;
+            height: 40px;
+
+            border:
+                1px solid
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.1
+                );
+
+            border-radius: 11px;
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.05
+                );
+
+            color: var(--text);
+
+            font-size: 16px;
+
+            cursor: pointer;
+
+            transition:
+
+                background
+                0.2s
+                ease,
+
+                transform
+                0.2s
+                ease;
+
+        }
+
+
+        #close-settings:hover {
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.1
+                );
+
+            transform:
+                scale(1.05);
+
+        }
+
+
+        .settings-content {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 14px;
+
+        }
+
+
+        .settings-section {
+
+            padding: 20px;
+
+            border:
+                1px solid
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.07
+                );
+
+            border-radius: 17px;
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.025
+                );
+
+        }
+
+
+        .settings-section h3 {
+
+            margin: 0;
+
+            font-size: 16px;
+
+        }
+
+
+        .settings-description {
+
+            margin:
+                7px
+                0
+                15px;
+
+            color: var(--muted);
+
+            font-size: 13px;
+
+            line-height: 1.5;
+
+        }
+
+
+        /* =========================================================
+           SETTING ROW
+        ========================================================= */
+
+        .setting-row {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 20px;
+
+            padding:
+                13px
+                0;
+
+            border-top:
+                1px solid
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.06
+                );
+
+        }
+
+
+        .setting-row:first-of-type {
+
+            border-top: 0;
+
+        }
+
+
+        .setting-info {
+
+            min-width: 0;
+
+        }
+
+
+        .setting-name {
+
+            display: block;
+
+            font-weight: 700;
+
+            font-size: 14px;
+
+        }
+
+
+        .setting-help {
+
+            display: block;
+
+            margin-top: 3px;
+
+            color: var(--muted);
+
+            font-size: 12px;
+
+            line-height: 1.45;
+
+        }
+
+
+        /* =========================================================
+           TOGGLE
+        ========================================================= */
+
+        .toggle {
+
+            position: relative;
+
+            flex:
+                0 0
+                48px;
+
+            width: 48px;
+            height: 27px;
+
+        }
+
+
+        .toggle input {
+
+            position: absolute;
+
+            opacity: 0;
+
+            width: 0;
+            height: 0;
+
+        }
+
+
+        .toggle-slider {
+
+            position: absolute;
+
+            inset: 0;
+
+            border-radius: 999px;
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.13
+                );
+
+            border:
+                1px solid
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.10
+                );
+
+            cursor: pointer;
+
+            transition:
+                background 0.2s ease,
+                border-color 0.2s ease;
+
+        }
+
+
+        .toggle-slider::before {
+
+            content: "";
+
+            position: absolute;
+
+            width: 19px;
+            height: 19px;
+
+            left: 3px;
+            top: 3px;
+
+            border-radius: 50%;
+
+            background: #ffffff;
+
+            box-shadow:
+                0 2px 7px
+                rgba(
+                    0,
+                    0,
+                    0,
+                    0.3
+                );
+
+            transition:
+                transform 0.2s ease;
+
+        }
+
+
+        .toggle input:checked
+        + .toggle-slider {
+
+            background:
+                var(--accent);
+
+            border-color:
+                var(--accent-light);
+
+        }
+
+
+        .toggle input:checked
+        + .toggle-slider::before {
+
+            transform:
+                translateX(21px);
+
+        }
+
+
+        /* =========================================================
+           THEME PICKER
+        ========================================================= */
+
+        .theme-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(
+                    3,
+                    1fr
+                );
+
+            gap: 9px;
+
+            margin-top: 14px;
+
+        }
+
+
+        .theme-option {
+
+            position: relative;
+
+            padding:
+                12px
+                10px;
+
+            border:
+                1px solid
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.08
+                );
+
+            border-radius: 13px;
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.035
+                );
+
+            color: var(--text);
+
+            cursor: pointer;
+
+            text-align: center;
+
+            transition:
+                transform 0.2s ease,
+                border-color 0.2s ease,
+                background 0.2s ease;
+
+        }
+
+
+        .theme-option:hover {
+
+            transform:
+                translateY(-2px);
+
+            border-color:
+                var(--accent-light);
+
+        }
+
+
+        .theme-option.active {
+
+            border-color:
+                var(--accent-light);
+
+            background:
+                var(--glow);
+
+            box-shadow:
+                0 0 18px
+                var(--glow);
+
+        }
+
+
+        .theme-preview {
+
+            width: 100%;
+            height: 25px;
+
+            margin-bottom: 8px;
+
+            border-radius: 8px;
+
+        }
+
+
+        .theme-preview.purple {
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #140821,
+                    #9b5cff
+                );
+
+        }
+
+
+        .theme-preview.blue {
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #071827,
+                    #4d9cff
+                );
+
+        }
+
+
+        .theme-preview.red {
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #25080b,
+                    #ff5363
+                );
+
+        }
+
+
+        .theme-preview.orange {
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #271206,
+                    #ff9a3c
+                );
+
+        }
+
+
+        .theme-preview.dark {
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #030303,
+                    #999999
+                );
+
+        }
+
+
+        .theme-preview.white {
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #ffffff,
+                    #7040c7
+                );
+
+        }
+
+
+        .theme-option span {
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+        }
+
+
+        /* =========================================================
+           RESET SETTINGS
+        ========================================================= */
+
+        .settings-footer {
+
+            display: flex;
+
+            justify-content: flex-end;
+
+            margin-top: 18px;
+
+        }
+
+
+        #reset-settings {
+
+            padding:
+                10px
+                14px;
+
+            border:
+                1px solid
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.10
+                );
+
+            border-radius: 10px;
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.04
+                );
+
+            color: var(--muted);
+
+            cursor: pointer;
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+        }
+
+
+        #reset-settings:hover {
+
+            color: var(--text);
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.08
+                );
+
+        }
+
+
+        /* =========================================================
+           FOCUS MODE
+        ========================================================= */
+
+        body.focus-mode #game {
+
+            box-shadow:
+                inset
+                0 0 80px
+                rgba(
+                    0,
+                    0,
+                    0,
+                    0.35
+                );
+
+        }
+
+
+        body.focus-mode #exit-station-button {
+
+            opacity: 0.18;
+
+        }
+
+
+        body.focus-mode #exit-station-button:hover {
+
+            opacity: 1;
+
+        }
+
+
+        /* =========================================================
+           COMPACT LAUNCHER
+        ========================================================= */
+
+        body.compact-launcher #launcher {
+
+            padding-top: 30px;
+            padding-bottom: 40px;
+
+        }
+
+
+        body.compact-launcher .brand {
+
+            margin-bottom: 20px;
+
+        }
+
+
+        body.compact-launcher .brand-mark {
+
+            width: 45px;
+            height: 45px;
+
+            margin-bottom: 10px;
+
+            font-size: 21px;
+
+        }
+
+
+        body.compact-launcher .main-panel {
+
+            gap: 14px;
+
+        }
+
+
+        body.compact-launcher .launcher-card {
+
+            padding: 22px;
+
+        }
+
+
+        body.compact-launcher .how-card {
+
+            padding: 21px;
+
+        }
+
+
+        body.compact-launcher .steps {
+
+            gap: 12px;
+
+        }
+
+
+        /* =========================================================
+           CONTROLLER TIPS
+        ========================================================= */
+
+        #controller-tips {
+
+            position: fixed;
+
+            left: 50%;
+
+            bottom: 18px;
+
+            transform:
+                translateX(-50%);
+
+            z-index: 999998;
+
+            display: none;
+
+            padding:
+                10px
+                15px;
+
+            border:
+                1px solid
+                var(--panel-border);
+
+            border-radius: 12px;
+
+            background:
+                rgba(
+                    12,
+                    7,
+                    18,
+                    0.88
+                );
+
+            color: var(--text);
+
+            font-size: 12px;
+
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+
+            box-shadow:
+                0 10px 30px
+                rgba(
+                    0,
+                    0,
+                    0,
+                    0.35
+                );
+
+            pointer-events: none;
+
+        }
+
+
+        body.show-controller-tips #controller-tips {
+
+            display: block;
+
+        }
+
+
+        /* =========================================================
+           GAME NAME
+        ========================================================= */
+
+        #playing-game-name {
+
+            position: fixed;
+
+            top: 18px;
+
+            left: 50%;
+
+            transform:
+                translateX(-50%);
+
+            z-index: 999998;
+
+            display: none;
+
+            max-width: 45vw;
+
+            padding:
+                9px
+                14px;
+
+            border:
+                1px solid
+                var(--panel-border);
+
+            border-radius: 10px;
+
+            background:
+                rgba(
+                    12,
+                    7,
+                    18,
+                    0.88
+                );
+
+            color: var(--text);
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+            white-space: nowrap;
+
+            overflow: hidden;
+
+            text-overflow: ellipsis;
+
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+
+            pointer-events: none;
+
+        }
+
+
+        body.show-game-name #playing-game-name {
+
+            display: block;
+
+        }
+
+
+        /* =========================================================
+           BOOT SCREEN
+        ========================================================= */
 
         #boot-screen {
+
             position: fixed;
+
             inset: 0;
 
             display: none;
+
             align-items: center;
             justify-content: center;
 
             background:
+
                 radial-gradient(
                     ellipse at center,
-                    rgba(113, 48, 177, 0.16),
+                    var(--glow),
                     transparent 45%
                 ),
+
                 #050208;
 
             z-index: 50;
 
             overflow: hidden;
+
         }
+
 
         #boot-screen.active {
+
             display: flex;
+
         }
 
+
         .boot-stars {
+
             position: absolute;
+
             inset: 0;
 
             background-image:
                 radial-gradient(
                     circle,
-                    rgba(217, 183, 255, 0.55) 1px,
-                    transparent 1.5px
+                    rgba(
+                        217,
+                        183,
+                        255,
+                        0.55
+                    )
+                    1px,
+                    transparent
+                    1.5px
                 );
 
-            background-size: 73px 73px;
+            background-size:
+                73px
+                73px;
+
             opacity: 0.12;
 
-            animation: starsMove 18s linear infinite;
+            animation:
+                starsMove
+                18s
+                linear
+                infinite;
+
         }
+
 
         .boot-stage {
+
             position: relative;
 
-            width: min(760px, 90vw);
-            height: min(600px, 80vh);
+            width:
+                min(
+                    760px,
+                    90vw
+                );
+
+            height:
+                min(
+                    600px,
+                    80vh
+                );
 
             display: flex;
+
             align-items: center;
             justify-content: center;
+
         }
 
-        /* Cartridge */
 
         .cartridge {
+
             position: absolute;
 
             top: -100px;
@@ -581,19 +2182,34 @@
 
             z-index: 5;
 
-            transform: rotate(8deg);
+            transform:
+                rotate(8deg);
 
             animation:
-                cartridgeFall 1.35s
-                cubic-bezier(0.2, 0.8, 0.25, 1)
+                cartridgeFall
+                1.35s
+                cubic-bezier(
+                    0.2,
+                    0.8,
+                    0.25,
+                    1
+                )
                 forwards;
+
         }
 
+
         .cartridge-body {
+
             position: absolute;
+
             inset: 0;
 
-            border-radius: 8px 8px 13px 13px;
+            border-radius:
+                8px
+                8px
+                13px
+                13px;
 
             background:
                 linear-gradient(
@@ -603,39 +2219,75 @@
                     #382642
                 );
 
-            border: 2px solid #80618e;
+            border:
+                2px solid
+                #80618e;
 
             box-shadow:
-                0 18px 30px rgba(0,0,0,0.45),
-                inset 0 2px rgba(255,255,255,0.12);
+
+                0 18px 30px
+                rgba(
+                    0,
+                    0,
+                    0,
+                    0.45
+                ),
+
+                inset
+                0 2px
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.12
+                );
+
         }
 
+
         .cartridge-top {
+
             position: absolute;
 
             left: 14px;
             right: 14px;
+
             top: 0;
 
             height: 28px;
 
             background: #473153;
 
-            border-radius: 0 0 5px 5px;
-            border-left: 2px solid #80618e;
-            border-right: 2px solid #80618e;
+            border-radius:
+                0
+                0
+                5px
+                5px;
+
+            border-left:
+                2px solid
+                #80618e;
+
+            border-right:
+                2px solid
+                #80618e;
+
         }
 
+
         .cartridge-label {
+
             position: absolute;
 
             left: 13px;
             right: 13px;
+
             top: 43px;
 
             height: 57px;
 
             display: flex;
+
             align-items: center;
             justify-content: center;
 
@@ -644,24 +2296,37 @@
             background:
                 linear-gradient(
                     145deg,
-                    #b375ff,
-                    #6538a0
+                    var(--accent-light),
+                    var(--accent)
                 );
 
             color: white;
 
             font-size: 8px;
+
             font-weight: 900;
+
             letter-spacing: 0.1em;
 
             box-shadow:
-                inset 0 1px rgba(255,255,255,0.2);
+                inset
+                0 1px
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.2
+                );
+
         }
 
+
         .cartridge-contacts {
+
             position: absolute;
 
             bottom: -7px;
+
             left: 20px;
             right: 20px;
 
@@ -676,12 +2341,17 @@
                     #513e28 8px
                 );
 
-            border-radius: 0 0 3px 3px;
+            border-radius:
+                0
+                0
+                3px
+                3px;
+
         }
 
-        /* Console */
 
         .console {
+
             position: absolute;
 
             width: 310px;
@@ -698,21 +2368,48 @@
                     #151017
                 );
 
-            border: 2px solid #45354e;
+            border:
+                2px solid
+                #45354e;
 
             box-shadow:
-                0 30px 60px rgba(0,0,0,0.6),
-                inset 0 1px rgba(255,255,255,0.08);
 
-            animation: consoleArrive 0.8s ease both;
+                0 30px 60px
+                rgba(
+                    0,
+                    0,
+                    0,
+                    0.6
+                ),
+
+                inset
+                0 1px
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.08
+                );
+
+            animation:
+                consoleArrive
+                0.8s
+                ease
+                both;
+
         }
 
+
         .console-slot {
+
             position: absolute;
 
             top: 17px;
+
             left: 50%;
-            transform: translateX(-50%);
+
+            transform:
+                translateX(-50%);
 
             width: 135px;
             height: 15px;
@@ -722,26 +2419,44 @@
             background: #050407;
 
             box-shadow:
-                inset 0 2px 4px rgba(0,0,0,0.9);
+                inset
+                0 2px
+                4px
+                rgba(
+                    0,
+                    0,
+                    0,
+                    0.9
+                );
+
         }
 
+
         .console-logo {
+
             position: absolute;
 
             left: 22px;
+
             bottom: 18px;
 
             color: #8d7599;
 
             font-size: 10px;
+
             font-weight: 800;
+
             letter-spacing: 0.16em;
+
         }
 
+
         .console-light {
+
             position: absolute;
 
             right: 24px;
+
             bottom: 19px;
 
             width: 8px;
@@ -752,21 +2467,35 @@
             background: #4d4052;
 
             transition:
-                background 0.3s ease,
-                box-shadow 0.3s ease;
+
+                background
+                0.3s
+                ease,
+
+                box-shadow
+                0.3s
+                ease;
+
         }
+
 
         .console.powered .console-light {
-            background: #bd79ff;
+
+            background: var(--accent-light);
 
             box-shadow:
-                0 0 12px #bd79ff,
-                0 0 24px rgba(189,121,255,0.6);
+
+                0 0 12px
+                var(--accent-light),
+
+                0 0 24px
+                var(--glow);
+
         }
 
-        /* TV */
 
         .tv {
+
             position: absolute;
 
             width: 560px;
@@ -781,29 +2510,56 @@
                 scale(0.92);
 
             transition:
-                opacity 0.7s ease,
-                transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1);
+
+                opacity
+                0.7s
+                ease,
+
+                transform
+                0.9s
+                cubic-bezier(
+                    0.2,
+                    0.8,
+                    0.2,
+                    1
+                );
+
         }
 
+
         .tv.visible {
+
             opacity: 1;
 
             transform:
                 translateY(0)
                 scale(1);
+
         }
 
+
         .tv.zooming {
+
             transform:
                 scale(4.5);
 
             transition:
-                transform 1.3s
-                cubic-bezier(0.7, 0, 0.3, 1);
+                transform
+                1.3s
+                cubic-bezier(
+                    0.7,
+                    0,
+                    0.3,
+                    1
+                );
+
         }
 
+
         .tv-body {
+
             position: absolute;
+
             inset: 0;
 
             border-radius: 34px;
@@ -815,14 +2571,34 @@
                     #151018
                 );
 
-            border: 3px solid #4d3857;
+            border:
+                3px solid
+                #4d3857;
 
             box-shadow:
-                0 35px 80px rgba(0,0,0,0.65),
-                inset 0 2px rgba(255,255,255,0.08);
+
+                0 35px 80px
+                rgba(
+                    0,
+                    0,
+                    0,
+                    0.65
+                ),
+
+                inset
+                0 2px
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.08
+                );
+
         }
 
+
         .tv-screen {
+
             position: absolute;
 
             left: 27px;
@@ -833,19 +2609,37 @@
 
             overflow: hidden;
 
-            border-radius: 22px 22px 28px 28px;
+            border-radius:
+                22px
+                22px
+                28px
+                28px;
 
             background: #010101;
 
             box-shadow:
-                inset 0 0 35px rgba(0,0,0,0.95),
-                0 0 0 4px #0a080b;
+
+                inset
+                0 0 35px
+                rgba(
+                    0,
+                    0,
+                    0,
+                    0.95
+                ),
+
+                0 0 0 4px
+                #0a080b;
+
         }
 
+
         .tv-screen::after {
+
             content: "";
 
             position: absolute;
+
             inset: 0;
 
             pointer-events: none;
@@ -853,69 +2647,114 @@
             background:
                 repeating-linear-gradient(
                     to bottom,
-                    rgba(255,255,255,0.025) 0px,
-                    rgba(255,255,255,0.025) 1px,
+                    rgba(
+                        255,
+                        255,
+                        255,
+                        0.025
+                    )
+                    0px,
+                    rgba(
+                        255,
+                        255,
+                        255,
+                        0.025
+                    )
+                    1px,
                     transparent 2px,
                     transparent 5px
                 );
 
             opacity: 0.4;
+
         }
 
+
         .tv-off {
+
             position: absolute;
+
             inset: 0;
 
             display: flex;
+
             align-items: center;
             justify-content: center;
 
             color: #25182c;
 
             font-size: 11px;
+
             letter-spacing: 0.2em;
+
             text-transform: uppercase;
 
             transition:
-                opacity 0.5s ease,
-                color 0.5s ease;
+
+                opacity
+                0.5s
+                ease,
+
+                color
+                0.5s
+                ease;
+
         }
+
 
         .tv.on .tv-off {
+
             opacity: 0;
+
         }
 
+
         .tv-game-title {
+
             position: absolute;
+
             inset: 0;
 
             display: flex;
+
             align-items: center;
             justify-content: center;
 
-            color: #d6b1ff;
+            color: var(--accent-light);
 
             font-size: 19px;
+
             font-weight: 800;
 
             letter-spacing: 0.13em;
 
             text-shadow:
-                0 0 15px rgba(199,142,255,0.9);
+                0 0 15px
+                var(--glow);
 
             opacity: 0;
 
-            transition: opacity 0.5s ease;
+            transition:
+                opacity
+                0.5s
+                ease;
+
         }
+
 
         .tv.on .tv-game-title {
+
             opacity: 1;
+
         }
 
+
         .tv-speaker {
+
             position: absolute;
 
             right: 21px;
+
             top: 82px;
 
             width: 78px;
@@ -933,22 +2772,31 @@
                 );
 
             opacity: 0.7;
+
         }
 
+
         .tv-brand {
+
             position: absolute;
 
             right: 27px;
+
             bottom: 31px;
 
             color: #806a8a;
 
             font-size: 8px;
+
             font-weight: 800;
+
             letter-spacing: 0.18em;
+
         }
 
+
         .boot-status {
+
             position: absolute;
 
             bottom: 24px;
@@ -960,18 +2808,27 @@
             color: #9c88aa;
 
             font-size: 11px;
+
             letter-spacing: 0.15em;
+
             text-transform: uppercase;
 
-            transition: opacity 0.3s ease;
+            transition:
+                opacity
+                0.3s
+                ease;
+
         }
 
+
         /* =========================================================
-           GAME
-           ========================================================= */
+           EMULATOR DISPLAY
+        ========================================================= */
 
         #display {
+
             position: fixed;
+
             inset: 0;
 
             width: 100vw;
@@ -982,216 +2839,846 @@
             background: #000;
 
             z-index: 100;
+
         }
 
+
         #game {
+
             width: 100%;
             height: 100%;
 
             background: #000;
+
         }
 
-        
+
+        /* =========================================================
+           EXIT TO STATION
+        ========================================================= */
+
         #exit-station-button {
-    position: fixed;
-    top: 18px;
-    left: 18px;
-    z-index: 999999;
 
-    padding: 11px 17px;
+            position: fixed;
 
-    border: 1px solid rgba(201, 156, 255, 0.35);
-    border-radius: 11px;
+            top: 18px;
+            left: 18px;
 
-    background: rgba(20, 8, 33, 0.88);
-    color: #f7f1ff;
+            z-index: 999999;
 
-    font-size: 13px;
-    font-weight: 700;
+            padding:
+                11px
+                17px;
 
-    cursor: pointer;
+            border:
+                1px solid
+                var(--panel-border);
 
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+            border-radius: 11px;
 
-    box-shadow:
-        0 8px 25px rgba(0, 0, 0, 0.35);
+            background:
+                rgba(
+                    20,
+                    8,
+                    33,
+                    0.88
+                );
 
-    transition:
-        transform 0.2s ease,
-        background 0.2s ease,
-        border-color 0.2s ease;
-}
+            color: #f7f1ff;
 
-#exit-station-button:hover {
-    transform: translateY(-2px);
+            font-size: 13px;
 
-    background: rgba(42, 18, 65, 0.95);
+            font-weight: 700;
 
-    border-color: rgba(201, 156, 255, 0.7);
-}
+            cursor: pointer;
 
-#exit-station-button:active {
-    transform: translateY(0);
-}
-        
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+
+            box-shadow:
+                0 8px 25px
+                rgba(
+                    0,
+                    0,
+                    0,
+                    0.35
+                );
+
+            transition:
+
+                transform
+                0.2s
+                ease,
+
+                background
+                0.2s
+                ease,
+
+                border-color
+                0.2s
+                ease;
+
+        }
+
+
+        #exit-station-button:hover {
+
+            transform:
+                translateY(-2px);
+
+            background:
+                var(--glow);
+
+            border-color:
+                var(--accent-light);
+
+        }
+
+
+        #exit-station-button:active {
+
+            transform:
+                translateY(0);
+
+        }
+
+
         /* =========================================================
            ANIMATIONS
-           ========================================================= */
+        ========================================================= */
 
         @keyframes fadeDown {
+
             from {
+
                 opacity: 0;
-                transform: translateY(-18px);
+
+                transform:
+                    translateY(-18px);
+
             }
 
             to {
+
                 opacity: 1;
-                transform: translateY(0);
+
+                transform:
+                    translateY(0);
+
             }
+
         }
+
 
         @keyframes fadeUp {
+
             from {
+
                 opacity: 0;
-                transform: translateY(18px);
+
+                transform:
+                    translateY(18px);
+
             }
 
             to {
+
                 opacity: 1;
-                transform: translateY(0);
+
+                transform:
+                    translateY(0);
+
             }
+
         }
 
+
+        @keyframes settingsAppear {
+
+            from {
+
+                opacity: 0;
+
+                transform:
+                    translateY(12px)
+                    scale(0.98);
+
+            }
+
+            to {
+
+                opacity: 1;
+
+                transform:
+                    translateY(0)
+                    scale(1);
+
+            }
+
+        }
+
+
         @keyframes cartridgeFall {
+
             0% {
+
                 top: -130px;
-                transform: rotate(8deg);
+
+                transform:
+                    rotate(8deg);
+
             }
 
             55% {
+
                 top: 255px;
-                transform: rotate(-5deg);
+
+                transform:
+                    rotate(-5deg);
+
             }
 
             72% {
+
                 top: 225px;
-                transform: rotate(2deg);
+
+                transform:
+                    rotate(2deg);
+
             }
 
             100% {
+
                 top: 228px;
-                transform: rotate(0deg) scale(0.55);
+
+                transform:
+                    rotate(0deg)
+                    scale(0.55);
+
                 opacity: 0;
+
             }
+
         }
+
 
         @keyframes consoleArrive {
+
             from {
+
                 opacity: 0;
-                transform: translateY(25px);
+
+                transform:
+                    translateY(25px);
+
             }
 
             to {
+
                 opacity: 1;
-                transform: translateY(0);
+
+                transform:
+                    translateY(0);
+
             }
+
         }
+
 
         @keyframes starsMove {
+
             from {
-                background-position: 0 0;
+
+                background-position:
+                    0 0;
+
             }
 
             to {
-                background-position: 0 730px;
+
+                background-position:
+                    0 730px;
+
             }
+
         }
+
 
         /* =========================================================
            RESPONSIVE
-           ========================================================= */
+        ========================================================= */
 
         @media (max-width: 800px) {
+
             #launcher {
-                padding: 30px 16px 50px;
+
+                padding:
+                    30px
+                    16px
+                    50px;
+
             }
+
 
             .main-panel {
-                grid-template-columns: 1fr;
+
+                grid-template-columns:
+                    1fr;
+
             }
 
+
             .brand {
+
                 margin-bottom: 25px;
+
             }
+
 
             .launcher-card,
             .how-card {
+
                 padding: 23px;
+
             }
+
 
             .tv {
-                transform: scale(0.7);
+
+                transform:
+                    scale(0.7);
+
             }
+
 
             .tv.visible {
-                transform: scale(0.7);
+
+                transform:
+                    scale(0.7);
+
             }
+
 
             .tv.zooming {
-                transform: scale(4);
+
+                transform:
+                    scale(4);
+
             }
 
+
             .console {
-                transform: scale(0.8);
+
+                transform:
+                    scale(0.8);
+
             }
+
+
+            #settings-button {
+
+                top: 12px;
+                right: 12px;
+
+            }
+
+
+            .theme-grid {
+
+                grid-template-columns:
+                    repeat(
+                        2,
+                        1fr
+                    );
+
+            }
+
         }
+
 
         @media (max-width: 500px) {
+
             .brand h1 {
-                letter-spacing: 0.04em;
+
+                letter-spacing:
+                    0.04em;
+
             }
+
 
             .drop-area {
-                min-height: 165px;
+
+                min-height:
+                    165px;
+
             }
+
 
             .tv {
-                transform: scale(0.52);
+
+                transform:
+                    scale(0.52);
+
             }
+
 
             .tv.visible {
-                transform: scale(0.52);
+
+                transform:
+                    scale(0.52);
+
             }
+
 
             .tv.zooming {
-                transform: scale(3.7);
+
+                transform:
+                    scale(3.7);
+
             }
+
 
             .console {
-                transform: scale(0.65);
+
+                transform:
+                    scale(0.65);
+
             }
+
+
+            #settings-button {
+
+                padding:
+                    10px
+                    12px;
+
+                font-size: 12px;
+
+            }
+
+
+            .settings-window {
+
+                padding: 21px;
+
+                border-radius:
+                    20px;
+
+            }
+
+
+            .settings-panel {
+
+                padding: 12px;
+
+            }
+
+
+            .setting-row {
+
+                gap: 10px;
+
+            }
+
+
+            .setting-help {
+
+                font-size: 11px;
+
+            }
+
+
+            #playing-game-name {
+
+                max-width: 35vw;
+
+            }
+
         }
 
-        /* =========================================================
-           REDUCED MOTION
-           ========================================================= */
 
         @media (prefers-reduced-motion: reduce) {
+
             *,
             *::before,
             *::after {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
+
+                animation-duration:
+                    0.01ms !important;
+
+                animation-iteration-count:
+                    1 !important;
+
+                transition-duration:
+                    0.01ms !important;
+
+            }
+
+        }
+
+    
+
+        /* =========================================================
+           REPORT A PROBLEM
+        ========================================================== */
+
+        #report-problem-button {
+            position: fixed;
+            left: 18px;
+            bottom: 18px;
+            z-index: 1000;
+            border: 1px solid var(--panel-border);
+            background: rgba(15, 8, 25, 0.78);
+            color: var(--text);
+            border-radius: 12px;
+            padding: 10px 14px;
+            font-size: 12px;
+            cursor: pointer;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 8px 25px rgba(0,0,0,.22);
+        }
+
+        #report-problem-button:hover {
+            border-color: var(--accent);
+            transform: translateY(-1px);
+        }
+
+        #report-overlay,
+        #admin-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(4, 2, 8, .78);
+            backdrop-filter: blur(10px);
+            z-index: 3000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        #report-overlay.open,
+        #admin-overlay.open {
+            display: flex;
+        }
+
+        .report-window,
+        .admin-window {
+            width: min(760px, 100%);
+            max-height: min(88vh, 850px);
+            overflow: auto;
+            background: var(--panel);
+            border: 1px solid var(--panel-border);
+            border-radius: 22px;
+            padding: 26px;
+            box-shadow: 0 25px 80px rgba(0,0,0,.45);
+        }
+
+        .report-window h2,
+        .admin-window h2 {
+            margin: 0 0 7px;
+        }
+
+        .report-window p,
+        .admin-window p {
+            color: var(--muted);
+            line-height: 1.5;
+        }
+
+        .report-field {
+            margin-top: 16px;
+        }
+
+        .report-field label {
+            display: block;
+            margin-bottom: 7px;
+            font-weight: 700;
+            font-size: 13px;
+        }
+
+        .report-field input,
+        .report-field select,
+        .report-field textarea {
+            width: 100%;
+            box-sizing: border-box;
+            border: 1px solid var(--panel-border);
+            background: rgba(0,0,0,.18);
+            color: var(--text);
+            border-radius: 11px;
+            padding: 11px 12px;
+            font: inherit;
+        }
+
+        .report-field textarea {
+            min-height: 130px;
+            resize: vertical;
+        }
+
+        .report-actions,
+        .admin-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 18px;
+        }
+
+        .report-actions button,
+        .admin-actions button {
+            border: 0;
+            border-radius: 11px;
+            padding: 11px 15px;
+            cursor: pointer;
+            font-weight: 700;
+        }
+
+        .report-primary,
+        .admin-primary {
+            background: linear-gradient(135deg, var(--button-start), var(--button-end));
+            color: white;
+        }
+
+        .report-secondary,
+        .admin-secondary {
+            background: rgba(255,255,255,.08);
+            color: var(--text);
+            border: 1px solid var(--panel-border) !important;
+        }
+
+        .admin-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 12px;
+            margin: 18px 0;
+        }
+
+        .admin-stat,
+        .admin-report {
+            border: 1px solid var(--panel-border);
+            background: rgba(0,0,0,.14);
+            border-radius: 14px;
+            padding: 14px;
+        }
+
+        .admin-stat strong {
+            display: block;
+            font-size: 24px;
+            margin-top: 4px;
+        }
+
+        .admin-report {
+            margin-top: 10px;
+        }
+
+        .admin-report small {
+            color: var(--muted);
+        }
+
+        .admin-report-message {
+            white-space: pre-wrap;
+            margin-top: 9px;
+            line-height: 1.45;
+        }
+
+        .admin-empty {
+            color: var(--muted);
+            padding: 18px 0;
+        }
+
+        .admin-note {
+            font-size: 12px;
+            color: var(--muted);
+            border-left: 3px solid var(--accent);
+            padding-left: 10px;
+            margin-top: 14px;
+        }
+
+        .admin-window {
+            width: min(980px, 100%);
+        }
+
+        .admin-section {
+            margin-top: 24px;
+            padding-top: 4px;
+        }
+
+        .admin-section-header {
+            display: flex;
+            align-items: end;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+
+        .admin-section-header h3 {
+            margin: 0;
+        }
+
+        .admin-section-header small {
+            color: var(--muted);
+        }
+
+        .admin-grid.admin-grid-4 {
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+        }
+
+        .admin-stat-label {
+            color: var(--muted);
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: .08em;
+        }
+
+        .admin-stat-value {
+            display: block;
+            font-size: 24px;
+            margin-top: 5px;
+            font-weight: 800;
+        }
+
+        .admin-stat-sub {
+            display: block;
+            color: var(--muted);
+            font-size: 11px;
+            margin-top: 4px;
+        }
+
+        .admin-status-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 10px;
+        }
+
+        .admin-status-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            border: 1px solid var(--panel-border);
+            background: rgba(0,0,0,.12);
+            border-radius: 12px;
+            padding: 11px 13px;
+            font-size: 12px;
+        }
+
+        .admin-status-value {
+            color: var(--muted);
+            text-align: right;
+            overflow-wrap: anywhere;
+        }
+
+        .admin-status-value.ok { color: #7ce7a6; }
+        .admin-status-value.warn { color: #ffd27c; }
+        .admin-status-value.bad { color: #ff8b96; }
+
+        .admin-chart {
+            display: flex;
+            flex-direction: column;
+            gap: 9px;
+            margin-top: 10px;
+        }
+
+        .admin-chart-row {
+            display: grid;
+            grid-template-columns: minmax(150px, 1.3fr) minmax(120px, 2fr) 42px;
+            gap: 10px;
+            align-items: center;
+            font-size: 12px;
+        }
+
+        .admin-chart-track {
+            height: 9px;
+            border-radius: 999px;
+            background: rgba(255,255,255,.08);
+            overflow: hidden;
+        }
+
+        .admin-chart-fill {
+            height: 100%;
+            border-radius: inherit;
+            background: linear-gradient(90deg, var(--button-start), var(--accent-light));
+            min-width: 2px;
+        }
+
+        .admin-error-list {
+            display: flex;
+            flex-direction: column;
+            gap: 9px;
+        }
+
+        .admin-error {
+            border: 1px solid rgba(255, 105, 120, .22);
+            background: rgba(110, 20, 35, .10);
+            border-radius: 12px;
+            padding: 12px;
+        }
+
+        .admin-error strong {
+            display: block;
+            font-size: 12px;
+            margin-bottom: 5px;
+        }
+
+        .admin-error small {
+            color: var(--muted);
+        }
+
+        .admin-error-message {
+            margin-top: 7px;
+            white-space: pre-wrap;
+            overflow-wrap: anywhere;
+            font-size: 12px;
+            line-height: 1.45;
+        }
+
+        .admin-pill {
+            display: inline-block;
+            border: 1px solid var(--panel-border);
+            border-radius: 999px;
+            padding: 4px 8px;
+            color: var(--muted);
+            font-size: 10px;
+            margin-left: 6px;
+        }
+
+        @media (max-width: 800px) {
+            .admin-grid.admin-grid-4 {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+            .admin-status-grid {
+                grid-template-columns: 1fr;
             }
         }
-    </style>
+
+        @media (max-width: 600px) {
+            #report-problem-button {
+                left: 10px;
+                bottom: 10px;
+            }
+            .admin-grid {
+                grid-template-columns: 1fr;
+            }
+            .admin-grid.admin-grid-4 {
+                grid-template-columns: 1fr;
+            }
+            .admin-chart-row {
+                grid-template-columns: 1fr;
+                gap: 5px;
+            }
+            .report-window,
+            .admin-window {
+                padding: 20px;
+            }
+        }
+</style>
+
 </head>
+
 
 <body>
 
-    <!-- Ambient background -->
+
+    <!-- =========================================================
+         AMBIENT BACKGROUND
+    ========================================================== -->
 
     <div class="ambient one"></div>
     <div class="ambient two"></div>
@@ -1199,12 +3686,21 @@
 
 
     <!-- =========================================================
-         LAUNCHER
-         ========================================================= -->
+         MAIN LAUNCHER
+    ========================================================== -->
 
     <main id="launcher">
 
+        <button
+            id="settings-button"
+            type="button"
+        >
+            ⚙ Settings
+        </button>
+
+
         <div class="launcher-inner">
+
 
             <header class="brand">
 
@@ -1212,7 +3708,11 @@
                     🎮
                 </div>
 
-                <h1>PRIVATE RETRO STATION</h1>
+
+                <h1>
+                    PRIVATE RETRO STATION
+                </h1>
+
 
                 <p>
                     Your private little corner of retro gaming.
@@ -1223,15 +3723,23 @@
 
             <div class="main-panel">
 
-                <!-- ROM picker -->
+
+                <!-- =================================================
+                     GAME LOADER
+                ================================================== -->
 
                 <section class="card launcher-card">
+
 
                     <div class="section-label">
                         Game Station
                     </div>
 
-                    <h2>Load a Game</h2>
+
+                    <h2>
+                        Load a Game
+                    </h2>
+
 
                     <p class="description">
                         Choose a Game Boy Advance ROM from your computer.
@@ -1247,17 +3755,21 @@
 
                         <div class="drop-content">
 
+
                             <div class="upload-icon">
                                 📦
                             </div>
+
 
                             <strong>
                                 Choose a GBA ROM
                             </strong>
 
+
                             <span>
                                 Click here or drag a .gba file into this area
                             </span>
+
 
                         </div>
 
@@ -1280,11 +3792,13 @@
                             🕹️
                         </div>
 
+
                         <div class="game-details">
 
                             <strong id="game-name">
                                 Game.gba
                             </strong>
+
 
                             <span id="game-size">
                                 GBA ROM
@@ -1303,20 +3817,29 @@
                         ▶ &nbsp; Start Game
                     </button>
 
+
                 </section>
 
 
-                <!-- How to use -->
+                <!-- =================================================
+                     QUICK START
+                ================================================== -->
 
                 <section class="card how-card">
+
 
                     <div class="section-label">
                         Quick Start
                     </div>
 
-                    <h2>How to Use</h2>
+
+                    <h2>
+                        How to Use
+                    </h2>
+
 
                     <div class="steps">
+
 
                         <div class="step">
 
@@ -1324,13 +3847,19 @@
                                 01
                             </div>
 
+
                             <div>
-                                <strong>Choose your ROM</strong>
+
+                                <strong>
+                                    Choose your ROM
+                                </strong>
+
 
                                 <p>
                                     Select a Game Boy Advance .gba file
                                     stored on your computer.
                                 </p>
+
                             </div>
 
                         </div>
@@ -1342,13 +3871,19 @@
                                 02
                             </div>
 
+
                             <div>
-                                <strong>Start the station</strong>
+
+                                <strong>
+                                    Start the station
+                                </strong>
+
 
                                 <p>
                                     Press Start Game and watch your cartridge
                                     boot into the station.
                                 </p>
+
                             </div>
 
                         </div>
@@ -1360,13 +3895,19 @@
                                 03
                             </div>
 
+
                             <div>
-                                <strong>Play</strong>
+
+                                <strong>
+                                    Play
+                                </strong>
+
 
                                 <p>
                                     The TV will power on and transition
                                     into your game.
                                 </p>
+
                             </div>
 
                         </div>
@@ -1378,13 +3919,19 @@
                                 04
                             </div>
 
+
                             <div>
-                                <strong>Load your save</strong>
+
+                                <strong>
+                                    Load your save
+                                </strong>
+
 
                                 <p>
                                     EmulatorJS includes a Load Save File
                                     option for your .sav files.
                                 </p>
+
                             </div>
 
                         </div>
@@ -1396,36 +3943,49 @@
                                 05
                             </div>
 
+
                             <div>
-                                <strong>UI not visible?</strong>
+
+                                <strong>
+                                    UI not visible?
+                                </strong>
+
 
                                 <p>
                                     If you encounter a UI bug where you cannot see
                                     anything properly, click the Fullscreen option
                                     when it appears in the launcher.
                                 </p>
+
                             </div>
 
                         </div>
+
 
                     </div>
 
 
                     <div class="supported">
 
-                        <b>Currently supported:</b>
+                        <b>
+                            Currently supported:
+                        </b>
+
                         Game Boy Advance · mGBA
 
                     </div>
 
+
                 </section>
+
 
             </div>
 
 
             <div class="footer">
-                PRIVATE RETRO STATION · RUNS LOCALLY IN YOUR BROWSER
+                PRIVATE RETRO STATION · RUNS LOCALLY IN YOUR BROWSER · <span id="site-version-footer">v1.1.1</span>
             </div>
+
 
         </div>
 
@@ -1433,25 +3993,558 @@
 
 
     <!-- =========================================================
-         BOOT ANIMATION
-         ========================================================= -->
+         SETTINGS PANEL
+    ========================================================== -->
+
+    <section
+        id="settings-panel"
+        aria-hidden="true"
+    >
+
+
+        <div
+            class="settings-overlay"
+            id="settings-overlay"
+        ></div>
+
+
+        <div class="settings-window">
+
+
+            <div class="settings-header">
+
+
+                <div>
+
+                    <div class="section-label">
+                        Private Retro Station
+                    </div>
+
+
+                    <h2>
+                        Settings
+                    </h2>
+
+                </div>
+
+
+                <button
+                    id="close-settings"
+                    type="button"
+                    aria-label="Close settings"
+                >
+                    ✕
+                </button>
+
+
+            </div>
+
+
+            <div class="settings-content">
+
+
+                <!-- =================================================
+                     APPEARANCE
+                ================================================== -->
+
+                <section class="settings-section">
+
+                    <h3>
+                        🎨 Appearance
+                    </h3>
+
+
+                    <p class="settings-description">
+                        Change the look and readability of Private Retro Station.
+                    </p>
+
+
+                    <div class="theme-grid">
+
+                        <button
+                            class="theme-option active"
+                            type="button"
+                            data-theme="purple"
+                        >
+
+                            <div class="theme-preview purple"></div>
+
+                            <span>
+                                Purple
+                            </span>
+
+                        </button>
+
+
+                        <button
+                            class="theme-option"
+                            type="button"
+                            data-theme="blue"
+                        >
+
+                            <div class="theme-preview blue"></div>
+
+                            <span>
+                                Blue
+                            </span>
+
+                        </button>
+
+
+                        <button
+                            class="theme-option"
+                            type="button"
+                            data-theme="red"
+                        >
+
+                            <div class="theme-preview red"></div>
+
+                            <span>
+                                Red
+                            </span>
+
+                        </button>
+
+
+                        <button
+                            class="theme-option"
+                            type="button"
+                            data-theme="orange"
+                        >
+
+                            <div class="theme-preview orange"></div>
+
+                            <span>
+                                Orange
+                            </span>
+
+                        </button>
+
+
+                        <button
+                            class="theme-option"
+                            type="button"
+                            data-theme="dark"
+                        >
+
+                            <div class="theme-preview dark"></div>
+
+                            <span>
+                                Dark
+                            </span>
+
+                        </button>
+
+
+                        <button
+                            class="theme-option"
+                            type="button"
+                            data-theme="white"
+                        >
+
+                            <div class="theme-preview white"></div>
+
+                            <span>
+                                White
+                            </span>
+
+                        </button>
+
+                    </div>
+
+
+                    <div class="setting-row">
+
+                        <div class="setting-info">
+
+                            <span class="setting-name">
+                                Reduced Animations
+                            </span>
+
+                            <span class="setting-help">
+                                Makes the station use fewer animations and transitions.
+                            </span>
+
+                        </div>
+
+
+                        <label class="toggle">
+
+                            <input
+                                type="checkbox"
+                                id="setting-reduced-animations"
+                            >
+
+                            <span class="toggle-slider"></span>
+
+                        </label>
+
+                    </div>
+
+
+                    <div class="setting-row">
+
+                        <div class="setting-info">
+
+                            <span class="setting-name">
+                                Large Text
+                            </span>
+
+                            <span class="setting-help">
+                                Increases important launcher and settings text.
+                            </span>
+
+                        </div>
+
+
+                        <label class="toggle">
+
+                            <input
+                                type="checkbox"
+                                id="setting-large-text"
+                            >
+
+                            <span class="toggle-slider"></span>
+
+                        </label>
+
+                    </div>
+
+                </section>
+
+
+                <!-- =================================================
+                     STARTUP
+                ================================================== -->
+
+                <section class="settings-section">
+
+                    <h3>
+                        🚀 Startup
+                    </h3>
+
+
+                    <p class="settings-description">
+                        Control what happens when you start a game.
+                    </p>
+
+
+                    <div class="setting-row">
+
+                        <div class="setting-info">
+
+                            <span class="setting-name">
+                                Skip Boot Animation
+                            </span>
+
+                            <span class="setting-help">
+                                Go directly to the emulator instead of showing the cartridge and TV sequence.
+                            </span>
+
+                        </div>
+
+
+                        <label class="toggle">
+
+                            <input
+                                type="checkbox"
+                                id="setting-skip-boot"
+                            >
+
+                            <span class="toggle-slider"></span>
+
+                        </label>
+
+                    </div>
+
+
+                    <div class="setting-row">
+
+                        <div class="setting-info">
+
+                            <span class="setting-name">
+                                Auto Fullscreen
+                            </span>
+
+                            <span class="setting-help">
+                                Attempts to enter fullscreen when the emulator starts.
+                            </span>
+
+                        </div>
+
+
+                        <label class="toggle">
+
+                            <input
+                                type="checkbox"
+                                id="setting-auto-fullscreen"
+                            >
+
+                            <span class="toggle-slider"></span>
+
+                        </label>
+
+                    </div>
+
+
+                    <div class="setting-row">
+
+                        <div class="setting-info">
+
+                            <span class="setting-name">
+                                Remember Last Game
+                            </span>
+
+                            <span class="setting-help">
+                                Remembers the name of your last selected ROM on this device.
+                            </span>
+
+                        </div>
+
+
+                        <label class="toggle">
+
+                            <input
+                                type="checkbox"
+                                id="setting-remember-game"
+                            >
+
+                            <span class="toggle-slider"></span>
+
+                        </label>
+
+                    </div>
+
+                </section>
+
+
+                <!-- =================================================
+                     GAMEPLAY
+                ================================================== -->
+
+                <section class="settings-section">
+
+                    <h3>
+                        🕹️ Gameplay
+                    </h3>
+
+
+                    <p class="settings-description">
+                        Customize helpful information shown while playing.
+                    </p>
+
+
+                    <div class="setting-row">
+
+                        <div class="setting-info">
+
+                            <span class="setting-name">
+                                Show Controller Tips
+                            </span>
+
+                            <span class="setting-help">
+                                Shows a small reminder that keyboard/controller controls are handled by EmulatorJS.
+                            </span>
+
+                        </div>
+
+
+                        <label class="toggle">
+
+                            <input
+                                type="checkbox"
+                                id="setting-controller-tips"
+                            >
+
+                            <span class="toggle-slider"></span>
+
+                        </label>
+
+                    </div>
+
+
+                    <div class="setting-row">
+
+                        <div class="setting-info">
+
+                            <span class="setting-name">
+                                Keep Game Name Visible
+                            </span>
+
+                            <span class="setting-help">
+                                Shows the current ROM name near the top of the screen while playing.
+                            </span>
+
+                        </div>
+
+
+                        <label class="toggle">
+
+                            <input
+                                type="checkbox"
+                                id="setting-game-name"
+                            >
+
+                            <span class="toggle-slider"></span>
+
+                        </label>
+
+                    </div>
+
+                </section>
+
+
+                <!-- =================================================
+                     INTERFACE
+                ================================================== -->
+
+                <section class="settings-section">
+
+                    <h3>
+                        🖥️ Interface
+                    </h3>
+
+
+                    <p class="settings-description">
+                        Change how Private Retro Station's own interface behaves.
+                    </p>
+
+
+                    <div class="setting-row">
+
+                        <div class="setting-info">
+
+                            <span class="setting-name">
+                                Show Exit to Station
+                            </span>
+
+                            <span class="setting-help">
+                                Shows the custom button used to return to the launcher.
+                            </span>
+
+                        </div>
+
+
+                        <label class="toggle">
+
+                            <input
+                                type="checkbox"
+                                id="setting-exit-button"
+                            >
+
+                            <span class="toggle-slider"></span>
+
+                        </label>
+
+                    </div>
+
+
+                    <div class="setting-row">
+
+                        <div class="setting-info">
+
+                            <span class="setting-name">
+                                Focus Mode
+                            </span>
+
+                            <span class="setting-help">
+                                Makes the playing screen less distracting while keeping the exit button available.
+                            </span>
+
+                        </div>
+
+
+                        <label class="toggle">
+
+                            <input
+                                type="checkbox"
+                                id="setting-focus-mode"
+                            >
+
+                            <span class="toggle-slider"></span>
+
+                        </label>
+
+                    </div>
+
+
+                    <div class="setting-row">
+
+                        <div class="setting-info">
+
+                            <span class="setting-name">
+                                Compact Launcher
+                            </span>
+
+                            <span class="setting-help">
+                                Reduces spacing on the launcher so more content fits on smaller screens.
+                            </span>
+
+                        </div>
+
+
+                        <label class="toggle">
+
+                            <input
+                                type="checkbox"
+                                id="setting-compact-launcher"
+                            >
+
+                            <span class="toggle-slider"></span>
+
+                        </label>
+
+                    </div>
+
+                </section>
+
+
+            </div>
+
+
+            <div class="settings-footer">
+
+                <button
+                    id="reset-settings"
+                    type="button"
+                >
+                    Reset Settings
+                </button>
+
+            </div>
+
+
+        </div>
+
+
+    </section>
+
+
+    <!-- =========================================================
+         BOOT SCREEN
+    ========================================================== -->
 
     <section id="boot-screen">
 
+
         <div class="boot-stars"></div>
+
 
         <div class="boot-stage">
 
-            <!-- Cartridge -->
 
-            <div class="cartridge" id="cartridge">
+            <div
+                class="cartridge"
+                id="cartridge"
+            >
 
                 <div class="cartridge-body"></div>
 
                 <div class="cartridge-top"></div>
 
                 <div class="cartridge-label">
-                    RETRO<br>STATION
+                    RETRO<br>
+                    STATION
                 </div>
 
                 <div class="cartridge-contacts"></div>
@@ -1459,32 +4552,39 @@
             </div>
 
 
-            <!-- Console -->
-
-            <div class="console" id="console">
+            <div
+                class="console"
+                id="console"
+            >
 
                 <div class="console-slot"></div>
+
 
                 <div class="console-logo">
                     RETRO STATION
                 </div>
+
 
                 <div class="console-light"></div>
 
             </div>
 
 
-            <!-- TV -->
-
-            <div class="tv" id="tv">
+            <div
+                class="tv"
+                id="tv"
+            >
 
                 <div class="tv-body"></div>
 
+
                 <div class="tv-screen">
+
 
                     <div class="tv-off">
                         SIGNAL OFF
                     </div>
+
 
                     <div
                         class="tv-game-title"
@@ -1493,15 +4593,20 @@
                         BOOTING...
                     </div>
 
+
                 </div>
 
+
                 <div class="tv-speaker"></div>
+
 
                 <div class="tv-brand">
                     PRS-CRT
                 </div>
 
+
             </div>
+
 
             <div
                 class="boot-status"
@@ -1510,153 +4615,716 @@
                 INSERTING CARTRIDGE
             </div>
 
+
         </div>
+
 
     </section>
 
 
     <!-- =========================================================
-         EMULATOR
-         ========================================================= -->
+         EMULATOR DISPLAY
+    ========================================================== -->
 
-<div id="display">
+    <div id="display">
 
-    <button
-        id="exit-station-button"
-        type="button"
-    >
-        ↩ Exit to Station
-    </button>
 
-    <div id="game"></div>
+        <button
+            id="exit-station-button"
+            type="button"
+        >
+            ↩ Exit to Station
+        </button>
 
-</div>
 
+        <div
+            id="playing-game-name"
+        ></div>
+
+
+        <div id="game"></div>
+
+
+        <div id="controller-tips">
+            🎮 Controls: Arrow Keys = D-Pad · Z = A · X = B · Enter = Start · Shift = Select · A/S = L/R
+        </div>
+
+
+    </div>
+
+
+    <!-- =========================================================
+         JAVASCRIPT
+    ========================================================== -->
 
     <script>
 
-        /*
-         * =========================================================
-         * PRIVATE RETRO STATION
-         * Launcher + EmulatorJS
-         * =========================================================
-         */
 
+        /* =========================================================
+           ELEMENT REFERENCES
+        ========================================================= */
 
-        const input = document.getElementById('rom-file');
+        const input =
+            document.getElementById(
+                'rom-file'
+            );
+
 
         const dropArea =
-            document.getElementById('drop-area');
+            document.getElementById(
+                'drop-area'
+            );
+
 
         const selectedGame =
-            document.getElementById('selected-game');
+            document.getElementById(
+                'selected-game'
+            );
+
 
         const gameName =
-            document.getElementById('game-name');
+            document.getElementById(
+                'game-name'
+            );
+
 
         const gameSize =
-            document.getElementById('game-size');
+            document.getElementById(
+                'game-size'
+            );
+
 
         const playButton =
-            document.getElementById('play-button');
+            document.getElementById(
+                'play-button'
+            );
+
 
         const launcher =
-            document.getElementById('launcher');
+            document.getElementById(
+                'launcher'
+            );
+
 
         const bootScreen =
-            document.getElementById('boot-screen');
+            document.getElementById(
+                'boot-screen'
+            );
+
 
         const cartridge =
-            document.getElementById('cartridge');
+            document.getElementById(
+                'cartridge'
+            );
+
 
         const consoleUnit =
-            document.getElementById('console');
+            document.getElementById(
+                'console'
+            );
+
 
         const tv =
-            document.getElementById('tv');
+            document.getElementById(
+                'tv'
+            );
+
 
         const tvGameTitle =
-            document.getElementById('tv-game-title');
+            document.getElementById(
+                'tv-game-title'
+            );
+
 
         const bootStatus =
-            document.getElementById('boot-status');
+            document.getElementById(
+                'boot-status'
+            );
+
 
         const display =
-            document.getElementById('display');
+            document.getElementById(
+                'display'
+            );
+
+
         const exitStationButton =
-    document.getElementById('exit-station-button');
-
-exitStationButton.addEventListener(
-    'click',
-    function () {
-
-        console.log(
-            'Exit to Station clicked.'
-        );
-
-        window.location.reload();
-
-    }
-);
-
-        document.addEventListener(
-    'fullscreenchange',
-    function () {
-
-        const fullscreenElement =
-            document.fullscreenElement;
-
-        if (fullscreenElement) {
-
-            fullscreenElement.appendChild(
-                exitStationButton
+            document.getElementById(
+                'exit-station-button'
             );
 
-            exitStationButton.style.display =
-                'block';
 
-        } else {
-
-            display.appendChild(
-                exitStationButton
+        const playingGameName =
+            document.getElementById(
+                'playing-game-name'
             );
 
-            exitStationButton.style.display =
-                'block';
 
-        }
+        const settingsButton =
+            document.getElementById(
+                'settings-button'
+            );
 
-    }
-);
+
+        const settingsPanel =
+            document.getElementById(
+                'settings-panel'
+            );
+
+
+        const closeSettings =
+            document.getElementById(
+                'close-settings'
+            );
+
+
+        const settingsOverlay =
+            document.getElementById(
+                'settings-overlay'
+            );
+
+
+        const resetSettingsButton =
+            document.getElementById(
+                'reset-settings'
+            );
 
 
         let selectedFile = null;
 
+
         let emulatorStarted = false;
 
 
-        /*
-         * =========================================================
-         * FILE HANDLING
-         * =========================================================
-         */
+        /* =========================================================
+           SETTINGS
+        ========================================================== */
+
+        const SETTINGS_KEY =
+            'privateRetroStationSettings';
+
+
+        const defaultSettings = {
+
+            theme: 'purple',
+
+            reducedAnimations: false,
+
+            largeText: false,
+
+            skipBoot: false,
+
+            autoFullscreen: false,
+
+            rememberGame: false,
+
+            controllerTips: false,
+
+            showGameName: false,
+
+            showExitButton: true,
+
+            focusMode: false,
+
+            compactLauncher: false
+
+        };
+
+
+        let settings = {
+            ...defaultSettings
+        };
+
+
+        /* =========================================================
+           LOAD SETTINGS
+        ========================================================== */
+
+        function loadSettings() {
+
+            try {
+
+                const saved =
+                    localStorage.getItem(
+                        SETTINGS_KEY
+                    );
+
+
+                if (saved) {
+
+                    const parsed =
+                        JSON.parse(
+                            saved
+                        );
+
+
+                    settings = {
+
+                        ...defaultSettings,
+
+                        ...parsed
+
+                    };
+
+                }
+
+            } catch (error) {
+
+                console.warn(
+                    'Could not load saved settings.',
+                    error
+                );
+
+
+                settings = {
+                    ...defaultSettings
+                };
+
+            }
+
+        }
+
+
+        /* =========================================================
+           SAVE SETTINGS
+        ========================================================== */
+
+        function saveSettings() {
+
+            try {
+
+                localStorage.setItem(
+                    SETTINGS_KEY,
+                    JSON.stringify(
+                        settings
+                    )
+                );
+
+            } catch (error) {
+
+                console.warn(
+                    'Could not save settings.',
+                    error
+                );
+
+            }
+
+        }
+
+
+        /* =========================================================
+           APPLY THEME
+        ========================================================== */
+
+        function applyTheme(theme) {
+
+            const themes = [
+                'purple',
+                'blue',
+                'red',
+                'orange',
+                'dark',
+                'white'
+            ];
+
+
+            themes.forEach(
+                function (themeName) {
+
+                    document.body.classList.remove(
+                        `theme-${themeName}`
+                    );
+
+                }
+            );
+
+
+            document.body.classList.add(
+                `theme-${theme}`
+            );
+
+
+            document
+                .querySelectorAll(
+                    '.theme-option'
+                )
+                .forEach(
+                    function (button) {
+
+                        button.classList.toggle(
+                            'active',
+                            button.dataset.theme === theme
+                        );
+
+                    }
+                );
+
+        }
+
+
+        /* =========================================================
+           APPLY ALL SETTINGS
+        ========================================================== */
+
+        function applySettings() {
+
+            applyTheme(
+                settings.theme
+            );
+
+
+            document.body.classList.toggle(
+                'reduced-animations',
+                settings.reducedAnimations
+            );
+
+
+            document.body.classList.toggle(
+                'large-text',
+                settings.largeText
+            );
+
+
+            document.body.classList.toggle(
+                'focus-mode',
+                settings.focusMode
+            );
+
+
+            document.body.classList.toggle(
+                'compact-launcher',
+                settings.compactLauncher
+            );
+
+
+            document.body.classList.toggle(
+                'show-controller-tips',
+                settings.controllerTips
+            );
+
+
+            document.body.classList.toggle(
+                'show-game-name',
+                settings.showGameName
+            );
+
+
+            if (selectedFile) {
+
+                playingGameName.textContent =
+                    selectedFile.name.replace(/\.gba$/i, '');
+
+            }
+
+
+            exitStationButton.style.display =
+                settings.showExitButton
+                    ? 'block'
+                    : 'none';
+
+
+            document.getElementById(
+                'setting-reduced-animations'
+            ).checked =
+                settings.reducedAnimations;
+
+
+            document.getElementById(
+                'setting-large-text'
+            ).checked =
+                settings.largeText;
+
+
+            document.getElementById(
+                'setting-skip-boot'
+            ).checked =
+                settings.skipBoot;
+
+
+            document.getElementById(
+                'setting-auto-fullscreen'
+            ).checked =
+                settings.autoFullscreen;
+
+
+            document.getElementById(
+                'setting-remember-game'
+            ).checked =
+                settings.rememberGame;
+
+
+            document.getElementById(
+                'setting-controller-tips'
+            ).checked =
+                settings.controllerTips;
+
+
+            document.getElementById(
+                'setting-game-name'
+            ).checked =
+                settings.showGameName;
+
+
+            document.getElementById(
+                'setting-exit-button'
+            ).checked =
+                settings.showExitButton;
+
+
+            document.getElementById(
+                'setting-focus-mode'
+            ).checked =
+                settings.focusMode;
+
+
+            document.getElementById(
+                'setting-compact-launcher'
+            ).checked =
+                settings.compactLauncher;
+
+        }
+
+
+        /* =========================================================
+           SETTINGS PANEL
+        ========================================================== */
+
+        settingsButton.addEventListener(
+            'click',
+            function () {
+
+                settingsPanel.classList.add(
+                    'open'
+                );
+
+
+                settingsPanel.setAttribute(
+                    'aria-hidden',
+                    'false'
+                );
+
+            }
+        );
+
+
+        function closeSettingsPanel() {
+
+            settingsPanel.classList.remove(
+                'open'
+            );
+
+
+            settingsPanel.setAttribute(
+                'aria-hidden',
+                'true'
+            );
+
+        }
+
+
+        closeSettings.addEventListener(
+            'click',
+            closeSettingsPanel
+        );
+
+
+        settingsOverlay.addEventListener(
+            'click',
+            closeSettingsPanel
+        );
+
+
+        /* =========================================================
+           THEME BUTTONS
+        ========================================================== */
+
+        document
+            .querySelectorAll(
+                '.theme-option'
+            )
+            .forEach(
+                function (button) {
+
+                    button.addEventListener(
+                        'click',
+                        function () {
+
+                            settings.theme =
+                                button.dataset.theme;
+
+
+                            applyTheme(
+                                settings.theme
+                            );
+
+
+                            saveSettings();
+
+                        }
+                    );
+
+                }
+            );
+
+
+        /* =========================================================
+           SETTING TOGGLE HELPER
+        ========================================================== */
+
+        function connectToggle(
+            elementId,
+            settingName
+        ) {
+
+            const element =
+                document.getElementById(
+                    elementId
+                );
+
+
+            element.addEventListener(
+                'change',
+                function () {
+
+                    settings[settingName] =
+                        element.checked;
+
+
+                    applySettings();
+
+                    saveSettings();
+
+                }
+            );
+
+        }
+
+
+        connectToggle(
+            'setting-reduced-animations',
+            'reducedAnimations'
+        );
+
+
+        connectToggle(
+            'setting-large-text',
+            'largeText'
+        );
+
+
+        connectToggle(
+            'setting-skip-boot',
+            'skipBoot'
+        );
+
+
+        connectToggle(
+            'setting-auto-fullscreen',
+            'autoFullscreen'
+        );
+
+
+        connectToggle(
+            'setting-remember-game',
+            'rememberGame'
+        );
+
+
+        connectToggle(
+            'setting-controller-tips',
+            'controllerTips'
+        );
+
+
+        connectToggle(
+            'setting-game-name',
+            'showGameName'
+        );
+
+
+        connectToggle(
+            'setting-exit-button',
+            'showExitButton'
+        );
+
+
+        connectToggle(
+            'setting-focus-mode',
+            'focusMode'
+        );
+
+
+        connectToggle(
+            'setting-compact-launcher',
+            'compactLauncher'
+        );
+
+
+        /* =========================================================
+           RESET SETTINGS
+        ========================================================== */
+
+        resetSettingsButton.addEventListener(
+            'click',
+            function () {
+
+                const confirmed =
+                    confirm(
+                        'Reset all Private Retro Station settings?'
+                    );
+
+
+                if (!confirmed) {
+                    return;
+                }
+
+
+                settings = {
+                    ...defaultSettings
+                };
+
+
+                saveSettings();
+
+                applySettings();
+
+
+                console.log(
+                    'Private Retro Station settings reset.'
+                );
+
+            }
+        );
+
+
+        /* =========================================================
+           ROM SELECTION
+        ========================================================== */
 
         function selectRom(file) {
+
 
             if (!file) {
                 return;
             }
 
+
             const fileName =
                 file.name.toLowerCase();
 
-            if (!fileName.endsWith('.gba')) {
+
+            if (
+                !fileName.endsWith(
+                    '.gba'
+                )
+            ) {
 
                 alert(
                     'Please select a Game Boy Advance (.gba) ROM.'
                 );
 
                 return;
+
             }
 
 
@@ -1668,11 +5336,13 @@ exitStationButton.addEventListener(
                 file.name
             );
 
+
             console.log(
                 'ROM size:',
                 file.size,
                 'bytes'
             );
+
 
             console.log(
                 'ROM type:',
@@ -1684,31 +5354,81 @@ exitStationButton.addEventListener(
                 file.name;
 
 
+            playingGameName.textContent =
+                file.name.replace(/\.gba$/i, '');
+
+
             const sizeMB =
-                (file.size / 1024 / 1024).toFixed(2);
+                (
+                    file.size /
+                    1024 /
+                    1024
+                ).toFixed(2);
 
 
             gameSize.textContent =
                 `Game Boy Advance · ${sizeMB} MB`;
 
 
-            selectedGame.classList.add('visible');
+            selectedGame.classList.add(
+                'visible'
+            );
 
-            playButton.classList.add('ready');
+
+            playButton.classList.add(
+                'ready'
+            );
 
 
-            dropArea.querySelector('strong').textContent =
-                'ROM Ready';
+            dropArea
+                .querySelector(
+                    'strong'
+                )
+                .textContent =
+                    'ROM Ready';
 
-            dropArea.querySelector('span').textContent =
-                'Your game is ready to start';
+
+            dropArea
+                .querySelector(
+                    'span'
+                )
+                .textContent =
+                    'Your game is ready to start';
+
+
+            if (
+                settings.rememberGame
+            ) {
+
+                try {
+
+                    localStorage.setItem(
+                        'privateRetroStationLastGame',
+                        file.name
+                    );
+
+                } catch (error) {
+
+                    console.warn(
+                        'Could not remember game name.',
+                        error
+                    );
+
+                }
+
+            }
 
 
             console.log(
                 'ROM is ready to launch.'
             );
+
         }
 
+
+        /* =========================================================
+           FILE PICKER
+        ========================================================== */
 
         input.addEventListener(
             'change',
@@ -1717,113 +5437,186 @@ exitStationButton.addEventListener(
                 const file =
                     input.files[0];
 
+
                 selectRom(file);
+
             }
         );
 
 
-        /*
-         * =========================================================
-         * DRAG AND DROP
-         * =========================================================
-         */
+        /* =========================================================
+           DRAG AND DROP
+        ========================================================== */
 
         [
             'dragenter',
             'dragover'
-        ].forEach(eventName => {
+        ].forEach(
+            function (eventName) {
 
-            dropArea.addEventListener(
-                eventName,
-                function (event) {
+                dropArea.addEventListener(
+                    eventName,
+                    function (event) {
 
-                    event.preventDefault();
-                    event.stopPropagation();
+                        event.preventDefault();
 
-                    dropArea.classList.add(
-                        'dragging'
-                    );
-                }
-            );
-        });
+                        event.stopPropagation();
+
+
+                        dropArea.classList.add(
+                            'dragging'
+                        );
+
+                    }
+                );
+
+            }
+        );
 
 
         [
             'dragleave',
             'drop'
-        ].forEach(eventName => {
+        ].forEach(
+            function (eventName) {
 
-            dropArea.addEventListener(
-                eventName,
-                function (event) {
+                dropArea.addEventListener(
+                    eventName,
+                    function (event) {
 
-                    event.preventDefault();
-                    event.stopPropagation();
+                        event.preventDefault();
 
-                    dropArea.classList.remove(
-                        'dragging'
-                    );
-                }
-            );
-        });
+                        event.stopPropagation();
+
+
+                        dropArea.classList.remove(
+                            'dragging'
+                        );
+
+                    }
+                );
+
+            }
+        );
 
 
         dropArea.addEventListener(
             'drop',
             function (event) {
 
+
                 const files =
                     event.dataTransfer.files;
 
-                if (!files || !files.length) {
+
+                if (
+                    !files ||
+                    !files.length
+                ) {
+
                     return;
+
                 }
 
-                selectRom(files[0]);
+
+                selectRom(
+                    files[0]
+                );
+
             }
         );
 
 
-        /*
-         * =========================================================
-         * START GAME
-         * =========================================================
-         */
+        /* =========================================================
+           START GAME
+        ========================================================== */
 
         playButton.addEventListener(
             'click',
             function () {
 
+
                 if (!selectedFile) {
                     return;
                 }
+
 
                 if (emulatorStarted) {
                     return;
                 }
 
+
                 emulatorStarted = true;
 
+
                 startBootSequence();
+
             }
         );
 
 
-        /*
-         * =========================================================
-         * BOOT SEQUENCE
-         * =========================================================
-         */
+        /* =========================================================
+           DIRECT EMULATOR START
+        ========================================================== */
+
+        function startEmulatorImmediately() {
+
+            launcher.style.display =
+                'none';
+
+
+            bootScreen.classList.remove(
+                'active'
+            );
+
+
+            display.style.display =
+                'block';
+
+
+            loadEmulator();
+
+        }
+
+
+        /* =========================================================
+           BOOT SEQUENCE
+        ========================================================== */
 
         function startBootSequence() {
+
 
             console.log(
                 'Starting Retro Station boot sequence.'
             );
 
 
+            if (
+                settings.skipBoot ||
+                settings.reducedAnimations
+            ) {
+
+                console.log(
+                    settings.reducedAnimations
+                        ? 'Reduced animations enabled — skipping boot animation.'
+                        : 'Boot animation skipped by settings.'
+                );
+
+
+                startEmulatorImmediately();
+
+                return;
+
+            }
+
+
             launcher.style.display =
                 'none';
+
+
+            settingsPanel.classList.remove(
+                'open'
+            );
 
 
             bootScreen.classList.add(
@@ -1831,23 +5624,21 @@ exitStationButton.addEventListener(
             );
 
 
-            /*
-             * Update game title.
-             */
-
             const cleanName =
                 selectedFile.name
-                    .replace(/\.gba$/i, '')
-                    .slice(0, 27);
+                    .replace(
+                        /\.gba$/i,
+                        ''
+                    )
+                    .slice(
+                        0,
+                        27
+                    );
 
 
             tvGameTitle.textContent =
                 cleanName.toUpperCase();
 
-
-            /*
-             * Cartridge animation.
-             */
 
             bootStatus.textContent =
                 'INSERTING CARTRIDGE';
@@ -1856,302 +5647,374 @@ exitStationButton.addEventListener(
             setTimeout(
                 function () {
 
+
                     consoleUnit.classList.add(
                         'powered'
                     );
 
+
                     bootStatus.textContent =
                         'POWERING ON';
+
 
                 },
                 1150
             );
 
 
-            /*
-             * TV appears.
-             */
-
             setTimeout(
                 function () {
+
 
                     tv.classList.add(
                         'visible'
                     );
+
 
                 },
                 1350
             );
 
 
-            /*
-             * TV powers on.
-             */
-
             setTimeout(
                 function () {
+
 
                     tv.classList.add(
                         'on'
                     );
 
+
                     bootStatus.textContent =
                         'LOADING GAME';
+
 
                 },
                 2050
             );
 
 
-            /*
-             * Start EmulatorJS while the
-             * animation is finishing.
-             */
-
             setTimeout(
                 function () {
 
+
                     loadEmulator();
+
 
                 },
                 2450
             );
 
 
-            /*
-             * Zoom into the TV.
-             */
-
             setTimeout(
                 function () {
+
 
                     tv.classList.add(
                         'zooming'
                     );
 
+
                     bootStatus.style.opacity =
                         '0';
+
 
                 },
                 3100
             );
 
 
-            /*
-             * Switch to actual EmulatorJS.
-             */
-
             setTimeout(
                 function () {
+
 
                     bootScreen.style.display =
                         'none';
 
+
                     display.style.display =
                         'block';
+
 
                     console.log(
                         'Transitioned to EmulatorJS.'
                     );
 
+
+                    tryAutoFullscreen();
+
+
                 },
                 4250
             );
+
         }
 
 
-        /*
-         * =========================================================
-         * RETURN TO LAUNCHER
-         * =========================================================
-         *
-         * EmulatorJS calls this when the user chooses
-         * its built-in "Exit Emulation" option.
-         *
-         * We reload the page automatically so EmulatorJS
-         * is completely reset and the user returns to the
-         * normal Private Retro Station launcher.
-         *
-         * This is intentionally a full page reset for now.
-         * It prevents an old EmulatorJS instance from
-         * interfering with the next ROM the user chooses.
-         */
+        /* =========================================================
+           AUTO FULLSCREEN
+        ========================================================== */
 
-        window.EJS_onExit =
-    function () {
+        function tryAutoFullscreen() {
 
-        alert('EJS_onExit FIRED');
+            if (
+                !settings.autoFullscreen
+            ) {
 
-        console.log(
-            'EmulatorJS exited. Returning to launcher.'
+                return;
+
+            }
+
+
+            if (
+                document.fullscreenElement
+            ) {
+
+                return;
+
+            }
+
+
+            if (
+                display.requestFullscreen
+            ) {
+
+                display
+                    .requestFullscreen()
+                    .then(
+                        function () {
+
+                            console.log(
+                                'Auto fullscreen enabled.'
+                            );
+
+                        }
+                    )
+                    .catch(
+                        function (error) {
+
+                            console.warn(
+                                'Auto fullscreen was blocked by the browser.',
+                                error
+                            );
+
+                        }
+                    );
+
+            }
+
+        }
+
+
+        /* =========================================================
+           EXIT TO STATION
+        ========================================================== */
+
+        exitStationButton.addEventListener(
+            'click',
+            function () {
+
+
+                console.log(
+                    'Exit to Station clicked.'
+                );
+
+
+                window.location.reload();
+
+
+            }
         );
 
-        window.location.reload();
 
-    };
+        /* =========================================================
+           FULLSCREEN SUPPORT FOR EXIT BUTTON
+        ========================================================== */
+
+        document.addEventListener(
+            'fullscreenchange',
+            function () {
 
 
-        /*
-         * =========================================================
-         * EMULATORJS
-         * =========================================================
-         */
+                const fullscreenElement =
+                    document.fullscreenElement;
+
+
+                if (fullscreenElement) {
+
+
+                    fullscreenElement.appendChild(
+                        exitStationButton
+                    );
+
+
+                    exitStationButton.style.display =
+                        settings.showExitButton
+                            ? 'block'
+                            : 'none';
+
+
+                } else {
+
+
+                    display.appendChild(
+                        exitStationButton
+                    );
+
+
+                    exitStationButton.style.display =
+                        settings.showExitButton
+                            ? 'block'
+                            : 'none';
+
+
+                }
+
+            }
+        );
+
+
+        /* =========================================================
+           EMULATOR EXIT CALLBACK
+        ========================================================== */
+
+        window.EJS_onExit =
+            function () {
+
+
+                console.log(
+                    'EmulatorJS exited. Returning to launcher.'
+                );
+
+
+                window.location.reload();
+
+
+            };
+
+
+        /* =========================================================
+           EMULATORJS
+        ========================================================== */
 
         function loadEmulator() {
+
+
+            if (typeof recordGameLaunch === 'function') {
+                recordGameLaunch();
+            }
+
 
             console.log(
                 'Preparing EmulatorJS configuration.'
             );
 
 
-            /*
-             * EmulatorJS player.
-             */
-
             window.EJS_player =
                 '#game';
 
-
-            /*
-             * Game name.
-             */
 
             window.EJS_gameName =
                 selectedFile.name;
 
 
-            /*
-             * No BIOS needed for GBA.
-             */
-
             window.EJS_biosUrl =
                 '';
 
-
-            /*
-             * IMPORTANT:
-             *
-             * Pass the actual File object.
-             *
-             * This keeps ROMs local to the
-             * user's browser.
-             */
 
             window.EJS_gameUrl =
                 selectedFile;
 
 
-            /*
-             * GBA uses mGBA.
-             */
-
             window.EJS_core =
                 'gba';
 
-
-            /*
-             * Local EmulatorJS files.
-             */
 
             window.EJS_pathtodata =
                 'emulator/data/';
 
 
-            /*
-             * Automatically begin once loaded.
-             */
-
             window.EJS_startOnLoaded =
                 true;
 
-
-            /*
-             * Do not use EmulatorJS
-             * online databases.
-             */
-
-            window.EJS_disableDatabases =
-                true;
-            
 
             window.EJS_askBeforeExit =
                 false;
 
 
-            /*
-             * Keep threading disabled
-             * for Chromebook compatibility.
-             */
+            window.EJS_disableDatabases =
+                true;
+
 
             window.EJS_threads =
                 false;
 
-
-            /*
-             * Debug disabled.
-             */
 
             window.EJS_DEBUG_XX =
                 false;
 
 
             /*
-             * Enable EmulatorJS's built-in
-             * Load Save File button.
+             * Keep the built-in save-file loader.
+             *
+             * The built-in EmulatorJS exit button is hidden
+             * because Private Retro Station uses its own
+             * Exit to Station button.
              */
 
-window.EJS_Buttons = {
+            window.EJS_Buttons = {
 
-    loadSavFiles: true,
+                loadSavFiles: true,
 
-    exitEmulation: false
+                exitEmulation: false
 
-};
+            };
+
 
             console.log(
                 'EmulatorJS configuration ready.'
             );
+
 
             console.log(
                 'Player:',
                 window.EJS_player
             );
 
+
             console.log(
                 'Core:',
                 window.EJS_core
             );
+
 
             console.log(
                 'Game name:',
                 window.EJS_gameName
             );
 
+
             console.log(
                 'Game URL is File object:',
                 window.EJS_gameUrl instanceof File
             );
+
 
             console.log(
                 'Data path:',
                 window.EJS_pathtodata
             );
 
+
             console.log(
                 'Save-file import enabled.'
             );
 
-            console.log(
-                'Exit-to-launcher enabled.'
-            );
-
-
-            /*
-             * Load EmulatorJS.
-             */
 
             const script =
-                document.createElement('script');
+                document.createElement(
+                    'script'
+                );
 
 
             script.src =
@@ -2161,9 +6024,11 @@ window.EJS_Buttons = {
             script.onload =
                 function () {
 
+
                     console.log(
                         'EmulatorJS loader loaded successfully.'
                     );
+
 
                 };
 
@@ -2171,12 +6036,15 @@ window.EJS_Buttons = {
             script.onerror =
                 function () {
 
+
                     console.error(
                         'FAILED TO LOAD: emulator/data/loader.js'
                     );
 
+
                     bootStatus.textContent =
                         'EMULATOR FAILED TO LOAD';
+
 
                 };
 
@@ -2184,9 +6052,728 @@ window.EJS_Buttons = {
             document.body.appendChild(
                 script
             );
+
         }
 
+
+        /* =========================================================
+           INITIALIZE SETTINGS
+        ========================================================== */
+
+        loadSettings();
+
+        applySettings();
+
+
+        /* =========================================================
+           REMEMBERED GAME DISPLAY
+        ========================================================== */
+
+        if (
+            settings.rememberGame
+        ) {
+
+            try {
+
+                const lastGame =
+                    localStorage.getItem(
+                        'privateRetroStationLastGame'
+                    );
+
+
+                if (lastGame) {
+
+                    console.log(
+                        'Last selected ROM:',
+                        lastGame
+                    );
+
+                }
+
+            } catch (error) {
+
+                console.warn(
+                    'Could not read remembered game.',
+                    error
+                );
+
+            }
+
+        }
+
+
     </script>
+
+
+
+
+    <!-- =========================================================
+         REPORT A PROBLEM
+    ========================================================== -->
+    <button id="report-problem-button" type="button">⚠ Report a Problem</button>
+
+    <div id="report-overlay">
+        <div class="report-window">
+            <h2>Report a Problem</h2>
+            <p>Found something broken or behaving strangely? Tell the station owner what happened.</p>
+
+            <div class="report-field">
+                <label for="report-category">Problem type</label>
+                <select id="report-category">
+                    <option>Game won't load</option>
+                    <option>Save / save import problem</option>
+                    <option>Controls problem</option>
+                    <option>Display / graphics problem</option>
+                    <option>Audio problem</option>
+                    <option>Settings problem</option>
+                    <option>Website / launcher problem</option>
+                    <option>Other</option>
+                </select>
+            </div>
+
+            <div class="report-field">
+                <label for="report-message">What happened?</label>
+                <textarea id="report-message" placeholder="Describe what happened, what game you were playing, and anything you tried..."></textarea>
+            </div>
+
+            <div class="report-field">
+                <label for="report-contact">Contact (optional)</label>
+                <input id="report-contact" type="text" placeholder="Email or other contact info, if you want a reply">
+            </div>
+
+            <div class="report-actions">
+                <button class="report-primary" id="submit-report" type="button">Send Report</button>
+                <button class="report-secondary" id="close-report" type="button">Cancel</button>
+            </div>
+            <div class="admin-note" id="report-status">Reports are sent privately through Formspree. A local backup is also kept in this browser when possible.</div>
+        </div>
+    </div>
+
+    <!-- =========================================================
+         ADMIN PANEL
+         Hotkey: Ctrl + Shift + Alt + R
+    ========================================================== -->
+    <div id="admin-overlay">
+        <div class="admin-window">
+            <h2>🔐 Private Retro Station — Admin</h2>
+            <p>Owner dashboard <span class="admin-pill" id="admin-version-pill">v1.1.1</span></p>
+
+            <div class="admin-section">
+                <div class="admin-section-header">
+                    <h3>Site Overview</h3>
+                    <small id="admin-build-date">Build: September 21, 2026</small>
+                </div>
+                <div class="admin-grid admin-grid-4">
+                    <div class="admin-stat"><span class="admin-stat-label">Local reports</span><strong class="admin-stat-value" id="admin-report-count">0</strong><span class="admin-stat-sub">this browser</span></div>
+                    <div class="admin-stat"><span class="admin-stat-label">Errors logged</span><strong class="admin-stat-value" id="admin-error-count">0</strong><span class="admin-stat-sub">latest 100 kept</span></div>
+                    <div class="admin-stat"><span class="admin-stat-label">Games launched</span><strong class="admin-stat-value" id="admin-games-launched">0</strong><span class="admin-stat-sub">this browser</span></div>
+                    <div class="admin-stat"><span class="admin-stat-label">Site visits</span><strong class="admin-stat-value" id="admin-site-visits">0</strong><span class="admin-stat-sub">this browser</span></div>
+                </div>
+            </div>
+
+            <div class="admin-section">
+                <div class="admin-section-header"><h3>System Health</h3><small>Current device/session</small></div>
+                <div class="admin-status-grid">
+                    <div class="admin-status-row"><span>Version</span><span class="admin-status-value ok" id="admin-version">v1.1.1</span></div>
+                    <div class="admin-status-row"><span>Current theme</span><span class="admin-status-value" id="admin-theme-name">Purple</span></div>
+                    <div class="admin-status-row"><span>Internet</span><span class="admin-status-value" id="admin-online-status">Checking…</span></div>
+                    <div class="admin-status-row"><span>Local storage</span><span class="admin-status-value" id="admin-storage-status">Checking…</span></div>
+                    <div class="admin-status-row"><span>Formspree reporting</span><span class="admin-status-value ok">Configured</span></div>
+                    <div class="admin-status-row"><span>Global visitor analytics</span><span class="admin-status-value ok">Cloudflare connected</span></div>
+                    <div class="admin-status-row"><span>Current game</span><span class="admin-status-value" id="admin-current-game">None</span></div>
+                    <div class="admin-status-row"><span>Session time</span><span class="admin-status-value" id="admin-session-time">0m 0s</span></div>
+                </div>
+                <div class="admin-note">Cloudflare Web Analytics is connected for global visitor/page-view statistics. The “Site visits” and game-launch numbers above are still counts from this browser only; use the Cloudflare dashboard for the global totals.</div>
+            </div>
+
+            <div class="admin-section">
+                <div class="admin-section-header"><h3>Problem Categories</h3><small>Local report backups</small></div>
+                <div id="admin-category-chart" class="admin-chart"></div>
+                <div class="admin-note">Formspree receives reports from everyone, but its private submission data cannot be safely read directly from public GitHub Pages code. These bars use reports stored on this browser.</div>
+            </div>
+
+            <div class="admin-section">
+                <div class="admin-section-header"><h3>Recent Errors</h3><small id="admin-error-summary">No errors logged</small></div>
+                <div id="admin-errors" class="admin-error-list"></div>
+                <div class="admin-actions">
+                    <button class="admin-secondary" id="clear-errors" type="button">Clear Error Logs</button>
+                    <button class="admin-secondary" id="copy-diagnostics" type="button">Copy Diagnostics</button>
+                    <button class="admin-primary" id="export-diagnostics" type="button">Export Diagnostics</button>
+                </div>
+            </div>
+
+            <div class="admin-section">
+                <div class="admin-section-header"><h3>Reported Problems</h3><small>Backups saved on this browser</small></div>
+                <div id="admin-reports"></div>
+                <div class="admin-actions">
+                    <button class="admin-primary" id="export-reports" type="button">Export Reports</button>
+                    <button class="admin-secondary" id="clear-reports" type="button">Clear Reports</button>
+                </div>
+            </div>
+
+            <div class="admin-section">
+                <div class="admin-section-header"><h3>Owner Tools</h3><small>Testing and maintenance</small></div>
+                <div class="admin-actions">
+                    <button class="admin-secondary" id="admin-show-diagnostics" type="button">Show Diagnostics</button>
+                    <button class="admin-secondary" id="admin-clear-settings" type="button">Reset Site Settings</button>
+                    <button class="admin-secondary" id="admin-test-error" type="button">Create Test Error</button>
+                    <button class="admin-secondary" id="admin-close" type="button">Close Admin Panel</button>
+                </div>
+            </div>
+
+            <div class="admin-note">Public visitor reports are delivered through Formspree. The admin dashboard intentionally does not contain any private Formspree API key.</div>
+        </div>
+    </div>
+
+    <script>
+        /* =========================================================
+           REPORTS + OWNER ADMIN DASHBOARD
+        ========================================================== */
+        const SITE_VERSION = '1.1.1';
+        const SITE_BUILD_DATE = 'September 21, 2026';
+        const REPORTS_KEY = 'privateRetroStationReports';
+        const SITE_STATS_KEY = 'privateRetroStationStats';
+        const ERROR_LOG_KEY = 'privateRetroStationErrorLog';
+        const ADMIN_PASSWORD_HASH = '1005dbfdced501eb9e781fa881b1690fe53549e3ead1521258a176f3035d454e';
+        const ADMIN_PASSWORD_FALLBACK_HASH = 'ae78eb2e';
+        const FORMSPREE_ENDPOINT = 'https://formspree.io/f/mvkgagag';
+        const SESSION_STARTED_AT = Date.now();
+
+        const reportOverlay = document.getElementById('report-overlay');
+        const adminOverlay = document.getElementById('admin-overlay');
+        const reportButton = document.getElementById('report-problem-button');
+        const reportStatus = document.getElementById('report-status');
+
+        document.getElementById('site-version-footer').textContent = 'v' + SITE_VERSION;
+
+        function safeJsonParse(value, fallback) {
+            try {
+                return JSON.parse(value);
+            } catch (error) {
+                return fallback;
+            }
+        }
+
+        function getReports() {
+            return safeJsonParse(localStorage.getItem(REPORTS_KEY) || '[]', []);
+        }
+
+        function saveReports(reports) {
+            localStorage.setItem(REPORTS_KEY, JSON.stringify(reports));
+        }
+
+        function defaultStats() {
+            return {
+                visits: 0,
+                gamesLaunched: 0,
+                reportsSent: 0,
+                reportSendFailures: 0,
+                lastVisit: null,
+                lastGameLaunch: null
+            };
+        }
+
+        function getSiteStats() {
+            const saved = safeJsonParse(localStorage.getItem(SITE_STATS_KEY) || '{}', {});
+            return Object.assign(defaultStats(), saved || {});
+        }
+
+        function saveSiteStats(stats) {
+            try {
+                localStorage.setItem(SITE_STATS_KEY, JSON.stringify(stats));
+            } catch (error) {
+                // Storage health is shown in the dashboard; avoid throwing here.
+            }
+        }
+
+        function updateSiteStat(name, amount) {
+            const stats = getSiteStats();
+            stats[name] = Number(stats[name] || 0) + Number(amount || 1);
+            saveSiteStats(stats);
+            return stats;
+        }
+
+        function recordVisit() {
+            const stats = getSiteStats();
+            stats.visits = Number(stats.visits || 0) + 1;
+            stats.lastVisit = new Date().toISOString();
+            saveSiteStats(stats);
+        }
+
+        function recordGameLaunch() {
+            const stats = getSiteStats();
+            stats.gamesLaunched = Number(stats.gamesLaunched || 0) + 1;
+            stats.lastGameLaunch = new Date().toISOString();
+            saveSiteStats(stats);
+        }
+
+        function getErrorLog() {
+            return safeJsonParse(localStorage.getItem(ERROR_LOG_KEY) || '[]', []);
+        }
+
+        function saveErrorLog(errors) {
+            try {
+                localStorage.setItem(ERROR_LOG_KEY, JSON.stringify(errors.slice(0, 100)));
+            } catch (storageError) {
+                // Do not recursively log storage failures here.
+            }
+        }
+
+        function recordSiteError(source, message, details) {
+            const errors = getErrorLog();
+            errors.unshift({
+                id: Date.now() + '-' + Math.random().toString(16).slice(2),
+                time: new Date().toISOString(),
+                source: source || 'Unknown',
+                message: String(message || 'Unknown error'),
+                details: details ? String(details).slice(0, 3000) : '',
+                game: (typeof selectedFile !== 'undefined' && selectedFile) ? selectedFile.name : 'None',
+                page: location.href
+            });
+            saveErrorLog(errors);
+        }
+
+        window.addEventListener('error', function (event) {
+            const details = [
+                event.filename || '',
+                event.lineno ? 'line ' + event.lineno : '',
+                event.colno ? 'column ' + event.colno : ''
+            ].filter(Boolean).join(' · ');
+            recordSiteError('JavaScript', event.message || 'Script error', details);
+        });
+
+        window.addEventListener('unhandledrejection', function (event) {
+            let message = 'Unhandled promise rejection';
+            let details = '';
+            try {
+                if (event.reason && event.reason.message) message = event.reason.message;
+                details = event.reason && event.reason.stack ? event.reason.stack : String(event.reason || '');
+            } catch (error) {}
+            recordSiteError('Promise', message, details);
+        });
+
+        recordVisit();
+
+        function openReportPanel() {
+            reportOverlay.classList.add('open');
+            document.getElementById('report-message').focus();
+        }
+
+        function closeReportPanel() {
+            reportOverlay.classList.remove('open');
+        }
+
+        reportButton.addEventListener('click', openReportPanel);
+        document.getElementById('close-report').addEventListener('click', closeReportPanel);
+
+        document.getElementById('submit-report').addEventListener('click', async function () {
+            const submitButton = document.getElementById('submit-report');
+            const messageInput = document.getElementById('report-message');
+            const contactInput = document.getElementById('report-contact');
+            const categoryInput = document.getElementById('report-category');
+
+            const message = messageInput.value.trim();
+            const contact = contactInput.value.trim();
+            const category = categoryInput.value;
+
+            if (!message) {
+                reportStatus.textContent = 'Please describe the problem before sending the report.';
+                messageInput.focus();
+                return;
+            }
+
+            const report = {
+                id: Date.now(),
+                category,
+                message,
+                contact,
+                game: selectedFile ? selectedFile.name : 'No game selected',
+                page: location.href,
+                browser: navigator.userAgent,
+                siteVersion: SITE_VERSION,
+                time: new Date().toISOString(),
+                delivery: 'pending'
+            };
+
+            submitButton.disabled = true;
+            submitButton.textContent = 'Sending...';
+            reportStatus.textContent = 'Sending report...';
+
+            let sentToFormspree = false;
+
+            try {
+                const formData = new FormData();
+                formData.append('category', report.category);
+                formData.append('message', report.message);
+                formData.append('contact', report.contact || 'Not provided');
+                formData.append('game', report.game);
+                formData.append('page', report.page);
+                formData.append('browser', report.browser);
+                formData.append('site_version', report.siteVersion);
+                formData.append('time', report.time);
+                formData.append('_subject', 'Private Retro Station - Problem Report');
+
+                const response = await fetch(FORMSPREE_ENDPOINT, {
+                    method: 'POST',
+                    body: formData,
+                    headers: { 'Accept': 'application/json' }
+                });
+
+                if (!response.ok) {
+                    let details = '';
+                    try {
+                        const result = await response.json();
+                        if (result && Array.isArray(result.errors)) {
+                            details = result.errors.map(function (item) {
+                                return item.message || '';
+                            }).filter(Boolean).join(' ');
+                        }
+                    } catch (jsonError) {}
+                    throw new Error(details || 'Formspree returned status ' + response.status);
+                }
+
+                sentToFormspree = true;
+                report.delivery = 'sent';
+                updateSiteStat('reportsSent', 1);
+            } catch (error) {
+                console.error('Problem report could not be sent to Formspree:', error);
+                report.delivery = 'local-only';
+                updateSiteStat('reportSendFailures', 1);
+                recordSiteError('Formspree', error && error.message ? error.message : 'Report send failed', error && error.stack ? error.stack : '');
+            }
+
+            try {
+                const reports = getReports();
+                reports.unshift(report);
+                saveReports(reports);
+            } catch (storageError) {
+                console.warn('Could not save local report backup:', storageError);
+                recordSiteError('Storage', 'Could not save local report backup', storageError && storageError.message ? storageError.message : '');
+            }
+
+            submitButton.disabled = false;
+            submitButton.textContent = 'Send Report';
+
+            if (sentToFormspree) {
+                messageInput.value = '';
+                contactInput.value = '';
+                reportStatus.textContent = '✓ Report sent successfully. Thank you for helping improve Private Retro Station.';
+                setTimeout(function () {
+                    closeReportPanel();
+                    reportStatus.textContent = 'Reports are sent privately through Formspree. A local backup is also kept in this browser when possible.';
+                }, 1800);
+            } else {
+                reportStatus.textContent = 'Could not send the report right now. A local backup was saved on this browser. Check your internet connection and try again.';
+            }
+        });
+
+        function fallbackPasswordHash(value) {
+            let hash = 0x811c9dc5;
+            const bytes = new TextEncoder().encode(value);
+            for (const byte of bytes) {
+                hash ^= byte;
+                hash = Math.imul(hash, 0x01000193) >>> 0;
+            }
+            return hash.toString(16).padStart(8, '0');
+        }
+
+        async function passwordIsCorrect(value) {
+            try {
+                if (window.crypto && window.crypto.subtle) {
+                    const data = new TextEncoder().encode(value);
+                    const hash = await window.crypto.subtle.digest('SHA-256', data);
+                    const hex = Array.from(new Uint8Array(hash)).map(function (b) {
+                        return b.toString(16).padStart(2, '0');
+                    }).join('');
+                    return hex === ADMIN_PASSWORD_HASH;
+                }
+            } catch (error) {
+                console.warn('Web Crypto password check unavailable. Using local fallback.', error);
+            }
+            return fallbackPasswordHash(value) === ADMIN_PASSWORD_FALLBACK_HASH;
+        }
+
+        async function openAdminPanel() {
+            const password = prompt('Private Retro Station Admin Password:');
+            if (password === null) return;
+
+            let correct = false;
+            try {
+                correct = await passwordIsCorrect(password);
+            } catch (error) {
+                console.error('Admin password check failed:', error);
+                recordSiteError('Admin', 'Admin password check failed', error && error.message ? error.message : '');
+                alert('The admin password check could not run in this browser.');
+                return;
+            }
+
+            if (!correct) {
+                alert('Incorrect admin password.');
+                return;
+            }
+
+            adminOverlay.classList.add('open');
+            try {
+                renderAdminPanel();
+            } catch (error) {
+                console.error('Admin dashboard render error:', error);
+                recordSiteError('Admin', 'Admin dashboard render error', error && error.stack ? error.stack : '');
+                document.getElementById('admin-reports').innerHTML =
+                    '<div class="admin-empty">Admin opened, but part of the dashboard could not load. Check Recent Errors.</div>';
+            }
+        }
+
+        function formatDuration(milliseconds) {
+            const totalSeconds = Math.max(0, Math.floor(milliseconds / 1000));
+            const hours = Math.floor(totalSeconds / 3600);
+            const minutes = Math.floor((totalSeconds % 3600) / 60);
+            const seconds = totalSeconds % 60;
+            return (hours ? hours + 'h ' : '') + minutes + 'm ' + seconds + 's';
+        }
+
+        function localStorageWorks() {
+            try {
+                const key = '__prs_storage_test__';
+                localStorage.setItem(key, 'ok');
+                localStorage.removeItem(key);
+                return true;
+            } catch (error) {
+                return false;
+            }
+        }
+
+        function getCategoryCounts(reports) {
+            const counts = {};
+            reports.forEach(function (report) {
+                const category = report.category || 'Other';
+                counts[category] = (counts[category] || 0) + 1;
+            });
+            return Object.keys(counts).map(function (category) {
+                return { category: category, count: counts[category] };
+            }).sort(function (a, b) {
+                return b.count - a.count || a.category.localeCompare(b.category);
+            });
+        }
+
+        function renderCategoryChart(reports) {
+            const container = document.getElementById('admin-category-chart');
+            const rows = getCategoryCounts(reports);
+            if (!rows.length) {
+                container.innerHTML = '<div class="admin-empty">No local report data yet.</div>';
+                return;
+            }
+            const max = Math.max.apply(null, rows.map(function (row) { return row.count; }));
+            container.innerHTML = rows.map(function (row) {
+                const width = Math.max(3, Math.round((row.count / max) * 100));
+                return '<div class="admin-chart-row">' +
+                    '<span>' + escapeAdminText(row.category) + '</span>' +
+                    '<div class="admin-chart-track"><div class="admin-chart-fill" style="width:' + width + '%"></div></div>' +
+                    '<strong>' + row.count + '</strong>' +
+                    '</div>';
+            }).join('');
+        }
+
+        function renderErrors() {
+            const errors = getErrorLog();
+            const container = document.getElementById('admin-errors');
+            document.getElementById('admin-error-count').textContent = errors.length;
+            document.getElementById('admin-error-summary').textContent = errors.length ? errors.length + ' stored error' + (errors.length === 1 ? '' : 's') : 'No errors logged';
+
+            if (!errors.length) {
+                container.innerHTML = '<div class="admin-empty">No JavaScript or site errors have been logged on this browser.</div>';
+                return;
+            }
+
+            container.innerHTML = errors.slice(0, 10).map(function (error) {
+                return '<div class="admin-error">' +
+                    '<strong>' + escapeAdminText(error.source) + ' · ' + escapeAdminText(new Date(error.time).toLocaleString()) + '</strong>' +
+                    '<small>Game: ' + escapeAdminText(error.game || 'None') + '</small>' +
+                    '<div class="admin-error-message">' + escapeAdminText(error.message) + (error.details ? '\n' + escapeAdminText(error.details) : '') + '</div>' +
+                    '</div>';
+            }).join('');
+        }
+
+        function renderAdminPanel() {
+            const reports = getReports();
+            const stats = getSiteStats();
+            const storageOk = localStorageWorks();
+
+            document.getElementById('admin-version-pill').textContent = 'v' + SITE_VERSION;
+            document.getElementById('admin-version').textContent = 'v' + SITE_VERSION;
+            document.getElementById('admin-build-date').textContent = 'Build: ' + SITE_BUILD_DATE;
+            document.getElementById('admin-report-count').textContent = reports.length;
+            document.getElementById('admin-games-launched').textContent = stats.gamesLaunched || 0;
+            document.getElementById('admin-site-visits').textContent = stats.visits || 0;
+            document.getElementById('admin-theme-name').textContent = settings.theme.charAt(0).toUpperCase() + settings.theme.slice(1);
+            document.getElementById('admin-current-game').textContent = selectedFile ? selectedFile.name : 'None';
+            document.getElementById('admin-session-time').textContent = formatDuration(Date.now() - SESSION_STARTED_AT);
+
+            const onlineEl = document.getElementById('admin-online-status');
+            onlineEl.textContent = navigator.onLine ? 'Online' : 'Offline';
+            onlineEl.className = 'admin-status-value ' + (navigator.onLine ? 'ok' : 'bad');
+
+            const storageEl = document.getElementById('admin-storage-status');
+            storageEl.textContent = storageOk ? 'Working' : 'Unavailable';
+            storageEl.className = 'admin-status-value ' + (storageOk ? 'ok' : 'bad');
+
+            renderCategoryChart(reports);
+            renderErrors();
+
+            const container = document.getElementById('admin-reports');
+            if (!reports.length) {
+                container.innerHTML = '<div class="admin-empty">No reports have been submitted on this browser.</div>';
+            } else {
+                container.innerHTML = reports.slice(0, 25).map(function (report) {
+                    return '<div class="admin-report">' +
+                        '<strong>' + escapeAdminText(report.category) + '</strong><br>' +
+                        '<small>' + escapeAdminText(new Date(report.time).toLocaleString()) + ' · ' + escapeAdminText(report.game) + '</small>' +
+                        '<div class="admin-report-message">' + escapeAdminText(report.message) + '</div>' +
+                        (report.contact ? '<small>Contact: ' + escapeAdminText(report.contact) + '</small><br>' : '') +
+                        '<small>Delivery: ' + escapeAdminText(report.delivery === 'sent' ? 'Sent to Formspree' : report.delivery === 'local-only' ? 'Saved locally only' : 'Legacy local report') +
+                        (report.siteVersion ? ' · Version ' + escapeAdminText(report.siteVersion) : '') + '</small>' +
+                        '</div>';
+                }).join('');
+            }
+        }
+
+        function escapeAdminText(value) {
+            return String(value == null ? '' : value)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+
+        function getDiagnosticsObject() {
+            return {
+                generatedAt: new Date().toISOString(),
+                site: {
+                    name: 'Private Retro Station',
+                    version: SITE_VERSION,
+                    buildDate: SITE_BUILD_DATE,
+                    url: location.href
+                },
+                session: {
+                    duration: formatDuration(Date.now() - SESSION_STARTED_AT),
+                    currentGame: selectedFile ? selectedFile.name : 'None',
+                    online: navigator.onLine,
+                    fullscreen: Boolean(document.fullscreenElement)
+                },
+                browser: {
+                    userAgent: navigator.userAgent,
+                    platform: navigator.platform,
+                    language: navigator.language
+                },
+                settings: Object.assign({}, settings),
+                stats: getSiteStats(),
+                localReportsCount: getReports().length,
+                recentErrors: getErrorLog().slice(0, 20)
+            };
+        }
+
+        function diagnosticsText() {
+            const d = getDiagnosticsObject();
+            return [
+                'Private Retro Station Diagnostics',
+                'Version: v' + SITE_VERSION,
+                'Build: ' + SITE_BUILD_DATE,
+                'Browser: ' + navigator.userAgent,
+                'Platform: ' + navigator.platform,
+                'Online: ' + navigator.onLine,
+                'Current game: ' + (selectedFile ? selectedFile.name : 'None'),
+                'Theme: ' + settings.theme,
+                'Session: ' + formatDuration(Date.now() - SESSION_STARTED_AT),
+                'Visits on this browser: ' + d.stats.visits,
+                'Games launched on this browser: ' + d.stats.gamesLaunched,
+                'Reports stored here: ' + d.localReportsCount,
+                'Errors stored here: ' + d.recentErrors.length
+            ].join('\n');
+        }
+
+        function downloadJson(filename, value) {
+            const blob = new Blob([JSON.stringify(value, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = filename;
+            link.click();
+            setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+        }
+
+        document.getElementById('admin-close').addEventListener('click', function () {
+            adminOverlay.classList.remove('open');
+        });
+
+        document.getElementById('clear-reports').addEventListener('click', function () {
+            if (!getReports().length) return;
+            if (confirm('Delete all locally stored problem reports from this browser?')) {
+                localStorage.removeItem(REPORTS_KEY);
+                renderAdminPanel();
+            }
+        });
+
+        document.getElementById('export-reports').addEventListener('click', function () {
+            downloadJson('private-retro-station-reports.json', getReports());
+        });
+
+        document.getElementById('clear-errors').addEventListener('click', function () {
+            if (!getErrorLog().length) return;
+            if (confirm('Clear all locally stored error logs?')) {
+                localStorage.removeItem(ERROR_LOG_KEY);
+                renderAdminPanel();
+            }
+        });
+
+        document.getElementById('copy-diagnostics').addEventListener('click', async function () {
+            const text = diagnosticsText();
+            try {
+                await navigator.clipboard.writeText(text);
+                alert('Diagnostics copied to your clipboard.');
+            } catch (error) {
+                prompt('Copy these diagnostics:', text);
+            }
+        });
+
+        document.getElementById('export-diagnostics').addEventListener('click', function () {
+            downloadJson('private-retro-station-diagnostics.json', getDiagnosticsObject());
+        });
+
+        document.getElementById('admin-clear-settings').addEventListener('click', function () {
+            if (confirm('Reset all Private Retro Station settings?')) {
+                localStorage.removeItem(SETTINGS_KEY);
+                window.location.reload();
+            }
+        });
+
+        document.getElementById('admin-show-diagnostics').addEventListener('click', function () {
+            alert(diagnosticsText());
+        });
+
+        document.getElementById('admin-test-error').addEventListener('click', function () {
+            recordSiteError('Admin Test', 'This is a test error created from the admin dashboard.', 'Safe test entry — nothing actually broke.');
+            renderAdminPanel();
+        });
+
+        window.addEventListener('online', function () {
+            if (adminOverlay.classList.contains('open')) renderAdminPanel();
+        });
+
+        window.addEventListener('offline', function () {
+            if (adminOverlay.classList.contains('open')) renderAdminPanel();
+        });
+
+        document.addEventListener('keydown', function (event) {
+            if (event.ctrlKey && event.shiftKey && event.altKey && event.key.toLowerCase() === 'r') {
+                event.preventDefault();
+                openAdminPanel();
+            }
+        });
+    </script>
+
+    <!-- Cloudflare Web Analytics -->
+    <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "7c5a76d0dac34b49b317ea06da5ea8db"}'></script>
+    <!-- End Cloudflare Web Analytics -->
 
 </body>
 </html>

@@ -1,0 +1,2015 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Private Retro Station</title>
+
+    <style>
+        :root {
+            --bg-dark: #09040f;
+            --bg-purple: #140821;
+            --purple: #9b5cff;
+            --purple-light: #c99cff;
+            --purple-bright: #e0c7ff;
+            --text: #f7f1ff;
+            --muted: #b9a9c9;
+            --panel: rgba(26, 13, 42, 0.82);
+            --panel-border: rgba(185, 124, 255, 0.25);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        body {
+            background:
+                radial-gradient(
+                    circle at 50% 0%,
+                    rgba(143, 77, 255, 0.18),
+                    transparent 40%
+                ),
+                radial-gradient(
+                    circle at 15% 85%,
+                    rgba(110, 52, 180, 0.12),
+                    transparent 35%
+                ),
+                var(--bg-dark);
+
+            color: var(--text);
+            font-family:
+                Inter,
+                ui-sans-serif,
+                system-ui,
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                sans-serif;
+
+            overflow: hidden;
+        }
+
+        button,
+        input {
+            font: inherit;
+        }
+
+        /* =========================================================
+           LAUNCHER
+           ========================================================= */
+
+        #launcher {
+            position: fixed;
+            inset: 0;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: 50px 24px 70px;
+
+            display: flex;
+            justify-content: center;
+
+            z-index: 10;
+        }
+
+        .launcher-inner {
+            width: min(1050px, 100%);
+        }
+
+        /* Background decoration */
+
+        .ambient {
+            position: fixed;
+            pointer-events: none;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.22;
+        }
+
+        .ambient.one {
+            width: 300px;
+            height: 300px;
+            background: #762cff;
+            top: -130px;
+            left: -100px;
+        }
+
+        .ambient.two {
+            width: 260px;
+            height: 260px;
+            background: #c46cff;
+            bottom: -120px;
+            right: -90px;
+        }
+
+        .ambient.three {
+            width: 180px;
+            height: 180px;
+            background: #6f35bd;
+            top: 45%;
+            right: 10%;
+            opacity: 0.12;
+        }
+
+        /* Header */
+
+        .brand {
+            text-align: center;
+            margin-bottom: 34px;
+            animation: fadeDown 0.7s ease both;
+        }
+
+        .brand-mark {
+            width: 58px;
+            height: 58px;
+            margin: 0 auto 18px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 17px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #b46cff,
+                    #6d32c8
+                );
+
+            box-shadow:
+                0 0 30px rgba(161, 89, 255, 0.35),
+                inset 0 1px rgba(255,255,255,0.3);
+
+            font-size: 27px;
+        }
+
+        .brand h1 {
+            margin: 0;
+
+            font-size: clamp(31px, 5vw, 52px);
+            font-weight: 800;
+            letter-spacing: 0.08em;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #ffffff,
+                    #d2a8ff,
+                    #ffffff
+                );
+
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .brand p {
+            margin: 12px 0 0;
+            color: var(--muted);
+            font-size: 15px;
+            letter-spacing: 0.03em;
+        }
+
+        /* Main panel */
+
+        .main-panel {
+            display: grid;
+            grid-template-columns: 1.25fr 0.75fr;
+            gap: 20px;
+        }
+
+        .card {
+            background: var(--panel);
+            border: 1px solid var(--panel-border);
+            border-radius: 24px;
+
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+
+            box-shadow:
+                0 25px 80px rgba(0, 0, 0, 0.35),
+                inset 0 1px rgba(255,255,255,0.045);
+
+            animation: fadeUp 0.7s 0.1s ease both;
+        }
+
+        .launcher-card {
+            padding: 30px;
+        }
+
+        .section-label {
+            margin-bottom: 8px;
+
+            color: var(--purple-light);
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+
+        .launcher-card h2 {
+            margin: 0;
+            font-size: 27px;
+        }
+
+        .description {
+            color: var(--muted);
+            line-height: 1.6;
+            margin: 10px 0 25px;
+        }
+
+        /* ROM drop area */
+
+        .drop-area {
+            position: relative;
+
+            min-height: 190px;
+
+            border: 1px dashed rgba(194, 142, 255, 0.42);
+            border-radius: 18px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(137, 73, 220, 0.10),
+                    rgba(53, 20, 83, 0.16)
+                );
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+
+            cursor: pointer;
+
+            transition:
+                transform 0.25s ease,
+                border-color 0.25s ease,
+                background 0.25s ease,
+                box-shadow 0.25s ease;
+        }
+
+        .drop-area:hover,
+        .drop-area.dragging {
+            transform: translateY(-2px);
+
+            border-color: rgba(207, 163, 255, 0.85);
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(155, 92, 255, 0.18),
+                    rgba(72, 30, 108, 0.2)
+                );
+
+            box-shadow:
+                0 10px 35px rgba(117, 48, 206, 0.18);
+        }
+
+        .drop-content {
+            pointer-events: none;
+        }
+
+        .upload-icon {
+            width: 55px;
+            height: 55px;
+
+            margin: 0 auto 13px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 16px;
+
+            background: rgba(169, 103, 255, 0.13);
+            border: 1px solid rgba(190, 135, 255, 0.22);
+
+            font-size: 25px;
+
+            box-shadow:
+                0 0 25px rgba(145, 76, 255, 0.12);
+        }
+
+        .drop-content strong {
+            display: block;
+            font-size: 16px;
+        }
+
+        .drop-content span {
+            display: block;
+            margin-top: 6px;
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        #rom-file {
+            display: none;
+        }
+
+        /* Selected ROM */
+
+        .selected-game {
+            display: none;
+
+            margin-top: 16px;
+            padding: 15px 17px;
+
+            border-radius: 15px;
+
+            background: rgba(157, 92, 255, 0.09);
+            border: 1px solid rgba(183, 126, 255, 0.17);
+        }
+
+        .selected-game.visible {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+
+            animation: fadeUp 0.35s ease both;
+        }
+
+        .game-icon {
+            width: 42px;
+            height: 42px;
+            flex: 0 0 42px;
+
+            border-radius: 11px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #a965ff,
+                    #6330b0
+                );
+
+            font-size: 19px;
+        }
+
+        .game-details {
+            min-width: 0;
+        }
+
+        .game-details strong {
+            display: block;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .game-details span {
+            display: block;
+            color: var(--muted);
+            font-size: 12px;
+            margin-top: 3px;
+        }
+
+        /* Play button */
+
+        .play-button {
+            width: 100%;
+            margin-top: 18px;
+            padding: 15px 20px;
+
+            border: 0;
+            border-radius: 14px;
+
+            color: white;
+            font-weight: 750;
+            font-size: 15px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #a968ff,
+                    #7438cf
+                );
+
+            box-shadow:
+                0 10px 30px rgba(126, 53, 222, 0.22);
+
+            cursor: pointer;
+
+            transition:
+                transform 0.22s ease,
+                box-shadow 0.22s ease,
+                filter 0.22s ease;
+
+            opacity: 0.45;
+            pointer-events: none;
+        }
+
+        .play-button.ready {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .play-button.ready:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.08);
+
+            box-shadow:
+                0 14px 38px rgba(139, 65, 234, 0.35);
+        }
+
+        .play-button.ready:active {
+            transform: translateY(0);
+        }
+
+        /* How to use */
+
+        .how-card {
+            padding: 27px;
+            animation-delay: 0.2s;
+        }
+
+        .how-card h2 {
+            margin: 0 0 21px;
+            font-size: 22px;
+        }
+
+        .steps {
+            display: flex;
+            flex-direction: column;
+            gap: 19px;
+        }
+
+        .step {
+            display: grid;
+            grid-template-columns: 38px 1fr;
+            gap: 13px;
+            align-items: start;
+        }
+
+        .step-number {
+            width: 38px;
+            height: 38px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 12px;
+
+            background: rgba(162, 97, 255, 0.12);
+            border: 1px solid rgba(186, 133, 255, 0.2);
+
+            color: var(--purple-light);
+            font-weight: 800;
+            font-size: 13px;
+        }
+
+        .step strong {
+            display: block;
+            margin-top: 2px;
+            font-size: 14px;
+        }
+
+        .step p {
+            margin: 5px 0 0;
+            color: var(--muted);
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        .supported {
+            margin-top: 25px;
+            padding-top: 19px;
+
+            border-top: 1px solid rgba(255,255,255,0.07);
+
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .supported b {
+            color: #ddd0ea;
+        }
+
+        /* Footer */
+
+        .footer {
+            text-align: center;
+            margin-top: 24px;
+
+            color: #806e91;
+            font-size: 11px;
+            letter-spacing: 0.04em;
+
+            animation: fadeUp 0.7s 0.25s ease both;
+        }
+
+        /* =========================================================
+           BOOT SEQUENCE
+           ========================================================= */
+
+        #boot-screen {
+            position: fixed;
+            inset: 0;
+
+            display: none;
+            align-items: center;
+            justify-content: center;
+
+            background:
+                radial-gradient(
+                    ellipse at center,
+                    rgba(113, 48, 177, 0.16),
+                    transparent 45%
+                ),
+                #050208;
+
+            z-index: 50;
+
+            overflow: hidden;
+        }
+
+        #boot-screen.active {
+            display: flex;
+        }
+
+        .boot-stars {
+            position: absolute;
+            inset: 0;
+
+            background-image:
+                radial-gradient(
+                    circle,
+                    rgba(217, 183, 255, 0.55) 1px,
+                    transparent 1.5px
+                );
+
+            background-size: 73px 73px;
+            opacity: 0.12;
+
+            animation: starsMove 18s linear infinite;
+        }
+
+        .boot-stage {
+            position: relative;
+
+            width: min(760px, 90vw);
+            height: min(600px, 80vh);
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Cartridge */
+
+        .cartridge {
+            position: absolute;
+
+            top: -100px;
+
+            width: 112px;
+            height: 145px;
+
+            z-index: 5;
+
+            transform: rotate(8deg);
+
+            animation:
+                cartridgeFall 1.35s
+                cubic-bezier(0.2, 0.8, 0.25, 1)
+                forwards;
+        }
+
+        .cartridge-body {
+            position: absolute;
+            inset: 0;
+
+            border-radius: 8px 8px 13px 13px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #34243f,
+                    #60406f,
+                    #382642
+                );
+
+            border: 2px solid #80618e;
+
+            box-shadow:
+                0 18px 30px rgba(0,0,0,0.45),
+                inset 0 2px rgba(255,255,255,0.12);
+        }
+
+        .cartridge-top {
+            position: absolute;
+
+            left: 14px;
+            right: 14px;
+            top: 0;
+
+            height: 28px;
+
+            background: #473153;
+
+            border-radius: 0 0 5px 5px;
+            border-left: 2px solid #80618e;
+            border-right: 2px solid #80618e;
+        }
+
+        .cartridge-label {
+            position: absolute;
+
+            left: 13px;
+            right: 13px;
+            top: 43px;
+
+            height: 57px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 5px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #b375ff,
+                    #6538a0
+                );
+
+            color: white;
+
+            font-size: 8px;
+            font-weight: 900;
+            letter-spacing: 0.1em;
+
+            box-shadow:
+                inset 0 1px rgba(255,255,255,0.2);
+        }
+
+        .cartridge-contacts {
+            position: absolute;
+
+            bottom: -7px;
+            left: 20px;
+            right: 20px;
+
+            height: 9px;
+
+            background:
+                repeating-linear-gradient(
+                    90deg,
+                    #c89b55 0px,
+                    #c89b55 5px,
+                    #513e28 5px,
+                    #513e28 8px
+                );
+
+            border-radius: 0 0 3px 3px;
+        }
+
+        /* Console */
+
+        .console {
+            position: absolute;
+
+            width: 310px;
+            height: 145px;
+
+            bottom: 85px;
+
+            border-radius: 17px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #29212e,
+                    #151017
+                );
+
+            border: 2px solid #45354e;
+
+            box-shadow:
+                0 30px 60px rgba(0,0,0,0.6),
+                inset 0 1px rgba(255,255,255,0.08);
+
+            animation: consoleArrive 0.8s ease both;
+        }
+
+        .console-slot {
+            position: absolute;
+
+            top: 17px;
+            left: 50%;
+            transform: translateX(-50%);
+
+            width: 135px;
+            height: 15px;
+
+            border-radius: 6px;
+
+            background: #050407;
+
+            box-shadow:
+                inset 0 2px 4px rgba(0,0,0,0.9);
+        }
+
+        .console-logo {
+            position: absolute;
+
+            left: 22px;
+            bottom: 18px;
+
+            color: #8d7599;
+
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 0.16em;
+        }
+
+        .console-light {
+            position: absolute;
+
+            right: 24px;
+            bottom: 19px;
+
+            width: 8px;
+            height: 8px;
+
+            border-radius: 50%;
+
+            background: #4d4052;
+
+            transition:
+                background 0.3s ease,
+                box-shadow 0.3s ease;
+        }
+
+        .console.powered .console-light {
+            background: #bd79ff;
+
+            box-shadow:
+                0 0 12px #bd79ff,
+                0 0 24px rgba(189,121,255,0.6);
+        }
+
+        /* TV */
+
+        .tv {
+            position: absolute;
+
+            width: 560px;
+            height: 385px;
+
+            top: 35px;
+
+            opacity: 0;
+
+            transform:
+                translateY(20px)
+                scale(0.92);
+
+            transition:
+                opacity 0.7s ease,
+                transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .tv.visible {
+            opacity: 1;
+
+            transform:
+                translateY(0)
+                scale(1);
+        }
+
+        .tv.zooming {
+            transform:
+                scale(4.5);
+
+            transition:
+                transform 1.3s
+                cubic-bezier(0.7, 0, 0.3, 1);
+        }
+
+        .tv-body {
+            position: absolute;
+            inset: 0;
+
+            border-radius: 34px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #34253b,
+                    #151018
+                );
+
+            border: 3px solid #4d3857;
+
+            box-shadow:
+                0 35px 80px rgba(0,0,0,0.65),
+                inset 0 2px rgba(255,255,255,0.08);
+        }
+
+        .tv-screen {
+            position: absolute;
+
+            left: 27px;
+            top: 27px;
+
+            width: 430px;
+            height: 300px;
+
+            overflow: hidden;
+
+            border-radius: 22px 22px 28px 28px;
+
+            background: #010101;
+
+            box-shadow:
+                inset 0 0 35px rgba(0,0,0,0.95),
+                0 0 0 4px #0a080b;
+        }
+
+        .tv-screen::after {
+            content: "";
+
+            position: absolute;
+            inset: 0;
+
+            pointer-events: none;
+
+            background:
+                repeating-linear-gradient(
+                    to bottom,
+                    rgba(255,255,255,0.025) 0px,
+                    rgba(255,255,255,0.025) 1px,
+                    transparent 2px,
+                    transparent 5px
+                );
+
+            opacity: 0.4;
+        }
+
+        .tv-off {
+            position: absolute;
+            inset: 0;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            color: #25182c;
+
+            font-size: 11px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+
+            transition:
+                opacity 0.5s ease,
+                color 0.5s ease;
+        }
+
+        .tv.on .tv-off {
+            opacity: 0;
+        }
+
+        .tv-game-title {
+            position: absolute;
+            inset: 0;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            color: #d6b1ff;
+
+            font-size: 19px;
+            font-weight: 800;
+
+            letter-spacing: 0.13em;
+
+            text-shadow:
+                0 0 15px rgba(199,142,255,0.9);
+
+            opacity: 0;
+
+            transition: opacity 0.5s ease;
+        }
+
+        .tv.on .tv-game-title {
+            opacity: 1;
+        }
+
+        .tv-speaker {
+            position: absolute;
+
+            right: 21px;
+            top: 82px;
+
+            width: 78px;
+            height: 165px;
+
+            border-radius: 10px;
+
+            background:
+                repeating-linear-gradient(
+                    0deg,
+                    #100c12 0px,
+                    #100c12 3px,
+                    #28202b 4px,
+                    #28202b 6px
+                );
+
+            opacity: 0.7;
+        }
+
+        .tv-brand {
+            position: absolute;
+
+            right: 27px;
+            bottom: 31px;
+
+            color: #806a8a;
+
+            font-size: 8px;
+            font-weight: 800;
+            letter-spacing: 0.18em;
+        }
+
+        .boot-status {
+            position: absolute;
+
+            bottom: 24px;
+
+            width: 100%;
+
+            text-align: center;
+
+            color: #9c88aa;
+
+            font-size: 11px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+
+            transition: opacity 0.3s ease;
+        }
+
+        /* =========================================================
+           GAME
+           ========================================================= */
+
+        #display {
+            position: fixed;
+            inset: 0;
+
+            width: 100vw;
+            height: 100vh;
+
+            display: none;
+
+            background: #000;
+
+            z-index: 100;
+        }
+
+        #game {
+            width: 100%;
+            height: 100%;
+
+            background: #000;
+        }
+
+        /* =========================================================
+           ANIMATIONS
+           ========================================================= */
+
+        @keyframes fadeDown {
+            from {
+                opacity: 0;
+                transform: translateY(-18px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(18px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+
+        @keyframes consoleArrive {
+            from {
+                opacity: 0;
+                transform: translateY(25px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes starsMove {
+            from {
+                background-position: 0 0;
+            }
+
+            to {
+                background-position: 0 730px;
+            }
+        }
+
+        /* =========================================================
+           RESPONSIVE
+           ========================================================= */
+
+        @media (max-width: 800px) {
+            #launcher {
+                padding: 30px 16px 50px;
+            }
+
+            .main-panel {
+                grid-template-columns: 1fr;
+            }
+
+            .brand {
+                margin-bottom: 25px;
+            }
+
+            .launcher-card,
+            .how-card {
+                padding: 23px;
+            }
+
+            .tv {
+                transform: scale(0.7);
+            }
+
+            .tv.visible {
+                transform: scale(0.7);
+            }
+
+            .tv.zooming {
+                transform: scale(4);
+            }
+
+            .console {
+                transform: scale(0.8);
+            }
+        }
+
+        @media (max-width: 500px) {
+            .brand h1 {
+                letter-spacing: 0.04em;
+            }
+
+            .drop-area {
+                min-height: 165px;
+            }
+
+            .tv {
+                transform: scale(0.52);
+            }
+
+            .tv.visible {
+                transform: scale(0.52);
+            }
+
+            .tv.zooming {
+                transform: scale(3.7);
+            }
+
+            .console {
+                transform: scale(0.65);
+            }
+        }
+
+        /* =========================================================
+           REDUCED MOTION
+           ========================================================= */
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Ambient background -->
+
+    <div class="ambient one"></div>
+    <div class="ambient two"></div>
+    <div class="ambient three"></div>
+
+
+    <!-- =========================================================
+         LAUNCHER
+         ========================================================= -->
+
+    <main id="launcher">
+
+        <div class="launcher-inner">
+
+            <header class="brand">
+
+                <div class="brand-mark">
+                    🎮
+                </div>
+
+                <h1>PRIVATE RETRO STATION</h1>
+
+                <p>
+                    Your private little corner of retro gaming.
+                </p>
+
+            </header>
+
+
+            <div class="main-panel">
+
+                <!-- ROM picker -->
+
+                <section class="card launcher-card">
+
+                    <div class="section-label">
+                        Game Station
+                    </div>
+
+                    <h2>Load a Game</h2>
+
+                    <p class="description">
+                        Choose a Game Boy Advance ROM from your computer.
+                        Your game stays on your device.
+                    </p>
+
+
+                    <label
+                        class="drop-area"
+                        id="drop-area"
+                        for="rom-file"
+                    >
+
+                        <div class="drop-content">
+
+                            <div class="upload-icon">
+                                📦
+                            </div>
+
+                            <strong>
+                                Choose a GBA ROM
+                            </strong>
+
+                            <span>
+                                Click here or drag a .gba file into this area
+                            </span>
+
+                        </div>
+
+                    </label>
+
+
+                    <input
+                        type="file"
+                        id="rom-file"
+                        accept=".gba"
+                    >
+
+
+                    <div
+                        class="selected-game"
+                        id="selected-game"
+                    >
+
+                        <div class="game-icon">
+                            🕹️
+                        </div>
+
+                        <div class="game-details">
+
+                            <strong id="game-name">
+                                Game.gba
+                            </strong>
+
+                            <span id="game-size">
+                                GBA ROM
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <button
+                        class="play-button"
+                        id="play-button"
+                        type="button"
+                    >
+                        ▶ &nbsp; Start Game
+                    </button>
+
+                </section>
+
+
+                <!-- How to use -->
+
+                <section class="card how-card">
+
+                    <div class="section-label">
+                        Quick Start
+                    </div>
+
+                    <h2>How to Use</h2>
+
+                    <div class="steps">
+
+                        <div class="step">
+
+                            <div class="step-number">
+                                01
+                            </div>
+
+                            <div>
+                                <strong>Choose your ROM</strong>
+
+                                <p>
+                                    Select a Game Boy Advance .gba file
+                                    stored on your computer.
+                                </p>
+                            </div>
+
+                        </div>
+
+
+                        <div class="step">
+
+                            <div class="step-number">
+                                02
+                            </div>
+
+                            <div>
+                                <strong>Start the station</strong>
+
+                                <p>
+                                    Press Start Game and watch your cartridge
+                                    boot into the station.
+                                </p>
+                            </div>
+
+                        </div>
+
+
+                        <div class="step">
+
+                            <div class="step-number">
+                                03
+                            </div>
+
+                            <div>
+                                <strong>Play</strong>
+
+                                <p>
+                                    The TV will power on and transition
+                                    into your game.
+                                </p>
+                            </div>
+
+                        </div>
+
+
+                        <div class="step">
+
+                            <div class="step-number">
+                                04
+                            </div>
+
+                            <div>
+                                <strong>Load your save</strong>
+
+                                <p>
+                                    EmulatorJS includes a Load Save File
+                                    option for your .sav files.
+                                </p>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="supported">
+
+                        <b>Currently supported:</b>
+                        Game Boy Advance · mGBA
+
+                    </div>
+
+                </section>
+
+            </div>
+
+
+            <div class="footer">
+                PRIVATE RETRO STATION · RUNS LOCALLY IN YOUR BROWSER
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <!-- =========================================================
+         BOOT ANIMATION
+         ========================================================= -->
+
+    <section id="boot-screen">
+
+        <div class="boot-stars"></div>
+
+        <div class="boot-stage">
+
+            <!-- Cartridge -->
+
+            <div class="cartridge" id="cartridge">
+
+                <div class="cartridge-body"></div>
+
+                <div class="cartridge-top"></div>
+
+                <div class="cartridge-label">
+                    RETRO<br>STATION
+                </div>
+
+                <div class="cartridge-contacts"></div>
+
+            </div>
+
+
+            <!-- Console -->
+
+            <div class="console" id="console">
+
+                <div class="console-slot"></div>
+
+                <div class="console-logo">
+                    RETRO STATION
+                </div>
+
+                <div class="console-light"></div>
+
+            </div>
+
+
+            <!-- TV -->
+
+            <div class="tv" id="tv">
+
+                <div class="tv-body"></div>
+
+                <div class="tv-screen">
+
+                    <div class="tv-off">
+                        SIGNAL OFF
+                    </div>
+
+                    <div
+                        class="tv-game-title"
+                        id="tv-game-title"
+                    >
+                        BOOTING...
+                    </div>
+
+                </div>
+
+                <div class="tv-speaker"></div>
+
+                <div class="tv-brand">
+                    PRS-CRT
+                </div>
+
+            </div>
+
+            <div
+                class="boot-status"
+                id="boot-status"
+            >
+                INSERTING CARTRIDGE
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================================
+         EMULATOR
+         ========================================================= -->
+
+    <div id="display">
+
+        <div id="game"></div>
+
+    </div>
+
+
+    <script>
+
+        /*
+         * =========================================================
+         * PRIVATE RETRO STATION
+         * Launcher + EmulatorJS
+         * =========================================================
+         */
+
+
+        const input = document.getElementById('rom-file');
+
+        const dropArea =
+            document.getElementById('drop-area');
+
+        const selectedGame =
+            document.getElementById('selected-game');
+
+        const gameName =
+            document.getElementById('game-name');
+
+        const gameSize =
+            document.getElementById('game-size');
+
+        const playButton =
+            document.getElementById('play-button');
+
+        const launcher =
+            document.getElementById('launcher');
+
+        const bootScreen =
+            document.getElementById('boot-screen');
+
+        const cartridge =
+            document.getElementById('cartridge');
+
+        const consoleUnit =
+            document.getElementById('console');
+
+        const tv =
+            document.getElementById('tv');
+
+        const tvGameTitle =
+            document.getElementById('tv-game-title');
+
+        const bootStatus =
+            document.getElementById('boot-status');
+
+        const display =
+            document.getElementById('display');
+
+
+        let selectedFile = null;
+
+        let emulatorStarted = false;
+
+
+        /*
+         * =========================================================
+         * FILE HANDLING
+         * =========================================================
+         */
+
+        function selectRom(file) {
+
+            if (!file) {
+                return;
+            }
+
+            const fileName =
+                file.name.toLowerCase();
+
+            if (!fileName.endsWith('.gba')) {
+
+                alert(
+                    'Please select a Game Boy Advance (.gba) ROM.'
+                );
+
+                return;
+            }
+
+
+            selectedFile = file;
+
+
+            console.log(
+                'Selected ROM:',
+                file.name
+            );
+
+            console.log(
+                'ROM size:',
+                file.size,
+                'bytes'
+            );
+
+            console.log(
+                'ROM type:',
+                file.type
+            );
+
+
+            gameName.textContent =
+                file.name;
+
+
+            const sizeMB =
+                (file.size / 1024 / 1024).toFixed(2);
+
+
+            gameSize.textContent =
+                `Game Boy Advance · ${sizeMB} MB`;
+
+
+            selectedGame.classList.add('visible');
+
+            playButton.classList.add('ready');
+
+
+            dropArea.querySelector('strong').textContent =
+                'ROM Ready';
+
+            dropArea.querySelector('span').textContent =
+                'Your game is ready to start';
+
+
+            console.log(
+                'ROM is ready to launch.'
+            );
+        }
+
+
+        input.addEventListener(
+            'change',
+            function () {
+
+                const file =
+                    input.files[0];
+
+                selectRom(file);
+            }
+        );
+
+
+        /*
+         * =========================================================
+         * DRAG AND DROP
+         * =========================================================
+         */
+
+        [
+            'dragenter',
+            'dragover'
+        ].forEach(eventName => {
+
+            dropArea.addEventListener(
+                eventName,
+                function (event) {
+
+                    event.preventDefault();
+                    event.stopPropagation();
+
+                    dropArea.classList.add(
+                        'dragging'
+                    );
+                }
+            );
+        });
+
+
+        [
+            'dragleave',
+            'drop'
+        ].forEach(eventName => {
+
+            dropArea.addEventListener(
+                eventName,
+                function (event) {
+
+                    event.preventDefault();
+                    event.stopPropagation();
+
+                    dropArea.classList.remove(
+                        'dragging'
+                    );
+                }
+            );
+        });
+
+
+        dropArea.addEventListener(
+            'drop',
+            function (event) {
+
+                const files =
+                    event.dataTransfer.files;
+
+                if (!files || !files.length) {
+                    return;
+                }
+
+                selectRom(files[0]);
+            }
+        );
+
+
+        /*
+         * =========================================================
+         * START GAME
+         * =========================================================
+         */
+
+        playButton.addEventListener(
+            'click',
+            function () {
+
+                if (!selectedFile) {
+                    return;
+                }
+
+                if (emulatorStarted) {
+                    return;
+                }
+
+                emulatorStarted = true;
+
+                startBootSequence();
+            }
+        );
+
+
+        /*
+         * =========================================================
+         * BOOT SEQUENCE
+         * =========================================================
+         */
+
+        function startBootSequence() {
+
+            console.log(
+                'Starting Retro Station boot sequence.'
+            );
+
+
+            launcher.style.display =
+                'none';
+
+
+            bootScreen.classList.add(
+                'active'
+            );
+
+
+            /*
+             * Update game title.
+             */
+
+            const cleanName =
+                selectedFile.name
+                    .replace(/\.gba$/i, '')
+                    .slice(0, 27);
+
+
+            tvGameTitle.textContent =
+                cleanName.toUpperCase();
+
+
+            /*
+             * Cartridge animation.
+             */
+
+            bootStatus.textContent =
+                'INSERTING CARTRIDGE';
+
+
+            setTimeout(
+                function () {
+
+                    consoleUnit.classList.add(
+                        'powered'
+                    );
+
+                    bootStatus.textContent =
+                        'POWERING ON';
+
+                },
+                1150
+            );
+
+
+            /*
+             * TV appears.
+             */
+
+            setTimeout(
+                function () {
+
+                    tv.classList.add(
+                        'visible'
+                    );
+
+                },
+                1350
+            );
+
+
+            /*
+             * TV powers on.
+             */
+
+            setTimeout(
+                function () {
+
+                    tv.classList.add(
+                        'on'
+                    );
+
+                    bootStatus.textContent =
+                        'LOADING GAME';
+
+                },
+                2050
+            );
+
+
+            /*
+             * Start EmulatorJS while the
+             * animation is finishing.
+             */
+
+            setTimeout(
+                function () {
+
+                    loadEmulator();
+
+                },
+                2450
+            );
+
+
+            /*
+             * Zoom into the TV.
+             */
+
+            setTimeout(
+                function () {
+
+                    tv.classList.add(
+                        'zooming'
+                    );
+
+                    bootStatus.style.opacity =
+                        '0';
+
+                },
+                3100
+            );
+
+
+            /*
+             * Switch to actual EmulatorJS.
+             */
+
+            setTimeout(
+                function () {
+
+                    bootScreen.style.display =
+                        'none';
+
+                    display.style.display =
+                        'block';
+
+                    console.log(
+                        'Transitioned to EmulatorJS.'
+                    );
+
+                },
+                4250
+            );
+        }
+
+
+        /*
+         * =========================================================
+         * EMULATORJS
+         * =========================================================
+         */
+
+        function loadEmulator() {
+
+            console.log(
+                'Preparing EmulatorJS configuration.'
+            );
+
+
+            /*
+             * EmulatorJS player.
+             */
+
+            window.EJS_player =
+                '#game';
+
+
+            /*
+             * Game name.
+             */
+
+            window.EJS_gameName =
+                selectedFile.name;
+
+
+            /*
+             * No BIOS needed for GBA.
+             */
+
+            window.EJS_biosUrl =
+                '';
+
+
+            /*
+             * IMPORTANT:
+             *
+             * Pass the actual File object.
+             *
+             * This keeps ROMs local to the
+             * user's browser.
+             */
+
+            window.EJS_gameUrl =
+                selectedFile;
+
+
+            /*
+             * GBA uses mGBA.
+             */
+
+            window.EJS_core =
+                'gba';
+
+
+            /*
+             * Local EmulatorJS files.
+             */
+
+            window.EJS_pathtodata =
+                'emulator/data/';
+
+
+            /*
+             * Automatically begin once loaded.
+             */
+
+            window.EJS_startOnLoaded =
+                true;
+
+
+            /*
+             * Do not use EmulatorJS
+             * online databases.
+             */
+
+            window.EJS_disableDatabases =
+                true;
+
+
+            /*
+             * Keep threading disabled
+             * for Chromebook compatibility.
+             */
+
+            window.EJS_threads =
+                false;
+
+
+            /*
+             * Debug disabled.
+             */
+
+            window.EJS_DEBUG_XX =
+                false;
+
+
+            /*
+             * Enable EmulatorJS's built-in
+             * Load Save File button.
+             */
+
+            window.EJS_Buttons = {
+
+                loadSavFiles: true
+
+            };
+
+
+            console.log(
+                'EmulatorJS configuration ready.'
+            );
+
+            console.log(
+                'Player:',
+                window.EJS_player
+            );
+
+            console.log(
+                'Core:',
+                window.EJS_core
+            );
+
+            console.log(
+                'Game name:',
+                window.EJS_gameName
+            );
+
+            console.log(
+                'Game URL is File object:',
+                window.EJS_gameUrl instanceof File
+            );
+
+            console.log(
+                'Data path:',
+                window.EJS_pathtodata
+            );
+
+            console.log(
+                'Save-file import enabled.'
+            );
+
+
+            /*
+             * Load EmulatorJS.
+             */
+
+            const script =
+                document.createElement('script');
+
+
+            script.src =
+                'emulator/data/loader.js';
+
+
+            script.onload =
+                function () {
+
+                    console.log(
+                        'EmulatorJS loader loaded successfully.'
+                    );
+
+                };
+
+
+            script.onerror =
+                function () {
+
+                    console.error(
+                        'FAILED TO LOAD: emulator/data/loader.js'
+                    );
+
+                    bootStatus.textContent =
+                        'EMULATOR FAILED TO LOAD';
+
+                };
+
+
+            document.body.appendChild(
+                script
+            );
+        }
+
+    </script>
+
+</body>
+</html>
