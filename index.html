@@ -9,7 +9,29 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>Private Retro Station</title>
+    <title>PRS — Private Retro Station</title>
+
+    <meta name="description" content="PRS is a simple browser-based Game Boy Advance launcher. Pick a game. Press play.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://banana346-cyph.github.io/private-retro-station/">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+
+    <meta property="og:site_name" content="PRS">
+    <meta property="og:title" content="PRS — Private Retro Station">
+    <meta property="og:description" content="pick a game. press play.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://banana346-cyph.github.io/private-retro-station/">
+    <meta name="theme-color" content="#0b0b0d">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "PRS",
+      "alternateName": "Private Retro Station",
+      "url": "https://banana346-cyph.github.io/private-retro-station/"
+    }
+    </script>
 
     <style>
 
@@ -4493,7 +4515,7 @@
             <header class="brand prs-brand">
                 <div class="prs-wordmark">prs</div>
                 <div class="prs-name">private retro station</div>
-                <p>free retro emulator</p>
+                <p>pick a game. press play.</p>
             </header>
 
             <section class="prs-main">
@@ -4501,7 +4523,7 @@
                 <div class="find-games prs-find-games">
                     <div class="find-games-copy">
                         <span class="tiny-label">no game?</span>
-                        <strong>grab a homebrew game -></strong>
+                        <strong>grab some homebrew.</strong>
                         <p>free and paid gba games made by indie creators. no commercial roms here.</p>
                     </div>
                     <a class="find-games-link" href="https://itch.io/games/downloadable/tag-gameboy-advance/tag-homebrew" target="_blank" rel="noopener noreferrer">browse games ↗</a>
@@ -4542,7 +4564,7 @@
             </section>
 
             <div class="footer prs-footer">
-                prs · <span id="site-version-footer">v1.3.1</span> · <button id="whats-new-button" class="footer-link-button" type="button">what's new</button>
+                prs · <span id="site-version-footer">v1.3.2</span> · <button id="whats-new-button" class="footer-link-button" type="button">what's new</button>
             </div>
 
         </div>
@@ -6738,7 +6760,7 @@
         <div class="admin-window">
             <div class="section-label">prs // owner</div>
             <h2>admin</h2>
-            <p>owner dashboard <span class="admin-pill" id="admin-version-pill">v1.3.1</span></p>
+            <p>owner dashboard <span class="admin-pill" id="admin-version-pill">v1.3.2</span></p>
 
             <div class="admin-section">
                 <div class="admin-section-header">
@@ -6756,7 +6778,7 @@
             <div class="admin-section">
                 <div class="admin-section-header"><h3>system health</h3><small>current device / session</small></div>
                 <div class="admin-status-grid">
-                    <div class="admin-status-row"><span>version</span><span class="admin-status-value ok" id="admin-version">v1.3.1</span></div>
+                    <div class="admin-status-row"><span>version</span><span class="admin-status-value ok" id="admin-version">v1.3.2</span></div>
                     <div class="admin-status-row"><span>current theme</span><span class="admin-status-value" id="admin-theme-name">Purple</span></div>
                     <div class="admin-status-row"><span>internet</span><span class="admin-status-value" id="admin-online-status">checking…</span></div>
                     <div class="admin-status-row"><span>local storage</span><span class="admin-status-value" id="admin-storage-status">checking…</span></div>
@@ -6851,7 +6873,7 @@
                 <div>
                     <div class="section-label">prs</div>
                     <h2 id="changelog-title">changelog</h2>
-                    <span class="changelog-version" id="changelog-current-version">v1.3.1</span>
+                    <span class="changelog-version" id="changelog-current-version">v1.3.2</span>
                 </div>
                 <button class="changelog-close-x" id="changelog-close-x" type="button" aria-label="Close changelog">✕</button>
             </div>
@@ -6859,6 +6881,15 @@
 
             <div class="changelog-list">
                 <article class="changelog-entry current">
+                    <div class="changelog-entry-top"><strong>v1.3.2 · search identity</strong><time>september 24, 2026</time></div>
+                    <ul>
+                        <li>added prs site-name data to help google identify the site correctly.</li>
+                        <li>added search/share metadata and a dedicated prs favicon.</li>
+                        <li>updated the page title to prs — private retro station.</li>
+                    </ul>
+                </article>
+
+                <article class="changelog-entry">
                     <div class="changelog-entry-top"><strong>v1.3.1 · full prs refresh</strong><time>september 24, 2026</time></div>
                     <ul>
                         <li>carried the new prs look into settings, changelog, reporting, admin, and crash recovery.</li>
@@ -6910,7 +6941,7 @@
         /* =========================================================
            REPORTS + OWNER ADMIN DASHBOARD
         ========================================================== */
-        const SITE_VERSION = '1.3.1';
+        const SITE_VERSION = '1.3.2';
         const SITE_BUILD_DATE = 'September 24, 2026';
         const REPORTS_KEY = 'privateRetroStationReports';
         const SITE_STATS_KEY = 'privateRetroStationStats';
