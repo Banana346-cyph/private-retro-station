@@ -1162,6 +1162,36 @@
            SETTINGS BUTTON
         ========================================================= */
 
+
+        #changelog-button {
+            position: fixed;
+            top: 18px;
+            right: 132px;
+            z-index: 20;
+            padding: 11px 16px;
+            border: 1px solid var(--panel-border);
+            border-radius: 11px;
+            background: var(--panel);
+            color: var(--text);
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 8px 25px rgba(0,0,0,.35);
+            transition: transform .2s ease, background .2s ease, border-color .2s ease;
+        }
+
+        #changelog-button:hover {
+            transform: translateY(-2px);
+            background: var(--glow);
+            border-color: var(--accent-light);
+        }
+
+        #changelog-button:active {
+            transform: translateY(0);
+        }
+
         #settings-button {
 
             position: fixed;
@@ -3259,6 +3289,11 @@
             }
 
 
+            #changelog-button {
+                top: 12px;
+                right: 118px;
+            }
+
             #settings-button {
 
                 top: 12px;
@@ -3329,6 +3364,12 @@
 
             }
 
+
+            #changelog-button {
+                padding: 10px 12px;
+                font-size: 12px;
+                right: 110px;
+            }
 
             #settings-button {
 
@@ -3752,6 +3793,673 @@
                 padding: 20px;
             }
         }
+
+
+        /* =========================================================
+           CRASH RECOVERY + CHANGELOG
+        ========================================================== */
+        #crash-overlay,
+        #changelog-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 5000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 22px;
+            background: rgba(3, 1, 7, 0.84);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        #crash-overlay.open,
+        #changelog-overlay.open {
+            display: flex;
+        }
+
+        .crash-window,
+        .changelog-window {
+            width: min(720px, 100%);
+            max-height: 88vh;
+            overflow-y: auto;
+            padding: 28px;
+            border: 1px solid var(--panel-border);
+            border-radius: 24px;
+            background: linear-gradient(145deg, rgba(31, 15, 50, 0.99), rgba(13, 6, 22, 0.99));
+            color: var(--text);
+            box-shadow: 0 30px 100px rgba(0,0,0,.65);
+        }
+
+        body.theme-white .crash-window,
+        body.theme-white .changelog-window {
+            background: linear-gradient(145deg, rgba(255,255,255,.99), rgba(238,238,242,.99));
+        }
+
+        .crash-icon {
+            width: 64px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 18px;
+            border-radius: 18px;
+            border: 1px solid rgba(255, 123, 136, .35);
+            background: rgba(255, 86, 104, .12);
+            font-size: 28px;
+        }
+
+        .crash-window h2,
+        .changelog-window h2 {
+            margin: 0;
+            font-size: 28px;
+        }
+
+        .crash-window > p,
+        .changelog-window > p {
+            margin: 10px 0 0;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+
+        .crash-details {
+            margin-top: 20px;
+            padding: 16px;
+            border: 1px solid rgba(255,255,255,.08);
+            border-radius: 15px;
+            background: rgba(255,255,255,.035);
+        }
+
+        .crash-details-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 18px;
+            padding: 7px 0;
+            font-size: 12px;
+        }
+
+        .crash-details-row span:first-child { color: var(--muted); }
+        .crash-details-row span:last-child { text-align: right; word-break: break-word; }
+
+        .crash-message-box {
+            margin-top: 13px;
+            padding: 12px 13px;
+            border-radius: 11px;
+            background: rgba(0,0,0,.18);
+            color: var(--muted);
+            font: 12px/1.5 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        .recovery-tips {
+            margin: 17px 0 0;
+            padding-left: 20px;
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        .crash-actions,
+        .changelog-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 22px;
+        }
+
+        .crash-actions button,
+        .changelog-actions button {
+            min-height: 43px;
+            padding: 10px 15px;
+            border-radius: 11px;
+            border: 1px solid var(--panel-border);
+            color: var(--text);
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .recovery-primary {
+            border: 0 !important;
+            color: #fff !important;
+            background: linear-gradient(135deg, var(--button-start), var(--button-end));
+        }
+
+        .recovery-secondary { background: rgba(255,255,255,.055); }
+
+        .changelog-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .changelog-version {
+            display: inline-flex;
+            margin-top: 8px;
+            padding: 5px 9px;
+            border-radius: 999px;
+            background: var(--glow);
+            border: 1px solid var(--panel-border);
+            color: var(--accent-light);
+            font-size: 11px;
+            font-weight: 800;
+        }
+
+        .changelog-close-x {
+            flex: 0 0 40px;
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--panel-border);
+            border-radius: 11px;
+            background: rgba(255,255,255,.04);
+            color: var(--text);
+            cursor: pointer;
+        }
+
+        .changelog-list {
+            display: flex;
+            flex-direction: column;
+            gap: 13px;
+            margin-top: 22px;
+        }
+
+        .changelog-entry {
+            padding: 17px;
+            border: 1px solid rgba(255,255,255,.07);
+            border-radius: 15px;
+            background: rgba(255,255,255,.028);
+        }
+
+        .changelog-entry-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+
+        .changelog-entry strong { font-size: 14px; }
+        .changelog-entry time { color: var(--muted); font-size: 11px; }
+        .changelog-entry ul { margin: 8px 0 0; padding-left: 19px; color: var(--muted); font-size: 13px; line-height: 1.7; }
+        .changelog-entry.current { border-color: var(--panel-border); background: var(--glow); }
+
+        .footer-link-button {
+            padding: 0;
+            border: 0;
+            background: transparent;
+            color: var(--accent-light);
+            font: inherit;
+            font-weight: 800;
+            cursor: pointer;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+
+        @media (max-width: 520px) {
+            .crash-window,
+            .changelog-window { padding: 21px; border-radius: 20px; }
+            .crash-details-row { flex-direction: column; gap: 2px; }
+            .crash-details-row span:last-child { text-align: left; }
+        }
+
+
+
+        /* =========================================================
+           PRS v1.3 REBRAND
+           simpler, flatter, more laid back
+        ========================================================= */
+
+        body {
+            background: #0b0a0d;
+        }
+
+        .ambient { display: none !important; }
+
+        #launcher {
+            padding: 54px 20px 44px;
+            align-items: flex-start;
+        }
+
+        .prs-shell {
+            width: min(760px, 100%);
+            margin: 0 auto;
+        }
+
+        .top-actions {
+            position: fixed;
+            top: 16px;
+            right: 18px;
+            z-index: 30;
+            display: flex;
+            gap: 8px;
+        }
+
+        #settings-button,
+        #changelog-button {
+            position: static !important;
+            padding: 8px 10px !important;
+            border-radius: 7px !important;
+            border: 1px solid rgba(255,255,255,.12) !important;
+            background: #121116 !important;
+            color: #bcb6c5 !important;
+            box-shadow: none !important;
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
+            font-size: 12px !important;
+            font-weight: 600 !important;
+            text-transform: lowercase;
+        }
+
+        #settings-button:hover,
+        #changelog-button:hover {
+            transform: none !important;
+            color: #fff !important;
+            border-color: var(--accent) !important;
+            background: #17151c !important;
+        }
+
+        .prs-brand {
+            text-align: left;
+            margin: 28px 0 28px;
+            animation: none;
+        }
+
+        .prs-wordmark {
+            font-size: clamp(58px, 10vw, 92px);
+            line-height: .82;
+            font-weight: 900;
+            letter-spacing: -0.07em;
+            color: #f2edf6;
+            text-transform: lowercase;
+        }
+
+        .prs-name {
+            margin-top: 12px;
+            color: var(--accent-light);
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: .08em;
+            text-transform: lowercase;
+        }
+
+        .prs-brand p {
+            margin: 9px 0 0;
+            color: #8f8997;
+            font-size: 16px;
+            letter-spacing: 0;
+        }
+
+        .prs-main {
+            border: 1px solid rgba(255,255,255,.10);
+            border-radius: 12px;
+            background: #111015;
+            padding: 20px;
+        }
+
+        .prs-find-games {
+            margin: 0 0 14px;
+            padding: 13px 14px;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,.09);
+            background: #17151c;
+            box-shadow: none;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .find-games-copy { min-width: 0; }
+
+        .tiny-label {
+            display: block;
+            margin-bottom: 3px;
+            color: #7d7785;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: lowercase;
+        }
+
+        .prs-find-games strong {
+            display: block;
+            color: #eee9f2;
+            font-size: 14px;
+            text-transform: lowercase;
+        }
+
+        .prs-find-games p {
+            margin: 4px 0 0;
+            color: #85808c;
+            font-size: 11px;
+            line-height: 1.45;
+        }
+
+        .prs-find-games .find-games-link {
+            width: auto;
+            flex: 0 0 auto;
+            padding: 9px 11px;
+            border-radius: 6px;
+            box-shadow: none;
+            font-size: 11px;
+            text-transform: lowercase;
+        }
+
+        .prs-drop {
+            min-height: 210px;
+            border-radius: 8px;
+            border: 1px dashed rgba(255,255,255,.20);
+            background: #0d0c10;
+            box-shadow: none;
+        }
+
+        .prs-drop:hover,
+        .prs-drop.dragging {
+            transform: none;
+            border-color: var(--accent-light);
+            background: #131117;
+            box-shadow: none;
+        }
+
+        .prs-drop .upload-icon {
+            width: 40px;
+            height: 40px;
+            margin-bottom: 10px;
+            border: 1px solid rgba(255,255,255,.12);
+            border-radius: 7px;
+            background: #17151c;
+            box-shadow: none;
+            color: var(--accent-light);
+            font-size: 25px;
+            font-weight: 300;
+        }
+
+        .prs-drop strong {
+            font-size: 15px;
+            text-transform: lowercase;
+        }
+
+        .prs-drop span {
+            color: #77717f;
+            font-size: 12px;
+            text-transform: lowercase;
+        }
+
+        .selected-game {
+            border-radius: 7px;
+            background: #17151c;
+            border-color: rgba(255,255,255,.10);
+        }
+
+        .game-icon {
+            width: 38px;
+            height: 38px;
+            flex-basis: 38px;
+            border-radius: 6px;
+            background: #211d29;
+            color: var(--accent-light);
+            font-size: 10px;
+            font-weight: 800;
+            text-transform: lowercase;
+        }
+
+        .prs-play {
+            margin-top: 14px;
+            border-radius: 7px;
+            background: var(--accent);
+            box-shadow: none;
+            text-transform: lowercase;
+            font-weight: 800;
+            letter-spacing: .02em;
+        }
+
+        .prs-play.ready:hover {
+            transform: none;
+            box-shadow: none;
+            filter: brightness(1.12);
+        }
+
+        .prs-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 7px 14px;
+            margin-top: 14px;
+            color: #706a77;
+            font-size: 10px;
+            text-transform: lowercase;
+        }
+
+        .prs-notes {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 1px;
+            margin-top: 14px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,.08);
+            border-radius: 8px;
+            background: rgba(255,255,255,.08);
+        }
+
+        .prs-notes > div {
+            min-width: 0;
+            padding: 13px;
+            background: #0f0e12;
+        }
+
+        .prs-notes b,
+        .prs-notes span { display: block; }
+
+        .prs-notes b {
+            margin-bottom: 4px;
+            color: #bbb5c2;
+            font-size: 10px;
+            text-transform: lowercase;
+        }
+
+        .prs-notes span {
+            color: #6f6976;
+            font-size: 10px;
+            line-height: 1.45;
+            text-transform: lowercase;
+        }
+
+        .prs-footer {
+            margin-top: 15px;
+            animation: none;
+            color: #625d68;
+            font-size: 10px;
+            text-transform: lowercase;
+        }
+
+        #report-problem-button {
+            border-radius: 7px;
+            background: #121116;
+            box-shadow: none;
+            text-transform: lowercase;
+        }
+
+        @media (max-width: 650px) {
+            #launcher { padding: 72px 14px 36px; }
+            .top-actions { right: 12px; top: 12px; }
+            .prs-wordmark { font-size: 64px; }
+            .prs-find-games { align-items: flex-start; flex-direction: column; }
+            .prs-find-games .find-games-link { width: 100%; text-align: center; }
+            .prs-notes { grid-template-columns: 1fr; }
+        }
+
+
+        /* =========================================================
+           PRS v1.3.1 — FULL INTERFACE REBRAND
+        ========================================================= */
+        #settings-panel,
+        #report-overlay,
+        #admin-overlay,
+        #crash-overlay,
+        #changelog-overlay {
+            background: rgba(5, 5, 7, .86);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+        }
+
+        .settings-window,
+        .report-window,
+        .admin-window,
+        .crash-window,
+        .changelog-window,
+        body.theme-white .settings-window,
+        body.theme-white .crash-window,
+        body.theme-white .changelog-window {
+            background: color-mix(in srgb, var(--bg-purple) 90%, #111 10%);
+            border: 1px solid color-mix(in srgb, var(--text) 16%, transparent);
+            border-radius: 14px;
+            box-shadow: 0 16px 46px rgba(0,0,0,.42);
+        }
+
+        .settings-window,
+        .report-window,
+        .crash-window,
+        .changelog-window,
+        .admin-window { padding: 24px; }
+
+        .settings-header h2,
+        .report-window h2,
+        .admin-window h2,
+        .crash-window h2,
+        .changelog-window h2 {
+            font-size: 25px;
+            font-weight: 750;
+            letter-spacing: -.025em;
+            text-transform: lowercase;
+        }
+
+        .settings-window .section-label,
+        .report-window .section-label,
+        .admin-window .section-label,
+        .crash-window .section-label,
+        .changelog-window .section-label {
+            color: var(--muted);
+            font-size: 10px;
+            letter-spacing: .12em;
+            text-transform: lowercase;
+        }
+
+        .settings-section,
+        .admin-stat,
+        .admin-report,
+        .admin-status-row,
+        .admin-error-item,
+        .changelog-entry,
+        .crash-details {
+            background: rgba(255,255,255,.025);
+            border: 1px solid color-mix(in srgb, var(--text) 10%, transparent);
+            border-radius: 9px;
+            box-shadow: none;
+        }
+
+        .settings-section { padding: 17px; }
+        .settings-section h3,
+        .admin-section-header h3 {
+            text-transform: lowercase;
+            font-weight: 720;
+            letter-spacing: -.01em;
+        }
+
+        .settings-description,
+        .setting-name,
+        .setting-help,
+        .theme-option span,
+        .report-field label,
+        .admin-stat-label,
+        .admin-stat-sub,
+        .admin-status-row,
+        .admin-section-header small,
+        .changelog-entry,
+        .recovery-tips { text-transform: lowercase; }
+
+        .theme-option {
+            border-radius: 8px;
+            background: rgba(255,255,255,.025);
+            box-shadow: none;
+        }
+        .theme-option.active { background: rgba(255,255,255,.07); box-shadow: none; }
+        .theme-preview { border-radius: 5px; opacity: .82; }
+
+        #close-settings,
+        .changelog-close-x { border-radius: 8px; background: rgba(255,255,255,.035); }
+
+        .report-field input,
+        .report-field select,
+        .report-field textarea {
+            border-radius: 8px;
+            background: rgba(0,0,0,.2);
+            box-shadow: none;
+        }
+
+        .report-actions button,
+        .admin-actions button,
+        .crash-actions button,
+        .changelog-actions button {
+            border-radius: 8px;
+            text-transform: lowercase;
+            box-shadow: none;
+        }
+
+        .report-primary,
+        .admin-primary,
+        .recovery-primary { background: var(--text); color: var(--bg-dark); }
+
+        .report-secondary,
+        .admin-secondary,
+        .recovery-secondary { background: rgba(255,255,255,.035); color: var(--text); }
+
+        .admin-pill,
+        .changelog-version {
+            border-radius: 999px;
+            background: rgba(255,255,255,.055);
+            border-color: color-mix(in srgb, var(--text) 12%, transparent);
+            color: var(--muted);
+        }
+
+        .admin-stat-value { font-size: 21px; font-weight: 720; }
+        .admin-status-value.ok { color: var(--text); }
+        .admin-note {
+            border-left: 2px solid color-mix(in srgb, var(--text) 30%, transparent);
+            color: var(--muted);
+            text-transform: lowercase;
+        }
+
+        .crash-icon {
+            width: 46px;
+            height: 46px;
+            border-radius: 9px;
+            font-size: 21px;
+            background: rgba(255,255,255,.035);
+            border-color: color-mix(in srgb, var(--text) 13%, transparent);
+        }
+        .crash-message-box {
+            border-radius: 7px;
+            background: rgba(0,0,0,.2);
+        }
+
+        .changelog-entry.current {
+            background: rgba(255,255,255,.055);
+            border-color: color-mix(in srgb, var(--text) 18%, transparent);
+        }
+        .changelog-entry-top strong,
+        .changelog-entry-top time { text-transform: lowercase; }
+
+        #report-problem-button {
+            border-radius: 8px;
+            background: rgba(10,10,12,.76);
+            box-shadow: none;
+            text-transform: lowercase;
+        }
+
+        @media (max-width: 600px) {
+            .settings-window, .report-window, .admin-window, .crash-window, .changelog-window {
+                padding: 18px;
+                border-radius: 11px;
+            }
+        }
 </style>
 
 </head>
@@ -3775,324 +4483,67 @@
 
     <main id="launcher">
 
-        <button
-            id="settings-button"
-            type="button"
-        >
-            ⚙ Settings
-        </button>
+        <div class="top-actions">
+            <button id="changelog-button" type="button" aria-label="open changelog">changelog</button>
+            <button id="settings-button" type="button">settings</button>
+        </div>
 
+        <div class="launcher-inner prs-shell">
 
-        <div class="launcher-inner">
-
-
-            <header class="brand">
-
-                <div class="brand-mark">
-                    🎮
-                </div>
-
-
-                <h1>
-                    PRIVATE RETRO STATION
-                </h1>
-
-
-                <p>
-                    Your private little corner of retro gaming.
-                </p>
-
+            <header class="brand prs-brand">
+                <div class="prs-wordmark">prs</div>
+                <div class="prs-name">private retro station</div>
+                <p>free retro emulator</p>
             </header>
 
+            <section class="prs-main">
 
-            <div class="main-panel">
-
-
-                <!-- =================================================
-                     GAME LOADER
-                ================================================== -->
-
-                <section class="card launcher-card">
-
-
-                    <div class="section-label">
-                        Game Station
+                <div class="find-games prs-find-games">
+                    <div class="find-games-copy">
+                        <span class="tiny-label">no game?</span>
+                        <strong>grab a homebrew game -></strong>
+                        <p>free and paid gba games made by indie creators. no commercial roms here.</p>
                     </div>
+                    <a class="find-games-link" href="https://itch.io/games/downloadable/tag-gameboy-advance/tag-homebrew" target="_blank" rel="noopener noreferrer">browse games ↗</a>
+                </div>
 
-
-                    <h2>
-                        Load a Game
-                    </h2>
-
-
-                    <p class="description">
-                        Choose a Game Boy Advance ROM from your computer.
-                        Your game stays on your device.
-                    </p>
-
-
-                    <div class="find-games">
-                        <div class="find-games-topline">
-                            <div class="find-games-icon">🎮</div>
-                            <div>
-                                <strong>Need a game first?</strong>
-                                <span class="find-games-kicker">Start here</span>
-                            </div>
-                        </div>
-                        <p>
-                            Browse free and paid homebrew Game Boy Advance games
-                            shared by their creators. Private Retro Station does not
-                            provide commercial ROMs.
-                        </p>
-                        <a
-                            class="find-games-link"
-                            href="https://itch.io/games/downloadable/tag-gameboy-advance/tag-homebrew"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            Browse Legal GBA Games ↗
-                        </a>
+                <label class="drop-area prs-drop" id="drop-area" for="rom-file">
+                    <div class="drop-content">
+                        <div class="upload-icon">+</div>
+                        <strong>choose a .gba file</strong>
+                        <span>or drop one here</span>
                     </div>
+                </label>
 
-                    <label
-                        class="drop-area"
-                        id="drop-area"
-                        for="rom-file"
-                    >
+                <input type="file" id="rom-file" accept=".gba">
 
-                        <div class="drop-content">
-
-
-                            <div class="upload-icon">
-                                📦
-                            </div>
-
-
-                            <strong>
-                                Choose a GBA ROM
-                            </strong>
-
-
-                            <span>
-                                Click here or drag a .gba file into this area
-                            </span>
-
-
-                        </div>
-
-                    </label>
-
-
-                    <input
-                        type="file"
-                        id="rom-file"
-                        accept=".gba"
-                    >
-
-
-                    <div
-                        class="selected-game"
-                        id="selected-game"
-                    >
-
-                        <div class="game-icon">
-                            🕹️
-                        </div>
-
-
-                        <div class="game-details">
-
-                            <strong id="game-name">
-                                Game.gba
-                            </strong>
-
-
-                            <span id="game-size">
-                                GBA ROM
-                            </span>
-
-                        </div>
-
+                <div class="selected-game" id="selected-game">
+                    <div class="game-icon">gba</div>
+                    <div class="game-details">
+                        <strong id="game-name">game.gba</strong>
+                        <span id="game-size">gba rom</span>
                     </div>
+                </div>
 
+                <button class="play-button prs-play" id="play-button" type="button">play</button>
 
-                    <button
-                        class="play-button"
-                        id="play-button"
-                        type="button"
-                    >
-                        ▶ &nbsp; Start Game
-                    </button>
+                <div class="prs-meta">
+                    <span>gba · mGBA</span>
+                    <span>runs locally</span>
+                    <span>your rom stays on your device</span>
+                </div>
 
+            </section>
 
-                </section>
+            <section class="prs-notes" aria-label="quick notes">
+                <div><b>controls</b><span>arrow keys · z/x · enter · shift · a/s</span></div>
+                <div><b>saves</b><span>use emulatorjs to load your .sav file</span></div>
+                <div><b>having trouble?</b><span>use “report a problem” in the corner</span></div>
+            </section>
 
-
-                <!-- =================================================
-                     QUICK START
-                ================================================== -->
-
-                <section class="card how-card">
-
-
-                    <div class="section-label">
-                        Quick Start
-                    </div>
-
-
-                    <h2>
-                        How to Use
-                    </h2>
-
-
-                    <div class="steps">
-
-
-                        <div class="step">
-
-                            <div class="step-number">
-                                01
-                            </div>
-
-
-                            <div>
-
-                                <strong>
-                                    Choose your ROM
-                                </strong>
-
-
-                                <p>
-                                    Select a Game Boy Advance .gba file
-                                    stored on your computer.
-                                </p>
-
-                            </div>
-
-                        </div>
-
-
-                        <div class="step">
-
-                            <div class="step-number">
-                                02
-                            </div>
-
-
-                            <div>
-
-                                <strong>
-                                    Start the station
-                                </strong>
-
-
-                                <p>
-                                    Press Start Game and watch your cartridge
-                                    boot into the station.
-                                </p>
-
-                            </div>
-
-                        </div>
-
-
-                        <div class="step">
-
-                            <div class="step-number">
-                                03
-                            </div>
-
-
-                            <div>
-
-                                <strong>
-                                    Play
-                                </strong>
-
-
-                                <p>
-                                    The TV will power on and transition
-                                    into your game.
-                                </p>
-
-                            </div>
-
-                        </div>
-
-
-                        <div class="step">
-
-                            <div class="step-number">
-                                04
-                            </div>
-
-
-                            <div>
-
-                                <strong>
-                                    Load your save
-                                </strong>
-
-
-                                <p>
-                                    EmulatorJS includes a Load Save File
-                                    option for your .sav files.
-                                </p>
-
-                            </div>
-
-                        </div>
-
-
-                        <div class="step">
-
-                            <div class="step-number">
-                                05
-                            </div>
-
-
-                            <div>
-
-                                <strong>
-                                    UI not visible?
-                                </strong>
-
-
-                                <p>
-                                    If you encounter a UI bug where you cannot see
-                                    anything properly, click the Fullscreen option
-                                    when it appears in the launcher.
-                                </p>
-
-                            </div>
-
-                        </div>
-
-
-                    </div>
-
-
-                    <div class="supported">
-
-                        <b>
-                            Currently supported:
-                        </b>
-
-                        Game Boy Advance · mGBA
-
-                    </div>
-
-
-                </section>
-
-
+            <div class="footer prs-footer">
+                prs · <span id="site-version-footer">v1.3.1</span> · <button id="whats-new-button" class="footer-link-button" type="button">what's new</button>
             </div>
-
-
-            <div class="footer">
-                PRIVATE RETRO STATION · RUNS LOCALLY IN YOUR BROWSER · <span id="site-version-footer">v1.1.3</span>
-            </div>
-
 
         </div>
 
@@ -4124,12 +4575,12 @@
                 <div>
 
                     <div class="section-label">
-                        Private Retro Station
+                        prs
                     </div>
 
 
                     <h2>
-                        Settings
+                        settings
                     </h2>
 
                 </div>
@@ -4157,12 +4608,12 @@
                 <section class="settings-section">
 
                     <h3>
-                        🎨 Appearance
+                        🎨 appearance
                     </h3>
 
 
                     <p class="settings-description">
-                        Change the look and readability of Private Retro Station.
+                        change how prs looks and feels.
                     </p>
 
 
@@ -4177,7 +4628,7 @@
                             <div class="theme-preview purple"></div>
 
                             <span>
-                                Purple
+                                purple
                             </span>
 
                         </button>
@@ -4192,7 +4643,7 @@
                             <div class="theme-preview blue"></div>
 
                             <span>
-                                Blue
+                                blue
                             </span>
 
                         </button>
@@ -4207,7 +4658,7 @@
                             <div class="theme-preview red"></div>
 
                             <span>
-                                Red
+                                red
                             </span>
 
                         </button>
@@ -4222,7 +4673,7 @@
                             <div class="theme-preview orange"></div>
 
                             <span>
-                                Orange
+                                orange
                             </span>
 
                         </button>
@@ -4237,7 +4688,7 @@
                             <div class="theme-preview dark"></div>
 
                             <span>
-                                Dark
+                                dark
                             </span>
 
                         </button>
@@ -4252,7 +4703,7 @@
                             <div class="theme-preview white"></div>
 
                             <span>
-                                White
+                                white
                             </span>
 
                         </button>
@@ -4265,7 +4716,7 @@
                         <div class="setting-info">
 
                             <span class="setting-name">
-                                Reduced Animations
+                                reduced animations
                             </span>
 
                             <span class="setting-help">
@@ -4294,7 +4745,7 @@
                         <div class="setting-info">
 
                             <span class="setting-name">
-                                Large Text
+                                large text
                             </span>
 
                             <span class="setting-help">
@@ -5377,7 +5828,7 @@
 
                 const confirmed =
                     confirm(
-                        'Reset all Private Retro Station settings?'
+                        'reset all prs settings?'
                     );
 
 
@@ -5397,7 +5848,7 @@
 
 
                 console.log(
-                    'Private Retro Station settings reset.'
+                    'prs settings reset.'
                 );
 
             }
@@ -6118,10 +6569,19 @@
             );
 
 
+            if (typeof startEmulatorWatchdog === 'function') {
+                startEmulatorWatchdog();
+            }
+
+
             const script =
                 document.createElement(
                     'script'
                 );
+
+
+            script.dataset.prsLoader =
+                'true';
 
 
             script.src =
@@ -6135,6 +6595,11 @@
                     console.log(
                         'EmulatorJS loader loaded successfully.'
                     );
+
+
+                    if (typeof noteEmulatorLoaderLoaded === 'function') {
+                        noteEmulatorLoaderLoaded();
+                    }
 
 
                 };
@@ -6151,6 +6616,14 @@
 
                     bootStatus.textContent =
                         'EMULATOR FAILED TO LOAD';
+
+
+                    if (typeof showCrashScreen === 'function') {
+                        showCrashScreen(
+                            'Emulator files could not be loaded.',
+                            'The EmulatorJS loader failed to load from emulator/data/loader.js.'
+                        );
+                    }
 
 
                 };
@@ -6217,15 +6690,16 @@
     <!-- =========================================================
          REPORT A PROBLEM
     ========================================================== -->
-    <button id="report-problem-button" type="button">⚠ Report a Problem</button>
+    <button id="report-problem-button" type="button">report a problem</button>
 
     <div id="report-overlay">
         <div class="report-window">
-            <h2>Report a Problem</h2>
-            <p>Found something broken or behaving strangely? Tell the station owner what happened.</p>
+            <div class="section-label">prs support</div>
+            <h2>report a problem</h2>
+            <p>something acting weird? send a quick note and i’ll take a look.</p>
 
             <div class="report-field">
-                <label for="report-category">Problem type</label>
+                <label for="report-category">problem type</label>
                 <select id="report-category">
                     <option>Game won't load</option>
                     <option>Save / save import problem</option>
@@ -6239,20 +6713,20 @@
             </div>
 
             <div class="report-field">
-                <label for="report-message">What happened?</label>
+                <label for="report-message">what happened?</label>
                 <textarea id="report-message" placeholder="Describe what happened, what game you were playing, and anything you tried..."></textarea>
             </div>
 
             <div class="report-field">
-                <label for="report-contact">Contact (optional)</label>
+                <label for="report-contact">contact (optional)</label>
                 <input id="report-contact" type="text" placeholder="Email or other contact info, if you want a reply">
             </div>
 
             <div class="report-actions">
-                <button class="report-primary" id="submit-report" type="button">Send Report</button>
-                <button class="report-secondary" id="close-report" type="button">Cancel</button>
+                <button class="report-primary" id="submit-report" type="button">send report</button>
+                <button class="report-secondary" id="close-report" type="button">cancel</button>
             </div>
-            <div class="admin-note" id="report-status">Reports are sent privately through Formspree. A local backup is also kept in this browser when possible.</div>
+            <div class="admin-note" id="report-status">sent through Formspree. prs also keeps a local backup in this browser when it can.</div>
         </div>
     </div>
 
@@ -6262,69 +6736,71 @@
     ========================================================== -->
     <div id="admin-overlay">
         <div class="admin-window">
-            <h2>🔐 Private Retro Station — Admin</h2>
-            <p>Owner dashboard <span class="admin-pill" id="admin-version-pill">v1.1.3</span></p>
+            <div class="section-label">prs // owner</div>
+            <h2>admin</h2>
+            <p>owner dashboard <span class="admin-pill" id="admin-version-pill">v1.3.1</span></p>
 
             <div class="admin-section">
                 <div class="admin-section-header">
-                    <h3>Site Overview</h3>
+                    <h3>site overview</h3>
                     <small id="admin-build-date">Build: September 21, 2026</small>
                 </div>
                 <div class="admin-grid admin-grid-4">
-                    <div class="admin-stat"><span class="admin-stat-label">Local reports</span><strong class="admin-stat-value" id="admin-report-count">0</strong><span class="admin-stat-sub">this browser</span></div>
-                    <div class="admin-stat"><span class="admin-stat-label">Errors logged</span><strong class="admin-stat-value" id="admin-error-count">0</strong><span class="admin-stat-sub">latest 100 kept</span></div>
-                    <div class="admin-stat"><span class="admin-stat-label">Games launched</span><strong class="admin-stat-value" id="admin-games-launched">0</strong><span class="admin-stat-sub">this browser</span></div>
-                    <div class="admin-stat"><span class="admin-stat-label">Site visits</span><strong class="admin-stat-value" id="admin-site-visits">0</strong><span class="admin-stat-sub">this browser</span></div>
+                    <div class="admin-stat"><span class="admin-stat-label">local reports</span><strong class="admin-stat-value" id="admin-report-count">0</strong><span class="admin-stat-sub">this browser</span></div>
+                    <div class="admin-stat"><span class="admin-stat-label">errors logged</span><strong class="admin-stat-value" id="admin-error-count">0</strong><span class="admin-stat-sub">latest 100 kept</span></div>
+                    <div class="admin-stat"><span class="admin-stat-label">games launched</span><strong class="admin-stat-value" id="admin-games-launched">0</strong><span class="admin-stat-sub">this browser</span></div>
+                    <div class="admin-stat"><span class="admin-stat-label">site visits</span><strong class="admin-stat-value" id="admin-site-visits">0</strong><span class="admin-stat-sub">this browser</span></div>
                 </div>
             </div>
 
             <div class="admin-section">
-                <div class="admin-section-header"><h3>System Health</h3><small>Current device/session</small></div>
+                <div class="admin-section-header"><h3>system health</h3><small>current device / session</small></div>
                 <div class="admin-status-grid">
-                    <div class="admin-status-row"><span>Version</span><span class="admin-status-value ok" id="admin-version">v1.1.3</span></div>
-                    <div class="admin-status-row"><span>Current theme</span><span class="admin-status-value" id="admin-theme-name">Purple</span></div>
-                    <div class="admin-status-row"><span>Internet</span><span class="admin-status-value" id="admin-online-status">Checking…</span></div>
-                    <div class="admin-status-row"><span>Local storage</span><span class="admin-status-value" id="admin-storage-status">Checking…</span></div>
-                    <div class="admin-status-row"><span>Formspree reporting</span><span class="admin-status-value ok">Configured</span></div>
-                    <div class="admin-status-row"><span>Global visitor analytics</span><span class="admin-status-value ok">Cloudflare connected</span></div>
-                    <div class="admin-status-row"><span>Current game</span><span class="admin-status-value" id="admin-current-game">None</span></div>
-                    <div class="admin-status-row"><span>Session time</span><span class="admin-status-value" id="admin-session-time">0m 0s</span></div>
+                    <div class="admin-status-row"><span>version</span><span class="admin-status-value ok" id="admin-version">v1.3.1</span></div>
+                    <div class="admin-status-row"><span>current theme</span><span class="admin-status-value" id="admin-theme-name">Purple</span></div>
+                    <div class="admin-status-row"><span>internet</span><span class="admin-status-value" id="admin-online-status">checking…</span></div>
+                    <div class="admin-status-row"><span>local storage</span><span class="admin-status-value" id="admin-storage-status">checking…</span></div>
+                    <div class="admin-status-row"><span>formspree reporting</span><span class="admin-status-value ok">configured</span></div>
+                    <div class="admin-status-row"><span>global visitor analytics</span><span class="admin-status-value ok">cloudflare connected</span></div>
+                    <div class="admin-status-row"><span>current game</span><span class="admin-status-value" id="admin-current-game">none</span></div>
+                    <div class="admin-status-row"><span>session time</span><span class="admin-status-value" id="admin-session-time">0m 0s</span></div>
                 </div>
-                <div class="admin-note">Cloudflare Web Analytics is connected for global visitor/page-view statistics. The “Site visits” and game-launch numbers above are still counts from this browser only; use the Cloudflare dashboard for the global totals.</div>
+                <div class="admin-note">Cloudflare Web Analytics is connected for global visitor/page-view statistics. The “site visits” and game-launch numbers above are still counts from this browser only; use the Cloudflare dashboard for the global totals.</div>
             </div>
 
             <div class="admin-section">
-                <div class="admin-section-header"><h3>Problem Categories</h3><small>Local report backups</small></div>
+                <div class="admin-section-header"><h3>problem categories</h3><small>local report backups</small></div>
                 <div id="admin-category-chart" class="admin-chart"></div>
                 <div class="admin-note">Formspree receives reports from everyone, but its private submission data cannot be safely read directly from public GitHub Pages code. These bars use reports stored on this browser.</div>
             </div>
 
             <div class="admin-section">
-                <div class="admin-section-header"><h3>Recent Errors</h3><small id="admin-error-summary">No errors logged</small></div>
+                <div class="admin-section-header"><h3>recent errors</h3><small id="admin-error-summary">no errors logged</small></div>
                 <div id="admin-errors" class="admin-error-list"></div>
                 <div class="admin-actions">
-                    <button class="admin-secondary" id="clear-errors" type="button">Clear Error Logs</button>
-                    <button class="admin-secondary" id="copy-diagnostics" type="button">Copy Diagnostics</button>
-                    <button class="admin-primary" id="export-diagnostics" type="button">Export Diagnostics</button>
+                    <button class="admin-secondary" id="clear-errors" type="button">clear error logs</button>
+                    <button class="admin-secondary" id="copy-diagnostics" type="button">copy diagnostics</button>
+                    <button class="admin-primary" id="export-diagnostics" type="button">export diagnostics</button>
                 </div>
             </div>
 
             <div class="admin-section">
-                <div class="admin-section-header"><h3>Reported Problems</h3><small>Backups saved on this browser</small></div>
+                <div class="admin-section-header"><h3>reported problems</h3><small>backups saved on this browser</small></div>
                 <div id="admin-reports"></div>
                 <div class="admin-actions">
-                    <button class="admin-primary" id="export-reports" type="button">Export Reports</button>
-                    <button class="admin-secondary" id="clear-reports" type="button">Clear Reports</button>
+                    <button class="admin-primary" id="export-reports" type="button">export reports</button>
+                    <button class="admin-secondary" id="clear-reports" type="button">clear reports</button>
                 </div>
             </div>
 
             <div class="admin-section">
-                <div class="admin-section-header"><h3>Owner Tools</h3><small>Testing and maintenance</small></div>
+                <div class="admin-section-header"><h3>owner tools</h3><small>testing + maintenance</small></div>
                 <div class="admin-actions">
-                    <button class="admin-secondary" id="admin-show-diagnostics" type="button">Show Diagnostics</button>
-                    <button class="admin-secondary" id="admin-clear-settings" type="button">Reset Site Settings</button>
-                    <button class="admin-secondary" id="admin-test-error" type="button">Create Test Error</button>
-                    <button class="admin-secondary" id="admin-close" type="button">Close Admin Panel</button>
+                    <button class="admin-secondary" id="admin-show-diagnostics" type="button">show diagnostics</button>
+                    <button class="admin-secondary" id="admin-clear-settings" type="button">reset site settings</button>
+                    <button class="admin-secondary" id="admin-test-error" type="button">create test error</button>
+                    <button class="admin-primary" id="admin-trigger-crash" type="button" style="display:none;">trigger crash screen</button>
+                    <button class="admin-secondary" id="admin-close" type="button">close admin</button>
                 </div>
             </div>
 
@@ -6332,12 +6808,110 @@
         </div>
     </div>
 
+
+
+    <!-- =========================================================
+         EMULATOR CRASH / RECOVERY SCREEN
+    ========================================================== -->
+    <section id="crash-overlay" aria-hidden="true">
+        <div class="crash-window" role="dialog" aria-modal="true" aria-labelledby="crash-title">
+            <div class="crash-icon">⚠️</div>
+            <div class="section-label">prs // recovery</div>
+            <h2 id="crash-title">emulator crashed.</h2>
+            <p id="crash-description">prs caught the problem before it turned into a dead black screen.</p>
+
+            <div class="crash-details">
+                <div class="crash-details-row"><span>game</span><span id="crash-game">Unknown</span></div>
+                <div class="crash-details-row"><span>site version</span><span id="crash-version">—</span></div>
+                <div class="crash-details-row"><span>connection</span><span id="crash-online">—</span></div>
+                <div class="crash-message-box" id="crash-message">unknown emulator error.</div>
+                <div class="admin-note" id="crash-test-note" style="display:none; margin-top:10px;">test mode — the active EmulatorJS session was deliberately destroyed. retry will rebuild EmulatorJS and relaunch the selected ROM. this does not count as a real crash.</div>
+            </div>
+
+            <ul class="recovery-tips">
+                <li>make sure the selected file is a valid .gba rom.</li>
+                <li>if this started after an update, hard-refresh and try again.</li>
+                <li>if it keeps happening, send a problem report and mention what you were trying to launch.</li>
+            </ul>
+
+            <div class="crash-actions">
+                <button class="recovery-primary" id="crash-try-again" type="button">↻ retry</button>
+                <button class="recovery-secondary" id="crash-copy-details" type="button">copy error details</button>
+                <button class="recovery-secondary" id="crash-return" type="button">back to prs</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================================================
+         WHAT'S NEW / CHANGELOG
+    ========================================================== -->
+    <section id="changelog-overlay" aria-hidden="true">
+        <div class="changelog-window" role="dialog" aria-modal="true" aria-labelledby="changelog-title">
+            <div class="changelog-header">
+                <div>
+                    <div class="section-label">prs</div>
+                    <h2 id="changelog-title">changelog</h2>
+                    <span class="changelog-version" id="changelog-current-version">v1.3.1</span>
+                </div>
+                <button class="changelog-close-x" id="changelog-close-x" type="button" aria-label="Close changelog">✕</button>
+            </div>
+            <p>what changed, what got fixed, and what i’ve been messing with lately.</p>
+
+            <div class="changelog-list">
+                <article class="changelog-entry current">
+                    <div class="changelog-entry-top"><strong>v1.3.1 · full prs refresh</strong><time>september 24, 2026</time></div>
+                    <ul>
+                        <li>carried the new prs look into settings, changelog, reporting, admin, and crash recovery.</li>
+                        <li>lowercased more of the interface and removed more of the glossy dashboard styling.</li>
+                        <li>kept all of the existing tools and functionality underneath the new look.</li>
+                    </ul>
+                </article>
+
+                <article class="changelog-entry">
+                    <div class="changelog-entry-top"><strong>v1.3.0 · prs rebrand</strong><time>september 24, 2026</time></div>
+                    <ul>
+                        <li>Rebranded the launcher around the shorter PRS name.</li>
+                        <li>New slogan: “pick a game. press play.”</li>
+                        <li>Simplified the public launcher with flatter styling and fewer panels.</li>
+                        <li>Kept emulator, settings, reporting, analytics, crash recovery, and admin tools intact.</li>
+                    </ul>
+                </article>
+
+                <article class="changelog-entry">
+                    <div class="changelog-entry-top"><strong>v1.2.0 · recovery update</strong><time>september 22, 2026</time></div>
+                    <ul>
+                        <li>Added a dedicated emulator crash/recovery screen instead of leaving a blank or black screen.</li>
+                        <li>Added automatic recovery logging to the owner admin dashboard.</li>
+                        <li>Added Try Again, Return to Station, and Copy Error Details tools.</li>
+                        <li>Upgraded the admin crash test so it destroys the active EmulatorJS session and verifies that Retry can rebuild the emulator and relaunch the selected ROM.</li>
+                        <li>Added this version-aware What's New / changelog panel.</li>
+                    </ul>
+                </article>
+                <article class="changelog-entry">
+                    <div class="changelog-entry-top"><strong>v1.1.3 · game finder update</strong><time>september 22, 2026</time></div>
+                    <ul><li>Made the legal GBA homebrew game finder one of the first things visible in the launcher.</li></ul>
+                </article>
+                <article class="changelog-entry">
+                    <div class="changelog-entry-top"><strong>v1.1.1 · admin + analytics</strong><time>september 21, 2026</time></div>
+                    <ul>
+                        <li>Added the upgraded owner dashboard, diagnostics, local error history, and site statistics.</li>
+                        <li>Connected Cloudflare Web Analytics for global traffic information.</li>
+                    </ul>
+                </article>
+            </div>
+
+            <div class="changelog-actions">
+                <button class="recovery-primary" id="changelog-done" type="button">Got It</button>
+            </div>
+        </div>
+    </section>
+
     <script>
         /* =========================================================
            REPORTS + OWNER ADMIN DASHBOARD
         ========================================================== */
-        const SITE_VERSION = '1.1.2';
-        const SITE_BUILD_DATE = 'September 21, 2026';
+        const SITE_VERSION = '1.3.1';
+        const SITE_BUILD_DATE = 'September 24, 2026';
         const REPORTS_KEY = 'privateRetroStationReports';
         const SITE_STATS_KEY = 'privateRetroStationStats';
         const ERROR_LOG_KEY = 'privateRetroStationErrorLog';
@@ -6350,8 +6924,237 @@
         const adminOverlay = document.getElementById('admin-overlay');
         const reportButton = document.getElementById('report-problem-button');
         const reportStatus = document.getElementById('report-status');
+        const crashOverlay = document.getElementById('crash-overlay');
+        const changelogOverlay = document.getElementById('changelog-overlay');
+        const CHANGELOG_SEEN_KEY = 'privateRetroStationLastSeenVersion';
+        let emulatorWatchdogTimer = null;
+        let emulatorLoaderLoaded = false;
+        let emulatorSessionReady = false;
+        let lastCrashInfo = null;
+        let crashScreenIsTest = false;
+        let emulatorSessionDestroyed = false;
 
         document.getElementById('site-version-footer').textContent = 'v' + SITE_VERSION;
+        document.getElementById('changelog-current-version').textContent = 'v' + SITE_VERSION;
+
+        function markChangelogSeen() {
+            try {
+                localStorage.setItem(CHANGELOG_SEEN_KEY, SITE_VERSION);
+            } catch (error) {}
+        }
+
+        function openChangelog() {
+            changelogOverlay.classList.add('open');
+            changelogOverlay.setAttribute('aria-hidden', 'false');
+        }
+
+        function closeChangelog() {
+            changelogOverlay.classList.remove('open');
+            changelogOverlay.setAttribute('aria-hidden', 'true');
+            markChangelogSeen();
+        }
+
+        function noteEmulatorLoaderLoaded() {
+            emulatorLoaderLoaded = true;
+            emulatorSessionReady = true;
+
+            const triggerCrashButton = document.getElementById('admin-trigger-crash');
+            if (triggerCrashButton) {
+                triggerCrashButton.style.display = 'inline-flex';
+            }
+        }
+
+        function startEmulatorWatchdog() {
+            emulatorLoaderLoaded = false;
+            if (emulatorWatchdogTimer) clearTimeout(emulatorWatchdogTimer);
+            emulatorWatchdogTimer = setTimeout(function () {
+                const gameRoot = document.getElementById('game');
+                const hasEmulatorUi = gameRoot && (
+                    gameRoot.children.length > 0 ||
+                    gameRoot.querySelector('canvas, iframe, video')
+                );
+
+                if (!hasEmulatorUi) {
+                    showCrashScreen(
+                        'The emulator took too long to start.',
+                        emulatorLoaderLoaded
+                            ? 'The EmulatorJS loader loaded, but no emulator interface appeared.'
+                            : 'The EmulatorJS loader did not finish loading before the startup timeout.'
+                    );
+                }
+            }, 15000);
+        }
+
+        function showCrashScreen(title, message, options) {
+            options = options || {};
+            crashScreenIsTest = options.test === true;
+
+            if (emulatorWatchdogTimer) {
+                clearTimeout(emulatorWatchdogTimer);
+                emulatorWatchdogTimer = null;
+            }
+
+            const gameName = selectedFile ? selectedFile.name : 'No game selected';
+            lastCrashInfo = {
+                time: new Date().toISOString(),
+                title: title || 'Emulator startup failed.',
+                message: message || 'Unknown emulator error.',
+                game: gameName,
+                version: SITE_VERSION,
+                online: navigator.onLine
+            };
+
+            document.getElementById('crash-title').textContent = lastCrashInfo.title;
+            document.getElementById('crash-game').textContent = gameName;
+            document.getElementById('crash-version').textContent = 'v' + SITE_VERSION;
+            document.getElementById('crash-online').textContent = navigator.onLine ? 'Online' : 'Offline';
+            document.getElementById('crash-message').textContent = lastCrashInfo.message;
+
+            const testNote = document.getElementById('crash-test-note');
+            const returnButton = document.getElementById('crash-return');
+
+            if (testNote) {
+                testNote.style.display = crashScreenIsTest ? 'block' : 'none';
+            }
+            if (returnButton) {
+                returnButton.textContent = 'Return to Station';
+            }
+
+            crashOverlay.classList.add('open');
+            crashOverlay.setAttribute('aria-hidden', 'false');
+
+            if (!crashScreenIsTest && typeof recordSiteError === 'function') {
+                recordSiteError('Emulator Recovery', lastCrashInfo.title, lastCrashInfo.message);
+            }
+        }
+
+        function hideCrashScreen() {
+            crashOverlay.classList.remove('open');
+            crashOverlay.setAttribute('aria-hidden', 'true');
+        }
+
+        function destroyEmulatorSession() {
+            if (emulatorWatchdogTimer) {
+                clearTimeout(emulatorWatchdogTimer);
+                emulatorWatchdogTimer = null;
+            }
+
+            emulatorSessionReady = false;
+            emulatorLoaderLoaded = false;
+            emulatorSessionDestroyed = true;
+
+            const triggerCrashButton = document.getElementById('admin-trigger-crash');
+            if (triggerCrashButton) {
+                triggerCrashButton.style.display = 'none';
+            }
+
+            document.querySelectorAll('script[data-prs-loader="true"]').forEach(function (node) {
+                node.remove();
+            });
+
+            const oldGameRoot = document.getElementById('game');
+            if (oldGameRoot) {
+                const freshGameRoot = document.createElement('div');
+                freshGameRoot.id = 'game';
+                freshGameRoot.setAttribute('aria-label', 'Emulator display');
+                oldGameRoot.replaceWith(freshGameRoot);
+            }
+
+            /*
+             * EmulatorJS may leave references to its old player instance in
+             * window-level globals. Clear the common runtime references while
+             * keeping the selected File object so Retry can rebuild cleanly.
+             */
+            const runtimeGlobals = [
+                'EJS_emulator',
+                'EJS_playerInstance',
+                'EJS_gameManager'
+            ];
+
+            runtimeGlobals.forEach(function (key) {
+                try {
+                    if (key in window) {
+                        window[key] = null;
+                    }
+                } catch (error) {}
+            });
+
+            console.warn('Private Retro Station intentionally destroyed the active EmulatorJS session for recovery testing.');
+        }
+
+        function rebuildEmulatorAfterCrash() {
+            if (!selectedFile) {
+                window.location.reload();
+                return;
+            }
+
+            hideCrashScreen();
+            crashScreenIsTest = false;
+
+            const testNote = document.getElementById('crash-test-note');
+            const returnButton = document.getElementById('crash-return');
+            const tryAgainButton = document.getElementById('crash-try-again');
+
+            if (testNote) testNote.style.display = 'none';
+            if (returnButton) returnButton.textContent = 'Return to Station';
+            if (tryAgainButton) {
+                tryAgainButton.disabled = true;
+                tryAgainButton.textContent = 'Rebuilding…';
+            }
+
+            /* Make sure a fresh player target exists before loader.js runs. */
+            let gameRoot = document.getElementById('game');
+            if (!gameRoot) {
+                gameRoot = document.createElement('div');
+                gameRoot.id = 'game';
+                display.appendChild(gameRoot);
+            }
+            gameRoot.innerHTML = '';
+
+            document.querySelectorAll('script[data-prs-loader="true"]').forEach(function (node) {
+                node.remove();
+            });
+
+            emulatorSessionDestroyed = false;
+
+            /*
+             * Use a short turn of the event loop so removed EmulatorJS DOM and
+             * loader elements are fully detached before rebuilding.
+             */
+            setTimeout(function () {
+                try {
+                    loadEmulator();
+                } catch (error) {
+                    showCrashScreen(
+                        'The emulator could not be rebuilt.',
+                        error && error.message ? error.message : String(error)
+                    );
+                } finally {
+                    if (tryAgainButton) {
+                        tryAgainButton.disabled = false;
+                        tryAgainButton.textContent = '↻ Try Again';
+                    }
+                }
+            }, 120);
+        }
+
+        function retryAfterCrash() {
+            rebuildEmulatorAfterCrash();
+        }
+
+        function crashDetailsText() {
+            const info = lastCrashInfo || {};
+            return [
+                'prs emulator error',
+                'Version: v' + SITE_VERSION,
+                'Time: ' + (info.time || new Date().toISOString()),
+                'Game: ' + (info.game || (selectedFile ? selectedFile.name : 'None')),
+                'Online: ' + navigator.onLine,
+                'Browser: ' + navigator.userAgent,
+                'Problem: ' + (info.title || 'Unknown'),
+                'Details: ' + (info.message || 'No details available')
+            ].join('\n');
+        }
 
         function safeJsonParse(value, fallback) {
             try {
@@ -6518,7 +7321,7 @@
                 formData.append('browser', report.browser);
                 formData.append('site_version', report.siteVersion);
                 formData.append('time', report.time);
-                formData.append('_subject', 'Private Retro Station - Problem Report');
+                formData.append('_subject', 'prs - problem report');
 
                 const response = await fetch(FORMSPREE_ENDPOINT, {
                     method: 'POST',
@@ -6564,7 +7367,7 @@
             if (sentToFormspree) {
                 messageInput.value = '';
                 contactInput.value = '';
-                reportStatus.textContent = '✓ Report sent successfully. Thank you for helping improve Private Retro Station.';
+                reportStatus.textContent = '✓ sent. thanks for helping make prs better.';
                 setTimeout(function () {
                     closeReportPanel();
                     reportStatus.textContent = 'Reports are sent privately through Formspree. A local backup is also kept in this browser when possible.';
@@ -6601,7 +7404,7 @@
         }
 
         async function openAdminPanel() {
-            const password = prompt('Private Retro Station Admin Password:');
+            const password = prompt('prs admin password:');
             if (password === null) return;
 
             let correct = false;
@@ -6703,6 +7506,11 @@
         function renderAdminPanel() {
             const reports = getReports();
             const stats = getSiteStats();
+
+            const triggerCrashButton = document.getElementById('admin-trigger-crash');
+            if (triggerCrashButton) {
+                triggerCrashButton.style.display = emulatorSessionReady ? 'inline-flex' : 'none';
+            }
             const storageOk = localStorageWorks();
 
             document.getElementById('admin-version-pill').textContent = 'v' + SITE_VERSION;
@@ -6782,7 +7590,7 @@
         function diagnosticsText() {
             const d = getDiagnosticsObject();
             return [
-                'Private Retro Station Diagnostics',
+                'prs diagnostics',
                 'Version: v' + SITE_VERSION,
                 'Build: ' + SITE_BUILD_DATE,
                 'Browser: ' + navigator.userAgent,
@@ -6847,7 +7655,7 @@
         });
 
         document.getElementById('admin-clear-settings').addEventListener('click', function () {
-            if (confirm('Reset all Private Retro Station settings?')) {
+            if (confirm('reset all prs settings?')) {
                 localStorage.removeItem(SETTINGS_KEY);
                 window.location.reload();
             }
@@ -6861,6 +7669,50 @@
             recordSiteError('Admin Test', 'This is a test error created from the admin dashboard.', 'Safe test entry — nothing actually broke.');
             renderAdminPanel();
         });
+
+        document.getElementById('admin-trigger-crash').addEventListener('click', function () {
+            if (!emulatorSessionReady || !selectedFile) {
+                alert('Load a game in EmulatorJS first. The crash test only becomes available during an active emulator session.');
+                return;
+            }
+
+            adminOverlay.classList.remove('open');
+            destroyEmulatorSession();
+            showCrashScreen(
+                'Admin test: EmulatorJS session destroyed',
+                'The running emulator session was deliberately torn down. Click Try Again to rebuild EmulatorJS and relaunch the same selected ROM.',
+                { test: true }
+            );
+        });
+
+        document.getElementById('whats-new-button').addEventListener('click', openChangelog);
+        document.getElementById('changelog-button').addEventListener('click', openChangelog);
+        document.getElementById('changelog-close-x').addEventListener('click', closeChangelog);
+        document.getElementById('changelog-done').addEventListener('click', closeChangelog);
+
+        document.getElementById('crash-try-again').addEventListener('click', retryAfterCrash);
+        document.getElementById('crash-return').addEventListener('click', function () {
+            window.location.reload();
+        });
+        document.getElementById('crash-copy-details').addEventListener('click', async function () {
+            const text = crashDetailsText();
+            try {
+                await navigator.clipboard.writeText(text);
+                this.textContent = 'Copied ✓';
+                const button = this;
+                setTimeout(function () { button.textContent = 'Copy Error Details'; }, 1600);
+            } catch (error) {
+                prompt('Copy these error details:', text);
+            }
+        });
+
+        setTimeout(function () {
+            let lastSeen = null;
+            try { lastSeen = localStorage.getItem(CHANGELOG_SEEN_KEY); } catch (error) {}
+            if (lastSeen !== SITE_VERSION && !adminOverlay.classList.contains('open')) {
+                openChangelog();
+            }
+        }, 650);
 
         window.addEventListener('online', function () {
             if (adminOverlay.classList.contains('open')) renderAdminPanel();
